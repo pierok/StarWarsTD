@@ -1,16 +1,26 @@
 #ifndef TOWER_H
 #define TOWER_H
 
-class Tower
+#include <QGraphicsItem>
+#include <QPainter>
+#include <QStyleOption>
+
+class Tower: public QGraphicsItem
 {
 public:
     Tower();
 
-private:
+    void paint(QPainter *painter, const QStyleOptionGraphicsItem *option,
+               QWidget *widget);
+
+    QRectF boundingRect() const;
+    void setBoundingRect(QRectF);
+
+protected:
     double radius;
     double damage;
     double cost;
-
+    QRectF m_boundingRect;
 
 };
 
