@@ -16,6 +16,21 @@ public:
     QRectF boundingRect() const;
     void setBoundingRect(QRectF);
 
+    void step();
+
+    inline void setRadius(int r)
+    {
+        radius=r;
+    }
+    inline void setDamage(int d)
+    {
+        damage=d;
+    }
+    inline void setCost(int c)
+    {
+        cost=c;
+    }
+
 protected:
     double radius;
     double damage;

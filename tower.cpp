@@ -9,6 +9,12 @@ Tower::Tower()
 
 }
 
+
+void Tower::step()
+{
+    this->rotate(-0.06);
+}
+
 void Tower::paint(QPainter *painter, const QStyleOptionGraphicsItem *, QWidget *)
 {
      painter->setPen(QPen(Qt::black));

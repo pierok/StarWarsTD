@@ -21,6 +21,7 @@ private:
     Ui::MainWindow *ui;
     QTimer maintimer;
     Arena* arena;
+    bool processed;
 
 
 private slots:

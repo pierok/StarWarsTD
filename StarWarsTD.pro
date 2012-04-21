@@ -15,18 +15,22 @@ SOURCES += main.cpp\
     tower.cpp \
     prismtower.cpp \
     enemy.cpp \
-    arena.cpp
+    arena.cpp \
+    area.cpp
 
 HEADERS  += mainwindow.h \
     tower.h \
     prismtower.h \
     enemy.h \
-    arena.h
+    arena.h \
+    area.h
 
 FORMS    += mainwindow.ui
 
 RESOURCES += \
     data.qrc
+
+
 
 
 

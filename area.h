@@ -1,17 +1,15 @@
-#ifndef ENEMY_H
-#define ENEMY_H
+#ifndef AREA_H
+#define AREA_H
+
 
 #include <QGraphicsItem>
 #include <QPainter>
 #include <QStyleOption>
-#include <iostream>
 
-class Enemy: public QGraphicsItem
+class Area: public QGraphicsItem
 {
 public:
-    Enemy();
-    Enemy(int l, int s, int a);
-
+    Area(int w, int h);
 
     void paint(QPainter *painter, const QStyleOptionGraphicsItem *option,
                QWidget *widget);
@@ -19,16 +17,11 @@ public:
     QRectF boundingRect() const;
     void setBoundingRect(QRectF);
 
-    void step()
-    {
-        this->rotate(0.1);
-    }
-
-protected:
-    double life;
-    double speed;
-    double armor;
+private:
+    int width;
+    int height;
     QRectF m_boundingRect;
+
 };
 
-#endif // ENEMY_H
+#endif // AREA_H

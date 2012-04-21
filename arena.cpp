@@ -6,30 +6,35 @@
 Arena::Arena()
 {
     this->addPixmap(QPixmap(":/data/gw.jpg"));
-    this->addItem(new Tower());
-
-    Tower* tower1=new Tower();
-    tower1->setPos(100,100);
-
-    PrismTower* prism1= new PrismTower();
-    prism1->setPos(200,100);
-
-
 
     enemy= new Enemy();
     enemy->setPos(1000,1000);
 
-    this->addItem(tower1);
-    this->addItem(prism1);
     this->addItem(enemy);
 }
 
-void Arena::update()
+void Arena::step()
 {
-
     enemy->step();
-    foreach(QGraphicsItem *item, items())
+    foreach(Tower *tower, towers)
     {
-        item->update();
+        tower->step();
     }
 }
+
+void Arena::mousePressEvent(QGraphicsSceneMouseEvent *event)
+{
+    std::cout<<"x "<<event->scenePos().x()<<" y "<<event->scenePos().y()<<std::endl;
+    PrismTower* prism1= new PrismTower();
+    prism1->setPos(event->scenePos().x(),event->scenePos().y());
+
+    prism1->setRadius(600);
+    prism1->setBoundingRect(QRectF(-300,-300,600,600));
+
+    towers.push_back(prism1);
+    this->addItem(prism1);
+    event->accept();
+
+}
+
+

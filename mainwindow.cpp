@@ -11,7 +11,7 @@ MainWindow::MainWindow(QWidget *parent) :
 
     arena=new Arena();
 
-  //  arena->setSceneRect(0, 0, 800, 600);
+  arena->setSceneRect(0, 0, 800, 600);
 
      arena->setItemIndexMethod(QGraphicsScene::NoIndex);
 
@@ -22,6 +22,7 @@ MainWindow::MainWindow(QWidget *parent) :
 
     ui->gameView->setScene(arena);
     ui->gameView->show();
+    processed=true;
 
     maintimer.start(30);
 }
@@ -29,7 +30,14 @@ MainWindow::MainWindow(QWidget *parent) :
 
 void MainWindow::MainClockTick()
 {
-    arena->update();
+    if(processed)
+    {
+        processed = false;
+
+        arena->step();
+        arena->update();
+        processed=true;
+    }
 }
 
 
