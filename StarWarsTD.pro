@@ -18,7 +18,8 @@ SOURCES += main.cpp\
     arena.cpp \
     deathstar.cpp \
     explosion.cpp \
-    movingobject.cpp
+    movingobject.cpp \
+    missile.cpp
 
 HEADERS  += mainwindow.h \
     tower.h \
@@ -27,12 +28,15 @@ HEADERS  += mainwindow.h \
     arena.h \
     deathstar.h \
     explosion.h \
-    movingobject.h
+    movingobject.h \
+    missile.h
 
 FORMS    += mainwindow.ui
 
 RESOURCES += \
     data.qrc
+
+
 
 
 
