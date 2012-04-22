@@ -3,10 +3,24 @@
 
 #include "movingobject.h"
 
-class missile : public MovingObject
+class Missile : public MovingObject
 {
 public:
-    missile();
+    Missile();
+    QRectF boundingRect() const;
+    void paint(QPainter *painter, const QStyleOptionGraphicsItem *option,
+               QWidget *widget);
+    int lifetimer;
 };
+
+
+class Prism : public Missile
+{
+    QRectF boundingRect() const;
+    void paint(QPainter *painter, const QStyleOptionGraphicsItem *option,
+               QWidget *widget);
+    int lifetimer;
+};
+
 
 #endif // MISSILE_H

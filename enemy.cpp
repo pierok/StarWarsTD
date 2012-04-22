@@ -28,8 +28,8 @@ void Enemy::paint(QPainter *painter, const QStyleOptionGraphicsItem *, QWidget *
 {
     QPixmap ship(":/data/SokolMilenium.png");
     painter->drawPixmap(QRect(-350/16,-470/16,350/8,470/8),ship);
-    painter->setPen(QPen(Qt::white));
-    painter->drawRect(-350/16,-470/16,350/8,470/8);
+   // painter->setPen(QPen(Qt::white));
+   // painter->drawRect(-350/16,-470/16,350/8,470/8);
 }
 
 void Enemy::control()

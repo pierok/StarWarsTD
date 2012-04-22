@@ -19,7 +19,8 @@ SOURCES += main.cpp\
     deathstar.cpp \
     explosion.cpp \
     movingobject.cpp \
-    missile.cpp
+    missile.cpp \
+    deploy.cpp
 
 HEADERS  += mainwindow.h \
     tower.h \
@@ -29,12 +30,15 @@ HEADERS  += mainwindow.h \
     deathstar.h \
     explosion.h \
     movingobject.h \
-    missile.h
+    missile.h \
+    deploy.h
 
 FORMS    += mainwindow.ui
 
 RESOURCES += \
     data.qrc
+
+
 
 
 

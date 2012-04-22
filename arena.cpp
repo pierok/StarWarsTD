@@ -3,6 +3,10 @@
 #include "prismtower.h"
 #include <iostream>
 
+
+QQueue<Missile*> Arena::spawn;
+QQueue<Enemy*> Arena::spawnEnemy;
+
 Arena::Arena()
 {
     QPixmap qp(":/data/gw.jpg");//=new QPixmap(":/data/gw.jpg");
@@ -11,29 +15,64 @@ Arena::Arena()
     deathStar= new DeathStar();
     deathStar->setPos(qp.size().width()/2,qp.size().height()/2);
 
+    deploy1=new Deploy();
+
+    deploy1->setPos(60,60);
+
+    deploy2=new Deploy();
+
+    deploy2->setPos(qp.size().width()-500,60);
+
+
+    this->addItem(deploy1);
+    this->addItem(deploy2);
     this->addItem(deathStar);
-
-    Enemy* en1= new Enemy();
-    en1->setPos(60,60);
-
-    en1->setTarget(deathStar);
-    enemys.push_back(en1);
-    this->addItem(en1);
 
 }
 
 void Arena::step()
 {
     deathStar->step();
-    foreach(Tower *tower, towers)
-    {
-        tower->step();
-    }
+    deploy1->deploy();
+    deploy2->deploy();
+
     foreach(Enemy *enemy, enemys)
     {
         enemy->control();
         enemy->physics();
         enemy->step();
+    }
+
+    foreach(Missile *m, missiles)
+    {
+        m->control();
+        m->physics();
+        m->step();
+    }
+
+    foreach(Tower *tower, towers)
+    {
+        tower->control();
+        foreach(Enemy *enemy, enemys)
+        {
+            tower->inRange(enemy);
+            break;
+        }
+    }
+
+    while(!spawnEnemy.empty())
+    {
+        Enemy* en1= spawnEnemy.dequeue();
+        en1->setTarget(deathStar);
+        this->addItem(en1);
+        enemys.push_back(en1);
+    }
+
+    while(!spawn.empty())
+    {
+        Missile* tmp=spawn.dequeue();
+        this->addItem(tmp);
+        missiles.push_back(tmp);
     }
 }
 
@@ -49,7 +88,6 @@ void Arena::mousePressEvent(QGraphicsSceneMouseEvent *event)
     towers.push_back(prism1);
     this->addItem(prism1);
     event->accept();
-
 }
 
 
