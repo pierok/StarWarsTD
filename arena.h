@@ -5,8 +5,8 @@
 #include <QGraphicsSceneMouseEvent>
 #include <QList>
 #include "enemy.h"
-#include "area.h"
 #include "tower.h"
+#include "deathstar.h"
 
 class Arena: public QGraphicsScene
 {
@@ -14,9 +14,9 @@ public:
     Arena();
     void step();
 private:
-    Enemy* enemy;
-    Area* area;
+    DeathStar* deathStar;
     QList<Tower*> towers;
+    QList<Enemy*> enemys;
 
 
 public slots:

@@ -16,19 +16,23 @@ SOURCES += main.cpp\
     prismtower.cpp \
     enemy.cpp \
     arena.cpp \
-    area.cpp
+    deathstar.cpp
 
 HEADERS  += mainwindow.h \
     tower.h \
     prismtower.h \
     enemy.h \
     arena.h \
-    area.h
+    deathstar.h
 
 FORMS    += mainwindow.ui
 
 RESOURCES += \
     data.qrc
+
+
+
+
 
 
 

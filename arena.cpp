@@ -5,20 +5,35 @@
 
 Arena::Arena()
 {
-    this->addPixmap(QPixmap(":/data/gw.jpg"));
+    QPixmap qp(":/data/gw.jpg");//=new QPixmap(":/data/gw.jpg");
+    this->addPixmap(qp);
 
-    enemy= new Enemy();
-    enemy->setPos(1000,1000);
+    deathStar= new DeathStar();
+    deathStar->setPos(qp.size().width()/2,qp.size().height()/2);
 
-    this->addItem(enemy);
+    this->addItem(deathStar);
+
+    Enemy* en1= new Enemy();
+    en1->setPos(10,10);
+
+    en1->setTarget(deathStar);
+    enemys.push_back(en1);
+    this->addItem(en1);
+
 }
 
 void Arena::step()
 {
-    enemy->step();
+    deathStar->step();
     foreach(Tower *tower, towers)
     {
         tower->step();
+    }
+    foreach(Enemy *enemy, enemys)
+    {
+        enemy->control();
+        enemy->physics();
+        enemy->step();
     }
 }
 

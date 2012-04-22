@@ -12,7 +12,7 @@ Tower::Tower()
 
 void Tower::step()
 {
-    this->rotate(-0.06);
+   // this->rotate(-0.5);
 }
 
 void Tower::paint(QPainter *painter, const QStyleOptionGraphicsItem *, QWidget *)

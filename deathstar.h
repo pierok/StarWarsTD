@@ -1,15 +1,14 @@
-#ifndef AREA_H
-#define AREA_H
-
+#ifndef DEATHSTAR_H
+#define DEATHSTAR_H
 
 #include <QGraphicsItem>
 #include <QPainter>
 #include <QStyleOption>
 
-class Area: public QGraphicsItem
+class DeathStar: public QGraphicsItem
 {
 public:
-    Area(int w, int h);
+    DeathStar();
 
     void paint(QPainter *painter, const QStyleOptionGraphicsItem *option,
                QWidget *widget);
@@ -17,11 +16,11 @@ public:
     QRectF boundingRect() const;
     void setBoundingRect(QRectF);
 
-private:
-    int width;
-    int height;
-    QRectF m_boundingRect;
+    void step();
 
+protected:
+    double life;
+    QRectF m_boundingRect;
 };
 
-#endif // AREA_H
+#endif // DEATHSTAR_H

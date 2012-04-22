@@ -11,7 +11,7 @@ MainWindow::MainWindow(QWidget *parent) :
 
     arena=new Arena();
 
-  arena->setSceneRect(0, 0, 800, 600);
+ // arena->setSceneRect(0, 0, 800, 600);
 
      arena->setItemIndexMethod(QGraphicsScene::NoIndex);
 
