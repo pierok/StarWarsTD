@@ -6,10 +6,11 @@
 #include <QStyleOption>
 #include <iostream>
 #include "deathstar.h"
+#include "movingobject.h"
 
 static const double Pi = 3.14159265358979323846264338327950288419717;
 
-class Enemy: public QGraphicsItem
+class Enemy: public MovingObject
 {
 public:
     Enemy();
@@ -23,32 +24,14 @@ public:
     {
         target=star;
     }
-
-    void step();
     void control();
-    void physics();
 
 protected:
     double life;
-    //double armor;
-
-    qreal radius;          // przybli¿ony promieñ obiektu do wstêpnej detekcji kolizji
-
-    qreal angle;           // k¹t pod jakim obrocony jest obiekt wzgledem sceny
-    qreal speed;           // predkosc do przodu wzgledem obiektu
-    qreal slide;           // predkosc w bok wzgledem obiektu
-    qreal rot;             // predkosc obrotowa
-
-    qreal friction;        // wspolczynnik 1-tarcie do przodu
-    qreal slidefriction;   // na boki
-    qreal rotfriction;     // obrotowy
-
-    qreal acc;             // przyspieszenie
-    qreal brake;           // hamowanie
-    qreal slideacc;        // przyspieszenie boczne
-    qreal rotacc;          // przyspieszenie obrotowe
+    double armor;
 
     DeathStar* target;
+
     QRectF m_boundingRect;
 };
 

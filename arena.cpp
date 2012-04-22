@@ -14,7 +14,7 @@ Arena::Arena()
     this->addItem(deathStar);
 
     Enemy* en1= new Enemy();
-    en1->setPos(10,10);
+    en1->setPos(60,60);
 
     en1->setTarget(deathStar);
     enemys.push_back(en1);

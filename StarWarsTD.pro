@@ -16,19 +16,27 @@ SOURCES += main.cpp\
     prismtower.cpp \
     enemy.cpp \
     arena.cpp \
-    deathstar.cpp
+    deathstar.cpp \
+    explosion.cpp \
+    movingobject.cpp
 
 HEADERS  += mainwindow.h \
     tower.h \
     prismtower.h \
     enemy.h \
     arena.h \
-    deathstar.h
+    deathstar.h \
+    explosion.h \
+    movingobject.h
 
 FORMS    += mainwindow.ui
 
 RESOURCES += \
     data.qrc
+
+
+
+
 
 
 

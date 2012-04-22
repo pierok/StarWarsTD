@@ -6,9 +6,7 @@ Tower::Tower()
      radius=0;
      damage=0;
      cost=0;
-
 }
-
 
 void Tower::step()
 {

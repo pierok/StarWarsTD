@@ -1,6 +1,5 @@
 #include "deathstar.h"
 
-
 DeathStar::DeathStar()
 {
     m_boundingRect=QRectF(-145,-145,290,290);
@@ -15,7 +14,7 @@ void DeathStar::paint(QPainter *painter, const QStyleOptionGraphicsItem *, QWidg
 
 void DeathStar::step()
 {
-    this->rotate(0.5);
+    this->rotate(0.2);
 }
 
 QRectF DeathStar::boundingRect() const
