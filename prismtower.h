@@ -5,6 +5,7 @@
 #include <QVector2D>
 #include <QPoint>
 #include "tower.h"
+#include "missile.h"
 
 class PrismTower : public Tower
 {
@@ -12,11 +13,24 @@ public:
     PrismTower();
     void paint(QPainter *painter, const QStyleOptionGraphicsItem *option,
                QWidget *widget);
-    int weapon1state;
+
+    inline void addPrism(Prism* p)
+    {
+        prism=p;
+        prism->setSource(QPoint(this->scenePos().x(),this->scenePos().y()));
+        prism->setTarget(QPoint(this->scenePos().x(),this->scenePos().y()));
+    }
+
+
     void weaponFire();
     void inRange(Enemy *);
-    bool fire;
     void control();
+    bool fire;
+    int weapon1state;
+
+private:
+    Prism* prism;
+
 };
 
 #endif // PRISMTOWER_H

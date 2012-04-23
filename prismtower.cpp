@@ -1,12 +1,13 @@
 #include "prismtower.h"
 #include "missile.h"
 #include "arena.h"
+#include "explosion.h"
 #include <iostream>
 #include <math.h>
 
-PrismTower::PrismTower():Tower()
+PrismTower::PrismTower()
 {
-    radius=500;
+    radius=1;
     weapon1state=0;
     fire=false;
 }
@@ -17,18 +18,16 @@ void PrismTower::paint(QPainter *painter, const QStyleOptionGraphicsItem *, QWid
      QRadialGradient *grad = new QRadialGradient(0,0,radius);
      grad->setColorAt(0,QColor(0,0,0,0));
      grad->setColorAt(1,QColor(80,30,255,150));
-     QBrush brush(*grad);
-     painter->setBrush(brush);
-     painter->drawEllipse(-radius/2,-radius/2,radius,radius);*/
+     QBrush brush(*grad);*/
+     painter->setPen(QPen(Qt::white));
+     painter->drawEllipse(-radius/2,-radius/2,radius,radius);
 
     QPixmap ship(":/data/PrismTower.png");
     painter->drawPixmap(QRect(-50,-50,100,100),ship);
 }
 
-
 void PrismTower::inRange(Enemy *enemy)
 {
-
 
     qreal enemyX=enemy->scenePos().x();
     qreal enemyY=enemy->scenePos().y();
@@ -50,7 +49,7 @@ void PrismTower::control()
     {
         if(weapon1state==0)
         {
-            weapon1state=20;
+            weapon1state=50;
             weaponFire();
         }
 
@@ -59,21 +58,22 @@ void PrismTower::control()
             weapon1state--;
         }
     }
+    prism->control();
 }
 
 void PrismTower::weaponFire()
 {
-    Missile *pr = new Missile();
-    pr->setPos(this->scenePos());
-  //  pr->rotate(this->angle - 0.5 + 1.0*rand()/RAND_MAX);
-
-
-    pr->translate(0,0);
-
-    pr->speed = 18.0;
-    pr->slide = -0.08;
-
-    Arena::spawn.enqueue(pr);
+    if(enemy!=NULL)
+    {
+        prism->setTarget(QPoint(enemy->scenePos().x(),enemy->scenePos().y()));
+        prism->lifetimer=5;
+        prism->show();
+        enemy->hit(50);
+        Explosion* expl = new Explosion(25);
+        expl->setPos(enemy->scenePos());
+        Arena::spawnExplosion.enqueue(expl);
+        enemy=NULL;
+    }
 }
 
 

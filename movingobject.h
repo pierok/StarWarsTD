@@ -14,10 +14,6 @@ public:
     virtual void step();
     void paint(QPainter *painter, const QStyleOptionGraphicsItem *option,
                QWidget *widget);
-    virtual bool isExplosive();     // true, jeœli obiekt przy trafieniu w inny wybucha
-    virtual bool isHittable();      // true, jeœli mo¿na go trafiæ
-    virtual bool isPlayer();
-    virtual void hit(int damage);
 
     qreal radius;          // przybli¿ony promieñ obiektu do wstêpnej detekcji kolizji
     int health;            // punkty ¿ycia

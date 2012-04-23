@@ -24,14 +24,9 @@ void Explosion::control()
     }
 }
 
-void Explosion::physics()
+QRectF Explosion::boundingRect() const
 {
-    ;
-}
-
-void Explosion::step()
-{
-    ;
+    return QRectF(-10,-10,20,20);
 }
 
 void Explosion::paint(QPainter *painter, const QStyleOptionGraphicsItem *, QWidget *)
@@ -45,31 +40,4 @@ void Explosion::paint(QPainter *painter, const QStyleOptionGraphicsItem *, QWidg
     QBrush brush(*grad);
     painter->setBrush(brush);
     painter->drawEllipse(-currentsize,-currentsize,currentsize*2,currentsize*2);
-
-    if(size>25)
-    {
-        // pomocnicza zmienna wplywajaca na rozmiar fali uderzeniowej zaleznie od jej wieku:
-        qreal wave = 2*(lifemax-lifetimer)-7*sqrt(lifemax-lifetimer);
-        qreal alfa1, alfa2; // wartosci przezroczystosci fali uderzeniowej w kluczowych punktach
-
-        if ((lifetimer) > 30)
-        {
-            alfa1=150;
-            alfa2 = 30;
-        }
-        // fala zanika tylko gdy jej lifetimer siê koñczy:
-        else
-        {
-            alfa1 = 5*lifetimer;
-            alfa2 = lifetimer;
-        }
-        painter->setPen(Qt::NoPen);
-        QRadialGradient radialGrad(QPointF(0,0), wave, QPointF(0,0));
-        radialGrad.setColorAt(0.0, QColor(0,0,0,0));
-        radialGrad.setColorAt(0.7, QColor(180,180,180,0));
-        radialGrad.setColorAt(0.9, QColor(180,180,180,alfa1));
-        radialGrad.setColorAt(1, QColor(180,180,180,alfa2));
-        painter->setBrush(radialGrad);
-        painter->drawEllipse(-wave,-wave, 2*wave, 2*wave);
-    }
 }

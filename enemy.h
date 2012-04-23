@@ -14,17 +14,38 @@ class Enemy: public MovingObject
 {
 public:
     Enemy();
+    ~Enemy()
+    {
+        target=NULL;
+    }
+
     void paint(QPainter *painter, const QStyleOptionGraphicsItem *option,
                QWidget *widget);
 
     QRectF boundingRect() const;
     void setBoundingRect(QRectF);
 
+    inline void hit(double damage)
+    {
+        life-=damage;
+        if(life<=0)
+        {
+            death=true;
+            this->hide();
+        }
+    }
+
+    inline double getLife()
+    {
+        return life;
+    }
+
     inline void setTarget(DeathStar* star)
     {
         target=star;
     }
     void control();
+    bool death;
 
 protected:
     double life;

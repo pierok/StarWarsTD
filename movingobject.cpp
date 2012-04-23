@@ -28,26 +28,6 @@ QRectF MovingObject::boundingRect() const
     return QRectF(-10,-10,20,20);
 }
 
-bool MovingObject::isExplosive()
-{
-    return false;
-}
-
-bool MovingObject::isHittable()
-{
-    return true;
-}
-
-bool MovingObject::isPlayer()
-{
-    return false;
-}
-
-void MovingObject::hit(int damage)
-{
-    ;
-}
-
 void MovingObject::control()
 {
     ;

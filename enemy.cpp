@@ -6,11 +6,11 @@
 Enemy::Enemy()
 {
     angle = 0;
-    speed = 0.5;
+    speed = 0.6;
     slide = 0;
     rot = 0;
 
-    friction = 0.9925;
+    friction = 0.9966;
     slidefriction = 0.9850;
     rotfriction = 0.9750;
 
@@ -21,6 +21,7 @@ Enemy::Enemy()
 
     life=200;
     armor=100;
+    death=false;
     m_boundingRect=QRectF(-350/16,-470/16,350/8,470/8);
 }
 
@@ -28,8 +29,8 @@ void Enemy::paint(QPainter *painter, const QStyleOptionGraphicsItem *, QWidget *
 {
     QPixmap ship(":/data/SokolMilenium.png");
     painter->drawPixmap(QRect(-350/16,-470/16,350/8,470/8),ship);
-   // painter->setPen(QPen(Qt::white));
-   // painter->drawRect(-350/16,-470/16,350/8,470/8);
+    //painter->setPen(QPen(Qt::white));
+    //painter->drawRect(-350/16,-470/16,350/8,470/8);
 }
 
 void Enemy::control()

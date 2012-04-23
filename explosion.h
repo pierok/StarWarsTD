@@ -17,11 +17,14 @@ public:
     int lifetimer;
     int lifemax;
 
+    QRectF boundingRect() const;
+    void setBoundingRect(QRectF);
+
     void control();
-    void physics();
-    void step();
     void paint(QPainter *painter, const QStyleOptionGraphicsItem *option,
                QWidget *widget);
+private:
+    QRectF m_boundingRect;
 };
 
 #endif // EXPLOSION_H

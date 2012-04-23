@@ -15,7 +15,6 @@ void Deploy::paint(QPainter *painter, const QStyleOptionGraphicsItem *, QWidget 
     painter->drawEllipse(0,0,200,200);
 }
 
-
 QRectF Deploy::boundingRect() const
 {
     return m_boundingRect;
@@ -45,5 +44,4 @@ void Deploy::deploy()
             timer--;
         }
     }
-
 }

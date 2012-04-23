@@ -3,9 +3,9 @@
 #include "prismtower.h"
 #include <iostream>
 
-
 QQueue<Missile*> Arena::spawn;
 QQueue<Enemy*> Arena::spawnEnemy;
+QQueue<Explosion*> Arena::spawnExplosion;
 
 Arena::Arena()
 {
@@ -23,11 +23,9 @@ Arena::Arena()
 
     deploy2->setPos(qp.size().width()-500,60);
 
-
     this->addItem(deploy1);
     this->addItem(deploy2);
     this->addItem(deathStar);
-
 }
 
 void Arena::step()
@@ -38,9 +36,12 @@ void Arena::step()
 
     foreach(Enemy *enemy, enemys)
     {
-        enemy->control();
-        enemy->physics();
-        enemy->step();
+        if(enemy->death==false)
+        {
+            enemy->control();
+            enemy->physics();
+            enemy->step();
+        }
     }
 
     foreach(Missile *m, missiles)
@@ -52,12 +53,17 @@ void Arena::step()
 
     foreach(Tower *tower, towers)
     {
-        tower->control();
+
         foreach(Enemy *enemy, enemys)
         {
-            tower->inRange(enemy);
-            break;
+            if(enemy->death==false)
+            {
+                tower->inRange(enemy);
+            }else
+                continue;
+            //break;
         }
+        tower->control();
     }
 
     while(!spawnEnemy.empty())
@@ -67,6 +73,14 @@ void Arena::step()
         this->addItem(en1);
         enemys.push_back(en1);
     }
+
+    while(!spawnExplosion.empty())
+    {
+        Explosion* exp= spawnExplosion.dequeue();
+        this->addItem(exp);
+    }
+
+
 
     while(!spawn.empty())
     {
@@ -82,11 +96,15 @@ void Arena::mousePressEvent(QGraphicsSceneMouseEvent *event)
     PrismTower* prism1= new PrismTower();
     prism1->setPos(event->scenePos().x(),event->scenePos().y());
 
-    prism1->setRadius(600);
-    prism1->setBoundingRect(QRectF(-300,-300,600,600));
+    prism1->setRadius(300);
+    prism1->setBoundingRect(QRectF(-150,-150,300,300));
+
+    Prism* missile=new Prism();
+    prism1->addPrism(missile);
 
     towers.push_back(prism1);
     this->addItem(prism1);
+    this->addItem(missile);
     event->accept();
 }
 
