@@ -33,6 +33,20 @@ void Enemy::paint(QPainter *painter, const QStyleOptionGraphicsItem *, QWidget *
     //painter->drawRect(-350/16,-470/16,350/8,470/8);
 }
 
+void Enemy::hit(double damage)
+{
+    life-=damage;
+    if(life<=0)
+    {
+        death=true;
+        this->hide();
+        Explosion* expl = new Explosion(60);
+        expl->setPos(this->scenePos());
+        Arena::spawnExplosion.enqueue(expl);
+    }
+}
+
+
 void Enemy::control()
 {
     qreal playerX=target->scenePos().x();

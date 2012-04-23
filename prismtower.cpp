@@ -69,9 +69,6 @@ void PrismTower::weaponFire()
         prism->lifetimer=5;
         prism->show();
         enemy->hit(50);
-        Explosion* expl = new Explosion(25);
-        expl->setPos(enemy->scenePos());
-        Arena::spawnExplosion.enqueue(expl);
         enemy=NULL;
     }
 }

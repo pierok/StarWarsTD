@@ -78,15 +78,20 @@ void Arena::step()
     {
         Explosion* exp= spawnExplosion.dequeue();
         this->addItem(exp);
+        explosions.push_back(exp);
     }
-
-
 
     while(!spawn.empty())
     {
         Missile* tmp=spawn.dequeue();
         this->addItem(tmp);
         missiles.push_back(tmp);
+    }
+
+
+    foreach(Explosion *exp, explosions)
+    {
+        exp->control();
     }
 }
 
@@ -107,5 +112,3 @@ void Arena::mousePressEvent(QGraphicsSceneMouseEvent *event)
     this->addItem(missile);
     event->accept();
 }
-
-

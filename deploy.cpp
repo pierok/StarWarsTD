@@ -1,6 +1,5 @@
 #include "deploy.h"
 
-
 Deploy::Deploy()
 {
     m_boundingRect=QRectF(0,0,200,200);

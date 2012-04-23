@@ -14,6 +14,7 @@
 
 class Tower;
 class Deploy;
+class Enemy;
 
 
 class Arena: public QGraphicsScene
@@ -31,8 +32,8 @@ private:
     Deploy* deploy2;
     QList<Tower*> towers;
     QList<Enemy*> enemys;
-    QQueue<Enemy*> deathEnemy;
     QList<Missile*> missiles;
+    QList<Explosion*> explosions;
 
 public slots:
     void mousePressEvent(QGraphicsSceneMouseEvent *event);

@@ -6,7 +6,8 @@
 #include <QStyleOption>
 
 #include "arena.h"
-#include "enemy.h"
+//#include "enemy.h"
+class Enemy;
 
 class Tower: public QGraphicsItem
 {

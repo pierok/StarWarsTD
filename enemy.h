@@ -7,8 +7,12 @@
 #include <iostream>
 #include "deathstar.h"
 #include "movingobject.h"
+#include "arena.h"
+#include "explosion.h"
 
 static const double Pi = 3.14159265358979323846264338327950288419717;
+
+//class Arena;
 
 class Enemy: public MovingObject
 {
@@ -25,15 +29,7 @@ public:
     QRectF boundingRect() const;
     void setBoundingRect(QRectF);
 
-    inline void hit(double damage)
-    {
-        life-=damage;
-        if(life<=0)
-        {
-            death=true;
-            this->hide();
-        }
-    }
+    void hit(double damage);
 
     inline double getLife()
     {
