@@ -40,7 +40,7 @@ void Enemy::hit(double damage)
     {
         death=true;
         this->hide();
-        Explosion* expl = new Explosion(60);
+        Explosion* expl = Arena::factoy.getExplosion(60);
         expl->setPos(this->scenePos());
         Arena::spawnExplosion.enqueue(expl);
     }

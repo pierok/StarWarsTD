@@ -6,6 +6,7 @@ Explosion::Explosion()
     size = 50;
     lifemax = 50;
     lifetimer = lifemax;
+    deactive = false;
 }
 
 Explosion::Explosion(int size)
@@ -13,13 +14,30 @@ Explosion::Explosion(int size)
     this->size = size;
     lifemax = size;
     lifetimer = lifemax;
+    deactive = false;
 }
+
+
+
+void Explosion::setSize(int size)
+{
+    this->size = size;
+    lifemax = size;
+    lifetimer = lifemax;
+    deactive=false;
+}
+
 
 void Explosion::control()
 {
-    lifetimer--;
-    if(!lifetimer)
+    if(lifetimer>0)
     {
+        lifetimer--;
+    }else
+    {
+        deactive=true;
+        Arena::destroyExplosion.enqueue(this);
+        Arena::factoy.deactivateExplosion(this);
         //Window::kill.enqueue(this);
     }
 }

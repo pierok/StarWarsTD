@@ -5,26 +5,35 @@
 #include <QGraphicsSceneMouseEvent>
 #include <QList>
 #include <QQueue>
-#include "enemy.h"
+#include <QVector>
+
+#include "factory.h"
 #include "tower.h"
 #include "deathstar.h"
-#include "missile.h"
 #include "deploy.h"
 #include "explosion.h"
+#include "enemy.h"
+//#include "missile.h"
 
 class Tower;
 class Deploy;
 class Enemy;
-
+class Factory;
+class Explosion;
 
 class Arena: public QGraphicsScene
 {
 public:
     Arena();
     void step();
-    static QQueue<Missile*> spawn;
+    //static QQueue<Missile*> spawn;
+
+
+    static Factory factoy;
+
     static QQueue<Enemy*> spawnEnemy;
     static QQueue<Explosion*> spawnExplosion;
+    static QQueue<Explosion*> destroyExplosion;
 
 private:
     DeathStar* deathStar;
@@ -32,8 +41,8 @@ private:
     Deploy* deploy2;
     QList<Tower*> towers;
     QList<Enemy*> enemys;
-    QList<Missile*> missiles;
-    QList<Explosion*> explosions;
+    //QList<Missile*> missiles;
+    QVector<Explosion*> explosions;
 
 public slots:
     void mousePressEvent(QGraphicsSceneMouseEvent *event);

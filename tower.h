@@ -21,7 +21,7 @@ public:
 
     virtual void control()=0;
     void step();
-    virtual void inRange(Enemy *)=0;
+    virtual bool inRange(Enemy *)=0;
 
     inline void setRadius(int r)
     {

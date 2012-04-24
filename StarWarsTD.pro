@@ -20,7 +20,8 @@ SOURCES += main.cpp\
     explosion.cpp \
     movingobject.cpp \
     missile.cpp \
-    deploy.cpp
+    deploy.cpp \
+    factory.cpp
 
 HEADERS  += mainwindow.h \
     tower.h \
@@ -31,12 +32,15 @@ HEADERS  += mainwindow.h \
     explosion.h \
     movingobject.h \
     missile.h \
-    deploy.h
+    deploy.h \
+    factory.h
 
 FORMS    += mainwindow.ui
 
 RESOURCES += \
     data.qrc
+
+
 
 
 

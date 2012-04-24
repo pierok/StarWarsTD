@@ -41,7 +41,7 @@ QRectF Missile::boundingRect() const
 
 Prism::Prism()
 {
-    std::cout<<"Prism counstract"<<std::endl;
+   // std::cout<<"Prism counstract"<<std::endl;
     lifetimer = 0;
 }
 

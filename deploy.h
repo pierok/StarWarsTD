@@ -7,7 +7,6 @@
 #include "enemy.h"
 #include "arena.h"
 
-
 class Deploy: public QGraphicsItem
 {
 public:

@@ -23,7 +23,7 @@ public:
 
 
     void weaponFire();
-    void inRange(Enemy *);
+    bool inRange(Enemy *);
     void control();
     bool fire;
     int weapon1state;

@@ -3,13 +3,16 @@
 #include "prismtower.h"
 #include <iostream>
 
-QQueue<Missile*> Arena::spawn;
+//QQueue<Missile*> Arena::spawn;
 QQueue<Enemy*> Arena::spawnEnemy;
 QQueue<Explosion*> Arena::spawnExplosion;
+QQueue<Explosion*> Arena::destroyExplosion;
+
+Factory Arena::factoy;
 
 Arena::Arena()
 {
-    QPixmap qp(":/data/gw.jpg");//=new QPixmap(":/data/gw.jpg");
+    QPixmap qp(":/data/gw.jpg");
     this->addPixmap(qp);
 
     deathStar= new DeathStar();
@@ -34,6 +37,41 @@ void Arena::step()
     deploy1->deploy();
     deploy2->deploy();
 
+    while(!spawnEnemy.empty())
+    {
+        Enemy* en1= spawnEnemy.dequeue();
+        en1->setTarget(deathStar);
+        this->addItem(en1);
+        enemys.push_back(en1);
+    }
+
+
+
+
+    /*foreach(Missile *m, missiles)
+    {
+        m->control();
+        m->physics();
+        m->step();
+    }*/
+
+    foreach(Tower *tower, towers)
+    {
+
+        foreach(Enemy *enemy, enemys)
+        {
+            if(enemy->death==false)
+            {
+                if(tower->inRange(enemy))
+                {
+                   // break;
+                }
+            }
+            //break;
+        }
+        tower->control();
+    }
+
     foreach(Enemy *enemy, enemys)
     {
         if(enemy->death==false)
@@ -44,36 +82,6 @@ void Arena::step()
         }
     }
 
-    foreach(Missile *m, missiles)
-    {
-        m->control();
-        m->physics();
-        m->step();
-    }
-
-    foreach(Tower *tower, towers)
-    {
-
-        foreach(Enemy *enemy, enemys)
-        {
-            if(enemy->death==false)
-            {
-                tower->inRange(enemy);
-            }else
-                continue;
-            //break;
-        }
-        tower->control();
-    }
-
-    while(!spawnEnemy.empty())
-    {
-        Enemy* en1= spawnEnemy.dequeue();
-        en1->setTarget(deathStar);
-        this->addItem(en1);
-        enemys.push_back(en1);
-    }
-
     while(!spawnExplosion.empty())
     {
         Explosion* exp= spawnExplosion.dequeue();
@@ -81,18 +89,31 @@ void Arena::step()
         explosions.push_back(exp);
     }
 
-    while(!spawn.empty())
+    foreach(Explosion *exp, explosions)
+    {
+        if(exp->deactive==false)
+        exp->control();
+    }
+
+    //while(!destroyExplosion.empty())
+    //{
+      //  std::cout<<"deleteeee"<<std::endl;
+       // Explosion* exp= spawnExplosion.dequeue();
+       // this->removeItem(exp);
+        //this->
+        //explosions.remove(explosions.indexOf(exp));
+        //delete exp;
+        //std::cout<<"size exp : "<<explosions.size()<<std::endl;
+    //}
+
+    /*while(!spawn.empty())
     {
         Missile* tmp=spawn.dequeue();
         this->addItem(tmp);
         missiles.push_back(tmp);
-    }
+    }*/
 
 
-    foreach(Explosion *exp, explosions)
-    {
-        exp->control();
-    }
 }
 
 void Arena::mousePressEvent(QGraphicsSceneMouseEvent *event)

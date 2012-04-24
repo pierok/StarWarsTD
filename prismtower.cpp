@@ -19,14 +19,14 @@ void PrismTower::paint(QPainter *painter, const QStyleOptionGraphicsItem *, QWid
      grad->setColorAt(0,QColor(0,0,0,0));
      grad->setColorAt(1,QColor(80,30,255,150));
      QBrush brush(*grad);*/
-     painter->setPen(QPen(Qt::white));
-     painter->drawEllipse(-radius/2,-radius/2,radius,radius);
+    /* painter->setPen(QPen(Qt::white));
+     painter->drawEllipse(-radius/2,-radius/2,radius,radius);*/
 
     QPixmap ship(":/data/PrismTower.png");
     painter->drawPixmap(QRect(-50,-50,100,100),ship);
 }
 
-void PrismTower::inRange(Enemy *enemy)
+bool PrismTower::inRange(Enemy *enemy)
 {
 
     qreal enemyX=enemy->scenePos().x();
@@ -38,10 +38,12 @@ void PrismTower::inRange(Enemy *enemy)
 
         this->enemy=enemy;
         fire=true;
+        return true;
     }
 
-}
+    return false;
 
+}
 
 void PrismTower::control()
 {
@@ -65,14 +67,14 @@ void PrismTower::weaponFire()
 {
     if(enemy!=NULL)
     {
-        prism->setTarget(QPoint(enemy->scenePos().x(),enemy->scenePos().y()));
-        prism->lifetimer=5;
-        prism->show();
-        enemy->hit(50);
-        enemy=NULL;
+        if(enemy->death==false)
+        {
+            prism->setTarget(QPoint(enemy->scenePos().x(),enemy->scenePos().y()));
+            prism->lifetimer=5;
+            prism->show();
+            enemy->hit(50);
+            enemy=NULL;
+        }
     }
 }
-
-
-
 
