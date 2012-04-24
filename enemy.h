@@ -43,6 +43,13 @@ public:
     void control();
     bool death;
 
+
+    void weaponFire();
+    bool inRange();
+    bool fire;
+    int weapon1state;
+
+
 protected:
     double life;
     double armor;

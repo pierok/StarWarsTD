@@ -4,6 +4,7 @@
 #include <QGraphicsItem>
 #include <QPainter>
 #include <QStyleOption>
+#include "lifebar.h"
 
 class DeathStar: public QGraphicsItem
 {
@@ -18,8 +19,14 @@ public:
 
     void step();
 
+    inline void setLifeBar(LifeBar *l)
+    {
+        lifebar=l;
+    }
+
 protected:
     double life;
+    LifeBar* lifebar;
     QRectF m_boundingRect;
 };
 

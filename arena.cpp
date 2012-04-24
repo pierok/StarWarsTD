@@ -1,12 +1,17 @@
 #include "arena.h"
 #include "tower.h"
 #include "prismtower.h"
+#include "lifebar.h"
 #include <iostream>
 
 //QQueue<Missile*> Arena::spawn;
 QQueue<Enemy*> Arena::spawnEnemy;
 QQueue<Explosion*> Arena::spawnExplosion;
 QQueue<Explosion*> Arena::destroyExplosion;
+
+
+QQueue<Missile*> Arena::spawnMissile;
+QQueue<Missile*> Arena::destroyMissile;
 
 Factory Arena::factoy;
 
@@ -15,9 +20,16 @@ Arena::Arena()
     QPixmap qp(":/data/gw.jpg");
     this->addPixmap(qp);
 
+
+    LifeBar* l= new LifeBar(250);
+
     deathStar= new DeathStar();
     deathStar->setPos(qp.size().width()/2,qp.size().height()/2);
+    deathStar->setLifeBar(l);
 
+    l->setPos(deathStar->scenePos());
+    l->translate(-250,170);
+    l->updateLife(100);
     deploy1=new Deploy();
 
     deploy1->setPos(60,60);
@@ -29,6 +41,7 @@ Arena::Arena()
     this->addItem(deploy1);
     this->addItem(deploy2);
     this->addItem(deathStar);
+    this->addItem(l);
 }
 
 void Arena::step()
@@ -36,6 +49,8 @@ void Arena::step()
     deathStar->step();
     deploy1->deploy();
     deploy2->deploy();
+
+    std::cout<<"misssile size: "<<missiles.size()<<std::endl;
 
     while(!spawnEnemy.empty())
     {
@@ -77,8 +92,8 @@ void Arena::step()
         if(enemy->death==false)
         {
             enemy->control();
-            enemy->physics();
-            enemy->step();
+          //  enemy->physics();
+          //  enemy->step();
         }
     }
 
@@ -94,6 +109,23 @@ void Arena::step()
         if(exp->deactive==false)
         exp->control();
     }
+
+
+    while(!spawnMissile.empty())
+    {
+        Missile* misile= spawnMissile.dequeue();
+        this->addItem(misile);
+        missiles.push_back(misile);
+    }
+
+    foreach(Missile *misile, missiles)
+    {
+        //if(misile->deactive==false)
+        {
+            misile->control();
+        }
+    }
+
 
     //while(!destroyExplosion.empty())
     //{

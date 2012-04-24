@@ -3,9 +3,10 @@
 
 #include <QPoint>
 #include "movingobject.h"
+#include "arena.h"
 
 
-class Missile : public MovingObject
+class Missile :  public QGraphicsItem
 {
 public:
     Missile();
@@ -13,6 +14,9 @@ public:
     void paint(QPainter *painter, const QStyleOptionGraphicsItem *option,
                QWidget *widget);
     int lifetimer;
+    bool deactive;
+    void reset();
+    void control();
 };
 
 

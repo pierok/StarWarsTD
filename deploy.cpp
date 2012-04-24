@@ -4,7 +4,7 @@ Deploy::Deploy()
 {
     m_boundingRect=QRectF(0,0,200,200);
     timer=0;
-    count=5;
+    count=1;
 }
 
 void Deploy::paint(QPainter *painter, const QStyleOptionGraphicsItem *, QWidget *)

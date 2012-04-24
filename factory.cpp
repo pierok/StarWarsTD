@@ -27,12 +27,23 @@ Explosion* Factory::getExplosion(int size)
         std::cout<<"new exp"<<std::endl;
         Explosion *exp=new Explosion(size);
         exp->setSize(size);
-        //Arena::spawnExplosion(exp);
+        Arena::spawnExplosion.enqueue(exp);
         return exp;
     }
 }
 
 Missile* Factory::getMissile()
 {
-    return NULL;
+    if(!missile.isEmpty())
+    {
+        Missile *m=missile.dequeue();
+        m->reset();
+        return m;
+    }else
+    {
+        std::cout<<"new missile"<<std::endl;
+        Missile *m=new Missile();
+        Arena::spawnMissile.enqueue(m);
+        return m;
+    }
 }

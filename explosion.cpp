@@ -36,7 +36,7 @@ void Explosion::control()
     }else
     {
         deactive=true;
-        Arena::destroyExplosion.enqueue(this);
+        //Arena::destroyExplosion.enqueue(this);
         Arena::factoy.deactivateExplosion(this);
         //Window::kill.enqueue(this);
     }

@@ -22,6 +22,8 @@ Enemy::Enemy()
     life=200;
     armor=100;
     death=false;
+    fire=true;
+    weapon1state=0;
     m_boundingRect=QRectF(-350/16,-470/16,350/8,470/8);
 }
 
@@ -42,7 +44,7 @@ void Enemy::hit(double damage)
         this->hide();
         Explosion* expl = Arena::factoy.getExplosion(60);
         expl->setPos(this->scenePos());
-        Arena::spawnExplosion.enqueue(expl);
+        //Arena::spawnExplosion.enqueue(expl);
     }
 }
 
@@ -83,6 +85,22 @@ void Enemy::control()
         rot = rot - rotacc;
     }
     speed = speed + 0.05;
+
+
+    if(fire)
+    {
+        if(weapon1state==0)
+        {
+            weapon1state=10;
+            weaponFire();
+        }
+
+        if(weapon1state>0)
+        {
+            weapon1state--;
+        }
+    }
+
 }
 
 QRectF Enemy::boundingRect() const
@@ -94,6 +112,18 @@ void Enemy::setBoundingRect(QRectF rect)
 {
     m_boundingRect=rect;
 }
+
+void Enemy::weaponFire()
+{
+
+    Missile *missile = Arena::factoy.getMissile();
+   // missile->deactive=false;
+   // missile->lifetimer=30;
+    missile->scenePos().setX(this->scenePos().x());
+    missile->scenePos().setY(this->scenePos().y());
+    std::cout<<"missile"<<missile->scenePos().y()<<"  enemy "<<this->scenePos().y()<<std::endl;
+}
+
 
 
 

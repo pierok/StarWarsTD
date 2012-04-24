@@ -5,9 +5,13 @@
 #include "enemy.h"
 #include "exception"
 #include "missile.h"
+#include "arena.h"
 
+class Arena;
 class Enemy;
 class Explosion;
+class Missile;
+
 
 class Factory
 {
