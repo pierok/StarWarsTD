@@ -15,16 +15,15 @@ QQueue<Missile*> Arena::destroyMissile;
 
 Factory Arena::factoy;
 
-Arena::Arena()
+Arena::Arena(QPixmap *p)
 {
-    QPixmap qp(":/data/gw.jpg");
-    this->addPixmap(qp);
-
-
+    qp=p;
     LifeBar* l= new LifeBar(250);
 
+    this->addPixmap(*qp);
+
     deathStar= new DeathStar();
-    deathStar->setPos(qp.size().width()/2,qp.size().height()/2);
+    deathStar->setPos(qp->size().width()/2,qp->size().height()/2);
     deathStar->setLifeBar(l);
 
     l->setPos(deathStar->scenePos());
@@ -37,7 +36,7 @@ Arena::Arena()
     deploy2=new Deploy();
 
     deploy2->deployEnemy(1);
-    deploy2->setPos(qp.size().width()-500,60);
+    deploy2->setPos(qp->size().width()-500,60);
 
     this->addItem(deploy1);
     this->addItem(deploy2);
@@ -68,7 +67,7 @@ void Arena::step()
             {
                 if(tower->inRange(enemy))
                 {
-                   // break;
+                    // break;
                 }
             }
             //break;
@@ -96,7 +95,7 @@ void Arena::step()
     foreach(Explosion *exp, explosions)
     {
         if(exp->deactive==false)
-        exp->control();
+            exp->control();
     }
 
 
@@ -119,7 +118,7 @@ void Arena::step()
 void Arena::wheelEvent( QGraphicsSceneWheelEvent *event )
 {
     float scale = 1.0 + event->delta()*0.001;
-   // this->
+    // this->
     std::cout<<"Arena event wheel"<<std::endl;
     event->accept();
 }

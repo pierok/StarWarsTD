@@ -25,8 +25,9 @@ class Missile;
 class Arena: public QGraphicsScene
 {
 public:
-    Arena();
+    Arena(QPixmap *p);
     void step();
+
     //static QQueue<Missile*> spawn;
 
     static Factory factoy;
@@ -38,6 +39,7 @@ public:
     static QQueue<Missile*> destroyMissile;
 
 private:
+    QPixmap* qp;
     DeathStar* deathStar;
     Deploy* deploy1;
     Deploy* deploy2;

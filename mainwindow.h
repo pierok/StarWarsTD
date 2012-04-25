@@ -4,6 +4,7 @@
 #include <QMainWindow>
 #include <QtGui>
 #include <QMap>
+#include <QPixmap>
 #include "arena.h"
 
 namespace Ui {
@@ -25,6 +26,7 @@ private:
     QTimer maintimer;
     Arena* arena;
     bool processed;
+    QPixmap* qp;
 
 public slots:
     void keyPressEvent( QKeyEvent *event );

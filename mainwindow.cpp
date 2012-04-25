@@ -11,21 +11,22 @@ MainWindow::MainWindow(QWidget *parent) :
     qsrand(QTime(0,0,0).secsTo(QTime::currentTime()));
     connect(&maintimer, SIGNAL(timeout()), this, SLOT(MainClockTick()));
 
-    arena=new Arena();
+
+
+    qp= new QPixmap(":/data/gw.jpg");
+    arena=new Arena(qp);
 
     arena->setBackgroundBrush(Qt::black);
     arena->setSceneRect(0, 0, 2687 , 2683);
     arena->setItemIndexMethod(QGraphicsScene::NoIndex);
 
     ui->gameView->setScene(arena);
-   // ui->gameView->scale(0.5,0.5);
+    ui->gameView->scale(0.5,0.5);
     ui->gameView->show();
     processed=true;
 
     actions.insert( Qt::Key_W, ZoomIn );
     actions.insert( Qt::Key_S, ZoomOut );
-
-
 
     maintimer.start(30);
 }
