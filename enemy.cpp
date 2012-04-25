@@ -5,6 +5,7 @@
 
 Enemy::Enemy()
 {
+    radius=300;
     angle = 0;
     speed = 0.0;
     slide = 0;
@@ -53,6 +54,18 @@ void Enemy::control()
 {
     qreal playerX=target->scenePos().x();
     qreal playerY=target->scenePos().y();
+
+
+
+    if((playerX-this->scenePos().x())*(playerX-this->scenePos().x())
+            +(playerY-this->scenePos().y())*(playerY-this->scenePos().y())<=radius*radius)
+    {
+        fire=true;
+    }
+    else
+    {
+        fire=false;
+    }
 
     double linex = ( playerX- this->scenePos().x());
     double liney = ( playerY- this->scenePos().y());
@@ -117,11 +130,14 @@ void Enemy::weaponFire()
 {
 
     Missile *missile = Arena::factoy.getMissile();
-   // missile->deactive=false;
+    // missile->deactive=false;
     //missile->lifetimer=100;
+    missile->setTarget(target);
     missile->setPos(this->scenePos());
-    missile->rotate(this->angle);
-    //std::cout<<"missile"<<missile->scenePos().y()<<"  enemy "<<this->scenePos().y()<<std::endl;
+    missile->rotate(this->angle);// - 0.5 + 1.0*rand()/RAND_MAX);
+    missile->speed = -1;
+    missile->slide = this->slide - 0.08;
+
 }
 
 
@@ -129,8 +145,11 @@ void Enemy::weaponFire()
 
 Xwing::Xwing()
 {
+
+
+    radius=1000;
     angle = 0;
-    speed = 0;
+    speed = 0.5;
     slide = 0;
     rot = 0;
 
@@ -138,7 +157,7 @@ Xwing::Xwing()
     slidefriction = 0.9850;
     rotfriction = 0.9750;
 
-    acc = 0.08;
+    acc = 0.18;
     slideacc = 0.12;
     brake = 0.10;
     rotacc = 0.2;
@@ -155,13 +174,13 @@ Xwing::Xwing()
 
 void Xwing::weaponFire()
 {
-
-   // Missile *missile = Arena::factoy.getMissile();
-   // missile->deactive=false;
+  /*  Missile *missile = Arena::factoy.getMissile();
+    // missile->deactive=false;
     //missile->lifetimer=100;
-   // missile->setPos(this->scenePos());
-   // missile->rotate(this->angle);
-    //std::cout<<"missile"<<missile->scenePos().y()<<"  enemy "<<this->scenePos().y()<<std::endl;
+    missile->setPos(this->scenePos());
+    missile->rotate(this->angle);// - 0.5 + 1.0*rand()/RAND_MAX);
+    missile->speed = this->speed+18;
+    missile->slide = this->slide - 0.08;*/
 }
 
 

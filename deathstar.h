@@ -18,14 +18,26 @@ public:
     void setBoundingRect(QRectF);
 
     void step();
+    inline void hit(int i)
+    {
+        life-=i;
+        lifebar->updateLife(life);
+        if(life<=0)
+        {
+            lifebar->hide();
+        }
+    }
 
     inline void setLifeBar(LifeBar *l)
     {
         lifebar=l;
     }
 
-protected:
+    bool deactive;
     double life;
+
+protected:
+
     LifeBar* lifebar;
     QRectF m_boundingRect;
 };

@@ -13,6 +13,16 @@ Missile::Missile()
     deactive=false;
     lifetimer = 40;
     velocity=QVector2D(0.0,-1.0);
+
+    angle = 0;
+    speed = 0;
+    slide = 0;
+    rot = 0;
+
+    friction = 0.9975;
+    slidefriction = 0.96;
+    rotfriction = 0.98;
+
 }
 
 
@@ -21,6 +31,17 @@ void Missile::reset()
     deactive=false;
     lifetimer = 40;
     velocity=QVector2D(0.0,-1.0);
+
+
+    angle = 0;
+    speed = 0;
+    slide = 0;
+    rot = 0;
+
+    friction = 0.9975;
+    slidefriction = 0.96;
+    rotfriction = 0.98;
+
 }
 
 
@@ -28,36 +49,61 @@ void Missile::paint(QPainter *painter, const QStyleOptionGraphicsItem *, QWidget
 {
     painter->setPen(Qt::NoPen);
     painter->setBrush(QColor(255,lifetimer*3,0));
-    painter->drawEllipse(0,0,7,7);
+    painter->drawEllipse(0,0,8,8);
 }
 
 QRectF Missile::boundingRect() const
 {
-    return QRectF(-1,0,1,10);
+    return QRectF(0,0,8,8);
 }
 
 void Missile::control()
 {
-    if(lifetimer>0)
+    if(deactive==false)
     {
-        //this->setPos(this->scenePos().x()+velocity.toPoint().x()*2,this->scenePos().y()+velocity.toPoint().y()*2);
-        lifetimer--;
-    }else
-    {
-        //std::cout<<"desctive"<<std::endl;
-        deactive=true;
-        //Arena::destroyExplosion.enqueue(this);
-        Arena::factoy.deactivateMissile(this);
-        this->hide();
-        Explosion* expl = Arena::factoy.getExplosion(30);
-        expl->setPos(this->scenePos());
-        //Window::kill.enqueue(this);
+        if(lifetimer>0)
+        {
+            //this->setPos(this->scenePos().x()+velocity.toPoint().x()*2,this->scenePos().y()+velocity.toPoint().y()*2);
+            lifetimer--;
+        }else
+        {
+            //std::cout<<"desctive"<<std::endl;
+            deactive=true;
+            //Arena::destroyExplosion.enqueue(this);
+            Arena::factoy.deactivateMissile(this);
+            this->hide();
+            Explosion* expl = Arena::factoy.getExplosion(30);
+            expl->setPos(this->scenePos());
+
+            qreal playerX=target->scenePos().x();
+            qreal playerY=target->scenePos().y();
+
+            if((playerX+145-this->scenePos().x())*(playerX+145-this->scenePos().x())
+                    +(playerY-this->scenePos().y())*(playerY-this->scenePos().y())<=200*200)
+            {
+                target->hit(50);
+            }
+           //Window::kill.enqueue(this);
+        }
     }
 }
 
+
+void Missile::step()
+{
+    rotate(-rot);
+    angle-=rot;
+    if(angle<0) angle+=360;
+    if(angle>360) angle-=360;
+    translate(0,-speed);
+    translate(-slide,0);
+}
+
+
+
 Prism::Prism()
 {
-   // std::cout<<"Prism counstract"<<std::endl;
+    // std::cout<<"Prism counstract"<<std::endl;
     lifetimer = 0;
 }
 

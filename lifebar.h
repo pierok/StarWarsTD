@@ -6,7 +6,6 @@
 #include <QPen>
 #include <QColor>
 
-
 class LifeBar : public QGraphicsItem
 {
 public:

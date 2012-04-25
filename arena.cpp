@@ -4,39 +4,40 @@
 #include "lifebar.h"
 #include <iostream>
 
-//QQueue<Missile*> Arena::spawn;
 QQueue<Enemy*> Arena::spawnEnemy;
 QQueue<Explosion*> Arena::spawnExplosion;
-QQueue<Explosion*> Arena::destroyExplosion;
-
-
 QQueue<Missile*> Arena::spawnMissile;
-QQueue<Missile*> Arena::destroyMissile;
 
 Factory Arena::factoy;
 
 Arena::Arena(QPixmap *p)
 {
     qp=p;
-    LifeBar* l= new LifeBar(250);
+    LifeBar* l= new LifeBar(1000);
 
     this->addPixmap(*qp);
 
     deathStar= new DeathStar();
     deathStar->setPos(qp->size().width()/2,qp->size().height()/2);
     deathStar->setLifeBar(l);
+    deathStar->deactive=false;
+
 
     l->setPos(deathStar->scenePos());
     l->translate(-250,170);
-    l->updateLife(250);
     deploy1=new Deploy();
     deploy1->deployEnemy(0);
     deploy1->setPos(60,60);
+    deploy1->setRate(80);
+    deploy1->deploySize(10);
 
     deploy2=new Deploy();
 
     deploy2->deployEnemy(1);
     deploy2->setPos(qp->size().width()-500,60);
+    deploy2->setRate(20);
+    deploy2->deploySize(40);
+
 
     this->addItem(deploy1);
     this->addItem(deploy2);
@@ -46,7 +47,23 @@ Arena::Arena(QPixmap *p)
 
 void Arena::step()
 {
-    deathStar->step();
+    if(deathStar->deactive==false)
+    {
+        deathStar->step();
+        if(deathStar->life<=0)
+        {
+            Explosion* exp=factoy.getExplosion(1000);
+            exp->setPos(deathStar->scenePos());
+            deathStar->hide();
+            deathStar->deactive=true;
+            //l>hide();
+            foreach(Enemy *enemy, enemys)
+            {
+                enemy->hit(10000);
+            }
+        }
+    }
+
     deploy1->deploy();
     deploy2->deploy();
 
@@ -111,6 +128,8 @@ void Arena::step()
         if(misile->deactive==false)
         {
             misile->control();
+            misile->physics();
+            misile->step();
         }
     }
 }
@@ -118,8 +137,6 @@ void Arena::step()
 void Arena::wheelEvent( QGraphicsSceneWheelEvent *event )
 {
     float scale = 1.0 + event->delta()*0.001;
-    // this->
-    std::cout<<"Arena event wheel"<<std::endl;
     event->accept();
 }
 

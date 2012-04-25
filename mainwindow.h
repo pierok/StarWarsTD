@@ -35,6 +35,7 @@ public slots:
 
 private slots:
     void MainClockTick();
+    void on_pushButton_clicked();
 };
 
 #endif // MAINWINDOW_H

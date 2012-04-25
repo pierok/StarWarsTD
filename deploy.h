@@ -23,10 +23,32 @@ public:
         enemy=i;
     }
 
+    inline void start()
+    {
+        startDeploy=true;
+    }
+
+    inline void stop()
+    {
+        startDeploy=false;
+    }
+
+    inline void deploySize(int i)
+    {
+        count=i;
+    }
+
+    inline void setRate(int rate)
+    {
+        this->rate=rate;
+    }
+
 private:
+    int rate;
     int enemy;
     int count;
     int timer;
+    bool startDeploy;
     QRectF m_boundingRect;
 };
 

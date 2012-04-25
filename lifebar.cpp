@@ -18,5 +18,5 @@ void LifeBar::paint(QPainter *painter, const QStyleOptionGraphicsItem *, QWidget
     painter->drawRect(125,5,250,10);
 
     painter->setBrush(Qt::green);
-    painter->drawRect(125,5,life,10);
+    painter->drawRect(125,5,(life/4),10);
 }

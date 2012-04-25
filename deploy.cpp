@@ -5,6 +5,8 @@ Deploy::Deploy()
     m_boundingRect=QRectF(0,0,200,200);
     timer=0;
     count=20;
+    startDeploy=false;
+    rate=80;
 }
 
 void Deploy::paint(QPainter *painter, const QStyleOptionGraphicsItem *, QWidget *)
@@ -31,30 +33,32 @@ void Deploy::setBoundingRect(QRectF rect)
 
 void Deploy::deploy()
 {
-    if(count>0)
-    {
-        if(timer==0)
+    if(startDeploy){
+        if(count>0)
         {
+            if(timer==0)
+            {
 
-            Enemy* tmp;
-            if(enemy==0)
-            {
-                timer=80;
-                tmp= new Enemy();
-            }else if(enemy==1)
-            {
-                timer=30;
-                tmp= new Xwing();
+                Enemy* tmp;
+                if(enemy==0)
+                {
+                    timer=rate;
+                    tmp= new Enemy();
+                }else if(enemy==1)
+                {
+                    timer=rate;
+                    tmp= new Xwing();
+                }
+                tmp->setPos(this->scenePos());
+                tmp->translate(100,100);
+                Arena::spawnEnemy.enqueue(tmp);
+                count--;
             }
-            tmp->setPos(this->scenePos());
-            tmp->translate(100,100);
-            Arena::spawnEnemy.enqueue(tmp);
-            count--;
-        }
 
-        if(timer>0)
-        {
-            timer--;
+            if(timer>0)
+            {
+                timer--;
+            }
         }
     }
 }

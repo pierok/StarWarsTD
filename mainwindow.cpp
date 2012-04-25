@@ -11,8 +11,6 @@ MainWindow::MainWindow(QWidget *parent) :
     qsrand(QTime(0,0,0).secsTo(QTime::currentTime()));
     connect(&maintimer, SIGNAL(timeout()), this, SLOT(MainClockTick()));
 
-
-
     qp= new QPixmap(":/data/gw.jpg");
     arena=new Arena(qp);
 
@@ -29,6 +27,18 @@ MainWindow::MainWindow(QWidget *parent) :
     actions.insert( Qt::Key_S, ZoomOut );
 
     maintimer.start(30);
+
+       // Resize refer to desktop
+       //this->resize( QApplication::desktop()->size() );
+        int x=QApplication::desktop()->size().width();
+         int y= QApplication::desktop()->size().height();
+        this->resize(x-10,y-68);
+
+         std::cout<<"x: "<<x<<" y: "<<y<<std::endl;
+      // this->setFocusPolicy( Qt::StrongFocus );
+      // this->setAttribute(Qt::WA_QuitOnClose, true);
+
+
 }
 
 void MainWindow::MainClockTick()
@@ -79,11 +89,13 @@ void MainWindow::keyPressEvent( QKeyEvent *event )
     event->accept();
 }
 
-
-
-
-
 MainWindow::~MainWindow()
 {
     delete ui;
+}
+
+void MainWindow::on_pushButton_clicked()
+{
+    arena->deploy1->start();
+    arena->deploy2->start();
 }

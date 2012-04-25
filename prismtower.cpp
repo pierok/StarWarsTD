@@ -51,7 +51,7 @@ void PrismTower::control()
     {
         if(weapon1state==0)
         {
-            weapon1state=50;
+            weapon1state=80;
             weaponFire();
         }
 

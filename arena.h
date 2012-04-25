@@ -11,9 +11,6 @@
 #include "tower.h"
 #include "deathstar.h"
 #include "deploy.h"
-//#include "explosion.h"
-//#include "enemy.h"
-//#include "missile.h"
 
 class Tower;
 class Deploy;
@@ -30,8 +27,10 @@ public:
 
     //static QQueue<Missile*> spawn;
 
-    static Factory factoy;
+    Deploy* deploy1;
+    Deploy* deploy2;
 
+    static Factory factoy;
     static QQueue<Enemy*> spawnEnemy;
     static QQueue<Explosion*> spawnExplosion;
     static QQueue<Explosion*> destroyExplosion;
@@ -41,12 +40,14 @@ public:
 private:
     QPixmap* qp;
     DeathStar* deathStar;
-    Deploy* deploy1;
-    Deploy* deploy2;
+
     QList<Tower*> towers;
     QList<Enemy*> enemys;
     QList<Missile*> missiles;
     QVector<Explosion*> explosions;
+
+    int time;
+
 
 public slots:
     void mousePressEvent(QGraphicsSceneMouseEvent *event);

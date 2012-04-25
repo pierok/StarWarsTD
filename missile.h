@@ -11,7 +11,7 @@
 #include "arena.h"
 
 
-class Missile :  public QGraphicsItem
+class Missile :  public MovingObject
 {
 public:
     Missile();
@@ -22,7 +22,16 @@ public:
     bool deactive;
     void reset();
     void control();
+    void step();
     QVector2D velocity;
+
+    inline void setTarget(DeathStar* d)
+    {
+        target=d;
+    }
+
+private:
+    DeathStar* target;
 };
 
 

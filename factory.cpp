@@ -33,16 +33,16 @@ Explosion* Factory::getExplosion(int size)
 
 Missile* Factory::getMissile()
 {
-    if(!missile.isEmpty())
+    /*if(!missile.isEmpty())
     {
         Missile *m=missile.dequeue();
         m->reset();
         m->show();
         return m;
     }else
-    {
+    {*/
         Missile *m=new Missile();
         Arena::spawnMissile.enqueue(m);
         return m;
-    }
+    //}
 }
