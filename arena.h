@@ -48,6 +48,7 @@ private:
 
 public slots:
     void mousePressEvent(QGraphicsSceneMouseEvent *event);
+    void wheelEvent( QGraphicsSceneWheelEvent *event);
 };
 
 #endif // ARENA_H

@@ -4,7 +4,7 @@ Deploy::Deploy()
 {
     m_boundingRect=QRectF(0,0,200,200);
     timer=0;
-    count=1;
+    count=20;
 }
 
 void Deploy::paint(QPainter *painter, const QStyleOptionGraphicsItem *, QWidget *)
@@ -30,8 +30,17 @@ void Deploy::deploy()
     {
         if(timer==0)
         {
-            timer=80;
-            Enemy* tmp= new Enemy();
+
+            Enemy* tmp;
+            if(enemy==0)
+            {
+                timer=80;
+                tmp= new Enemy();
+            }else if(enemy==1)
+            {
+                timer=30;
+                tmp= new Xwing();
+            }
             tmp->setPos(this->scenePos());
             tmp->translate(100,100);
             Arena::spawnEnemy.enqueue(tmp);

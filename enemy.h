@@ -44,7 +44,7 @@ public:
     bool death;
 
 
-    void weaponFire();
+    virtual void weaponFire();
     bool inRange();
     bool fire;
     int weapon1state;
@@ -57,6 +57,21 @@ protected:
     DeathStar* target;
 
     QRectF m_boundingRect;
+};
+
+
+
+
+class Xwing : public Enemy
+{
+public:
+    Xwing();
+
+    void paint(QPainter *painter, const QStyleOptionGraphicsItem *option,
+               QWidget *widget);
+
+    void weaponFire();
+
 };
 
 #endif // ENEMY_H

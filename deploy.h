@@ -18,8 +18,13 @@ public:
 
     QRectF boundingRect() const;
     void setBoundingRect(QRectF);
+    inline void deployEnemy(int i)
+    {
+        enemy=i;
+    }
 
 private:
+    int enemy;
     int count;
     int timer;
     QRectF m_boundingRect;

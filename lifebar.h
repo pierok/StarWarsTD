@@ -21,12 +21,14 @@ public:
 
     inline void updateLife(int l)
     {
+        if(life>0)
         life=l;
     }
 
+    int life;
 private:
     QRectF m_boundingRect;
-    int life;
+    //int life;
 
 };
 

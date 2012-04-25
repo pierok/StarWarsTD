@@ -2,6 +2,11 @@
 #define MISSILE_H
 
 #include <QPoint>
+#include <QVector2D>
+#include <QPainter>
+#include <QStyleOption>
+#include <QPen>
+#include <QColor>
 #include "movingobject.h"
 #include "arena.h"
 
@@ -17,6 +22,7 @@ public:
     bool deactive;
     void reset();
     void control();
+    QVector2D velocity;
 };
 
 

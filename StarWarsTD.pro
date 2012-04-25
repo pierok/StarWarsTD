@@ -22,7 +22,8 @@ SOURCES += main.cpp\
     missile.cpp \
     deploy.cpp \
     factory.cpp \
-    lifebar.cpp
+    lifebar.cpp \
+    customview.cpp
 
 HEADERS  += mainwindow.h \
     tower.h \
@@ -35,12 +36,15 @@ HEADERS  += mainwindow.h \
     missile.h \
     deploy.h \
     factory.h \
-    lifebar.h
+    lifebar.h \
+    customview.h
 
 FORMS    += mainwindow.ui
 
 RESOURCES += \
     data.qrc
+
+
 
 
 

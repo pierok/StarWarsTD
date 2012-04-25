@@ -15,6 +15,7 @@ void DeathStar::paint(QPainter *painter, const QStyleOptionGraphicsItem *, QWidg
 void DeathStar::step()
 {
     this->rotate(0.2);
+    lifebar->updateLife(lifebar->life-1);
 }
 
 QRectF DeathStar::boundingRect() const

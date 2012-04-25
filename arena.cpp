@@ -29,13 +29,14 @@ Arena::Arena()
 
     l->setPos(deathStar->scenePos());
     l->translate(-250,170);
-    l->updateLife(100);
+    l->updateLife(250);
     deploy1=new Deploy();
-
+    deploy1->deployEnemy(0);
     deploy1->setPos(60,60);
 
     deploy2=new Deploy();
 
+    deploy2->deployEnemy(1);
     deploy2->setPos(qp.size().width()-500,60);
 
     this->addItem(deploy1);
@@ -50,8 +51,6 @@ void Arena::step()
     deploy1->deploy();
     deploy2->deploy();
 
-    std::cout<<"misssile size: "<<missiles.size()<<std::endl;
-
     while(!spawnEnemy.empty())
     {
         Enemy* en1= spawnEnemy.dequeue();
@@ -59,16 +58,6 @@ void Arena::step()
         this->addItem(en1);
         enemys.push_back(en1);
     }
-
-
-
-
-    /*foreach(Missile *m, missiles)
-    {
-        m->control();
-        m->physics();
-        m->step();
-    }*/
 
     foreach(Tower *tower, towers)
     {
@@ -92,8 +81,8 @@ void Arena::step()
         if(enemy->death==false)
         {
             enemy->control();
-          //  enemy->physics();
-          //  enemy->step();
+            enemy->physics();
+            enemy->step();
         }
     }
 
@@ -120,32 +109,19 @@ void Arena::step()
 
     foreach(Missile *misile, missiles)
     {
-        //if(misile->deactive==false)
+        if(misile->deactive==false)
         {
             misile->control();
         }
     }
+}
 
-
-    //while(!destroyExplosion.empty())
-    //{
-      //  std::cout<<"deleteeee"<<std::endl;
-       // Explosion* exp= spawnExplosion.dequeue();
-       // this->removeItem(exp);
-        //this->
-        //explosions.remove(explosions.indexOf(exp));
-        //delete exp;
-        //std::cout<<"size exp : "<<explosions.size()<<std::endl;
-    //}
-
-    /*while(!spawn.empty())
-    {
-        Missile* tmp=spawn.dequeue();
-        this->addItem(tmp);
-        missiles.push_back(tmp);
-    }*/
-
-
+void Arena::wheelEvent( QGraphicsSceneWheelEvent *event )
+{
+    float scale = 1.0 + event->delta()*0.001;
+   // this->
+    std::cout<<"Arena event wheel"<<std::endl;
+    event->accept();
 }
 
 void Arena::mousePressEvent(QGraphicsSceneMouseEvent *event)

@@ -7,27 +7,28 @@ MainWindow::MainWindow(QWidget *parent) :
     ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
+    this->setWindowTitle("Star Wars TD");
     qsrand(QTime(0,0,0).secsTo(QTime::currentTime()));
     connect(&maintimer, SIGNAL(timeout()), this, SLOT(MainClockTick()));
 
     arena=new Arena();
 
- // arena->setSceneRect(0, 0, 800, 600);
-
-     arena->setItemIndexMethod(QGraphicsScene::NoIndex);
-
-   // arena->setBackgroundBrush(QBrush(Qt::black));
-    //arena->setBackgroundBrush(QPixmap(":/data/gw.jpg"));
-   // arena->setSceneRect(-100, -100, 800, 600);
-    //arena->setItemIndexMethod(QGraphicsScene::NoIndex);
+    arena->setBackgroundBrush(Qt::black);
+    arena->setSceneRect(0, 0, 2687 , 2683);
+    arena->setItemIndexMethod(QGraphicsScene::NoIndex);
 
     ui->gameView->setScene(arena);
+   // ui->gameView->scale(0.5,0.5);
     ui->gameView->show();
     processed=true;
 
+    actions.insert( Qt::Key_W, ZoomIn );
+    actions.insert( Qt::Key_S, ZoomOut );
+
+
+
     maintimer.start(30);
 }
-
 
 void MainWindow::MainClockTick()
 {
@@ -40,6 +41,45 @@ void MainWindow::MainClockTick()
         processed=true;
     }
 }
+
+
+void MainWindow::wheelEvent( QWheelEvent *event )
+{
+    float scale = 1.0 + event->delta()*0.001;
+    ui->gameView->scale(scale,scale);
+
+    std::cout<<"Main window event wheel"<<std::endl;
+    event->accept();
+}
+
+void MainWindow::keyPressEvent( QKeyEvent *event )
+{
+    if ( event->isAutoRepeat() || !actions.contains( event->key() ) )
+    {   // autorepeat to wirtualne przycisniecia kiedy trzymamy klawisz
+        //event->ignore();
+        //return;
+    }
+    float scale;
+    Action action = actions[event->key()];
+    switch ( action )
+    {
+    case ZoomIn:
+        scale= 1.0 + 0.01;
+        ui->gameView->scale(scale,scale);
+        break;
+    case ZoomOut:
+        scale = 1.0 - 0.01;
+        ui->gameView->scale(scale,scale);
+        break;
+    default:
+        event->ignore();
+        return;
+    }
+    event->accept();
+}
+
+
+
 
 
 MainWindow::~MainWindow()

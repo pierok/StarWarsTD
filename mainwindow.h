@@ -3,6 +3,7 @@
 
 #include <QMainWindow>
 #include <QtGui>
+#include <QMap>
 #include "arena.h"
 
 namespace Ui {
@@ -18,10 +19,16 @@ public:
     ~MainWindow();
 
 private:
+    enum Action {None ,ZoomIn, ZoomOut};
+    QMap<int,Action> actions;
     Ui::MainWindow *ui;
     QTimer maintimer;
     Arena* arena;
     bool processed;
+
+public slots:
+    void keyPressEvent( QKeyEvent *event );
+    void wheelEvent( QWheelEvent *event);
 
 
 private slots:

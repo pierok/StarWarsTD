@@ -11,22 +11,24 @@
 Missile::Missile()
 {
     deactive=false;
-    lifetimer = 30;
+    lifetimer = 40;
+    velocity=QVector2D(0.0,-1.0);
 }
 
 
 void Missile::reset()
 {
     deactive=false;
-    lifetimer = 30;
+    lifetimer = 40;
+    velocity=QVector2D(0.0,-1.0);
 }
 
 
 void Missile::paint(QPainter *painter, const QStyleOptionGraphicsItem *, QWidget *)
 {
     painter->setPen(Qt::NoPen);
-    painter->setBrush(Qt::red);
-    painter->drawEllipse(0,0,5,5);
+    painter->setBrush(QColor(255,lifetimer*3,0));
+    painter->drawEllipse(0,0,7,7);
 }
 
 QRectF Missile::boundingRect() const
@@ -38,14 +40,17 @@ void Missile::control()
 {
     if(lifetimer>0)
     {
-        translate(0,1);
+        //this->setPos(this->scenePos().x()+velocity.toPoint().x()*2,this->scenePos().y()+velocity.toPoint().y()*2);
         lifetimer--;
     }else
     {
-        std::cout<<"desctive"<<std::endl;
+        //std::cout<<"desctive"<<std::endl;
         deactive=true;
         //Arena::destroyExplosion.enqueue(this);
         Arena::factoy.deactivateMissile(this);
+        this->hide();
+        Explosion* expl = Arena::factoy.getExplosion(30);
+        expl->setPos(this->scenePos());
         //Window::kill.enqueue(this);
     }
 }

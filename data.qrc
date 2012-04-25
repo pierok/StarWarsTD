@@ -4,5 +4,6 @@
         <file>data/PrismTower.png</file>
         <file>data/SokolMilenium.png</file>
         <file>data/gw.jpg</file>
+        <file>data/X-Wing.png</file>
     </qresource>
 </RCC>

@@ -6,7 +6,7 @@
 Enemy::Enemy()
 {
     angle = 0;
-    speed = 0.6;
+    speed = 0.0;
     slide = 0;
     rot = 0;
 
@@ -14,10 +14,10 @@ Enemy::Enemy()
     slidefriction = 0.9850;
     rotfriction = 0.9750;
 
-    acc = 0.07;
+    acc = 0.05;
     slideacc = 0.12;
     brake = 0.10;
-    rotacc = 0.4;
+    rotacc = 0.2;
 
     life=200;
     armor=100;
@@ -84,7 +84,7 @@ void Enemy::control()
     {
         rot = rot - rotacc;
     }
-    speed = speed + 0.05;
+    speed = speed + acc;
 
 
     if(fire)
@@ -118,10 +118,57 @@ void Enemy::weaponFire()
 
     Missile *missile = Arena::factoy.getMissile();
    // missile->deactive=false;
-   // missile->lifetimer=30;
-    missile->scenePos().setX(this->scenePos().x());
-    missile->scenePos().setY(this->scenePos().y());
-    std::cout<<"missile"<<missile->scenePos().y()<<"  enemy "<<this->scenePos().y()<<std::endl;
+    //missile->lifetimer=100;
+    missile->setPos(this->scenePos());
+    missile->rotate(this->angle);
+    //std::cout<<"missile"<<missile->scenePos().y()<<"  enemy "<<this->scenePos().y()<<std::endl;
+}
+
+
+
+
+Xwing::Xwing()
+{
+    angle = 0;
+    speed = 0;
+    slide = 0;
+    rot = 0;
+
+    friction = 0.9966;
+    slidefriction = 0.9850;
+    rotfriction = 0.9750;
+
+    acc = 0.08;
+    slideacc = 0.12;
+    brake = 0.10;
+    rotacc = 0.2;
+
+    life=50;
+    armor=100;
+    death=false;
+    fire=true;
+    weapon1state=0;
+    m_boundingRect=QRectF(-410/16,-326/16,410/8,326/8);
+}
+
+
+
+void Xwing::weaponFire()
+{
+
+   // Missile *missile = Arena::factoy.getMissile();
+   // missile->deactive=false;
+    //missile->lifetimer=100;
+   // missile->setPos(this->scenePos());
+   // missile->rotate(this->angle);
+    //std::cout<<"missile"<<missile->scenePos().y()<<"  enemy "<<this->scenePos().y()<<std::endl;
+}
+
+
+void Xwing::paint(QPainter *painter, const QStyleOptionGraphicsItem *, QWidget *)
+{
+    QPixmap ship(":/data/X-Wing.png");
+    painter->drawPixmap(QRect(-410/16,-326/16,410/8,326/8),ship);
 }
 
 
