@@ -5,6 +5,7 @@
 #include <QGraphicsSceneMouseEvent>
 #include <QList>
 #include <QQueue>
+#include <QSet>
 #include <QVector>
 
 #include "factory.h"
@@ -33,9 +34,7 @@ public:
     static Factory factoy;
     static QQueue<Enemy*> spawnEnemy;
     static QQueue<Explosion*> spawnExplosion;
-    static QQueue<Explosion*> destroyExplosion;
     static QQueue<Missile*> spawnMissile;
-    static QQueue<Missile*> destroyMissile;
 
 private:
     QPixmap* qp;
@@ -43,7 +42,7 @@ private:
 
     QList<Tower*> towers;
     QList<Enemy*> enemys;
-    QList<Missile*> missiles;
+    QSet<Missile*> missiles;
     QVector<Explosion*> explosions;
 
     int time;

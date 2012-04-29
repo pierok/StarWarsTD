@@ -28,17 +28,15 @@ public:
         explosions.enqueue(e);
     }
 
-    inline void deactivateMissile(Missile* m)
-    {
-        missile.enqueue(m);
-    }
+    void deactivateMissile(Missile* m, int type=0);
 
     Enemy* getEnemy();
     Explosion* getExplosion(int size);
-    Missile* getMissile();
+    Missile* getMissile(int type=0);
 
 private:
     QQueue<Missile*> missile;
+    QQueue<Missile*> lasers;
     QQueue<Enemy*> enemys;
     QQueue<Explosion*> explosions;
 };

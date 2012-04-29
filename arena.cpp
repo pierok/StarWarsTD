@@ -22,14 +22,13 @@ Arena::Arena(QPixmap *p)
     deathStar->setLifeBar(l);
     deathStar->deactive=false;
 
-
     l->setPos(deathStar->scenePos());
     l->translate(-250,170);
     deploy1=new Deploy();
     deploy1->deployEnemy(0);
     deploy1->setPos(60,60);
     deploy1->setRate(80);
-    deploy1->deploySize(10);
+    deploy1->deploySize(20);
 
     deploy2=new Deploy();
 
@@ -37,7 +36,6 @@ Arena::Arena(QPixmap *p)
     deploy2->setPos(qp->size().width()-500,60);
     deploy2->setRate(20);
     deploy2->deploySize(40);
-
 
     this->addItem(deploy1);
     this->addItem(deploy2);
@@ -56,7 +54,6 @@ void Arena::step()
             exp->setPos(deathStar->scenePos());
             deathStar->hide();
             deathStar->deactive=true;
-            //l>hide();
             foreach(Enemy *enemy, enemys)
             {
                 enemy->hit(10000);
@@ -84,10 +81,9 @@ void Arena::step()
             {
                 if(tower->inRange(enemy))
                 {
-                    // break;
+
                 }
             }
-            //break;
         }
         tower->control();
     }
@@ -120,7 +116,8 @@ void Arena::step()
     {
         Missile* misile= spawnMissile.dequeue();
         this->addItem(misile);
-        missiles.push_back(misile);
+        missiles.insert(misile);
+
     }
 
     foreach(Missile *misile, missiles)
@@ -132,6 +129,10 @@ void Arena::step()
             misile->step();
         }
     }
+
+    std::cout<<"size : "<<missiles.size()<<std::endl;
+
+
 }
 
 void Arena::wheelEvent( QGraphicsSceneWheelEvent *event )

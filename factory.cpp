@@ -31,18 +31,50 @@ Explosion* Factory::getExplosion(int size)
     }
 }
 
-Missile* Factory::getMissile()
+void Factory::deactivateMissile(Missile*m, int type)
 {
-    /*if(!missile.isEmpty())
+    if(type==0)
     {
-        Missile *m=missile.dequeue();
-        m->reset();
-        m->show();
-        return m;
-    }else
-    {*/
-        Missile *m=new Missile();
-        Arena::spawnMissile.enqueue(m);
-        return m;
-    //}
+        missile.enqueue(m);
+    }else if(type==1)
+    {
+        lasers.enqueue(m);
+    }
+}
+
+Missile* Factory::getMissile(int type)
+{
+    if(type==0)
+    {
+        if(!missile.isEmpty())
+        {
+            Missile *m=missile.dequeue();
+            m->reset();
+            m->show();
+            m->resetTransform();
+            return m;
+        }else
+        {
+            Missile *m=new Missile();
+            Arena::spawnMissile.enqueue(m);
+            return m;
+        }
+    }else if(type==1)
+    {
+        if(!missile.isEmpty())
+        {
+            Missile *m=lasers.dequeue();
+            m->reset();
+            m->show();
+            m->resetTransform();
+            return m;
+        }else
+        {
+            Missile *m=new Laser();
+            Arena::spawnMissile.enqueue(m);
+            return m;
+        }
+
+    }
+    return NULL;
 }

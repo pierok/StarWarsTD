@@ -22,16 +22,24 @@ public:
     bool deactive;
     void reset();
     void control();
-    void step();
-    QVector2D velocity;
 
-    inline void setTarget(DeathStar* d)
-    {
-        target=d;
-    }
+    void setTarget(DeathStar* d);
 
-private:
+protected:
     DeathStar* target;
+};
+
+
+class Laser : public Missile
+{
+public:
+    Laser();
+    void paint(QPainter *painter, const QStyleOptionGraphicsItem *option,
+               QWidget *widget);
+    void control();
+    void reset();
+
+
 };
 
 

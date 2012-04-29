@@ -5,7 +5,6 @@
 #include <QVector2D>
 #include <QPoint>
 #include "tower.h"
-#include "missile.h"
 
 class PrismTower : public Tower
 {

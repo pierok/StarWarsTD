@@ -181,6 +181,17 @@ void Xwing::weaponFire()
     missile->rotate(this->angle);// - 0.5 + 1.0*rand()/RAND_MAX);
     missile->speed = this->speed+18;
     missile->slide = this->slide - 0.08;*/
+
+    Missile *missile = Arena::factoy.getMissile(1);
+    // missile->deactive=false;
+    //missile->lifetimer=100;
+    missile->setTarget(target);
+    missile->setPos(this->scenePos());
+    missile->rotate(this->angle);// - 0.5 + 1.0*rand()/RAND_MAX);
+    missile->speed = this->speed+7;
+    missile->slide = this->slide - 0.08;
+
+
 }
 
 

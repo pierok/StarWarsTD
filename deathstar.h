@@ -18,7 +18,7 @@ public:
     void setBoundingRect(QRectF);
 
     void step();
-    inline void hit(int i)
+    inline void hit(double i)
     {
         life-=i;
         lifebar->updateLife(life);
