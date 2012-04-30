@@ -1,6 +1,7 @@
 #include "arena.h"
 #include "tower.h"
 #include "prismtower.h"
+#include "plasmatower.h"
 #include "lifebar.h"
 #include <iostream>
 
@@ -12,6 +13,7 @@ Factory Arena::factoy;
 
 Arena::Arena(QPixmap *p)
 {
+    gun=A_NONE;
     qp=p;
     LifeBar* l= new LifeBar(1000);
 
@@ -69,12 +71,12 @@ void Arena::step()
         Enemy* en1= spawnEnemy.dequeue();
         en1->setTarget(deathStar);
         this->addItem(en1);
-        enemys.push_back(en1);
+        enemys.insert(en1);
     }
 
     foreach(Tower *tower, towers)
     {
-
+        std::cout<<"Przed"<<std::endl;
         foreach(Enemy *enemy, enemys)
         {
             if(enemy->death==false)
@@ -85,7 +87,10 @@ void Arena::step()
                 }
             }
         }
+        std::cout<<"Przed Control "<<std::endl;
         tower->control();
+
+        std::cout<<"Po"<<std::endl;
     }
 
     foreach(Enemy *enemy, enemys)
@@ -116,7 +121,9 @@ void Arena::step()
     {
         Missile* misile= spawnMissile.dequeue();
         this->addItem(misile);
+        //std::cout<<"ok1"<<std::endl;
         missiles.insert(misile);
+        //std::cout<<"ok2"<<std::endl;
 
     }
 
@@ -130,31 +137,44 @@ void Arena::step()
         }
     }
 
-    std::cout<<"size : "<<missiles.size()<<std::endl;
-
-
 }
 
 void Arena::wheelEvent( QGraphicsSceneWheelEvent *event )
 {
-    float scale = 1.0 + event->delta()*0.001;
+    //float scale = 1.0 + event->delta()*0.001;
     event->accept();
 }
 
 void Arena::mousePressEvent(QGraphicsSceneMouseEvent *event)
 {
     std::cout<<"x "<<event->scenePos().x()<<" y "<<event->scenePos().y()<<std::endl;
-    PrismTower* prism1= new PrismTower();
-    prism1->setPos(event->scenePos().x(),event->scenePos().y());
+    if(gun==A_PRISM)
+    {
+        PrismTower* prism1= new PrismTower();
 
-    prism1->setRadius(300);
-    prism1->setBoundingRect(QRectF(-150,-150,300,300));
+        prism1->setPos(event->scenePos().x(),event->scenePos().y());
 
-    Prism* missile=new Prism();
-    prism1->addPrism(missile);
+        prism1->setRadius(300);
+        prism1->setBoundingRect(QRectF(-150,-150,300,300));
 
-    towers.push_back(prism1);
-    this->addItem(prism1);
-    this->addItem(missile);
+        Prism* missile=new Prism();
+        prism1->addPrism(missile);
+
+        towers.insert(prism1);
+        this->addItem(prism1);
+        this->addItem(missile);
+    }else if(gun==A_PLASMA)
+    {
+        PlasmaTower* plasma= new PlasmaTower();
+        plasma->setPos(event->scenePos().x(),event->scenePos().y());
+        plasma->setRadius(300);
+        plasma->setBoundingRect(QRectF(-150,-150,300,300));
+        this->addItem(plasma);
+        towers.insert(plasma);
+    }
+
+
+    std::cout<<"towers count: "<<towers.size()<<std::endl;
+
     event->accept();
 }

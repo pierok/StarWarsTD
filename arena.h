@@ -20,6 +20,8 @@ class Factory;
 class Explosion;
 class Missile;
 
+enum GUNS {A_NONE, A_PRISM, A_PLASMA};
+
 class Arena: public QGraphicsScene
 {
 public:
@@ -36,14 +38,20 @@ public:
     static QQueue<Explosion*> spawnExplosion;
     static QQueue<Missile*> spawnMissile;
 
+    inline void setGun(GUNS g)
+    {
+        gun=g;
+    }
+
 private:
+    GUNS gun;
     QPixmap* qp;
     DeathStar* deathStar;
 
-    QList<Tower*> towers;
-    QList<Enemy*> enemys;
+    QSet<Tower*> towers;
+    QSet<Enemy*> enemys;
     QSet<Missile*> missiles;
-    QVector<Explosion*> explosions;
+    QList<Explosion*> explosions;
 
     int time;
 

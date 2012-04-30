@@ -20,6 +20,7 @@ public:
     void setBoundingRect(QRectF);
 
     virtual void control()=0;
+    void physics();
     void step();
     virtual bool inRange(Enemy *)=0;
 
@@ -42,6 +43,23 @@ protected:
     double damage;
     double cost;
     QRectF m_boundingRect;
+
+
+
+    qreal angle;
+    qreal speed;
+    qreal slide;
+    qreal rot;
+
+    qreal friction;
+    qreal slidefriction;
+    qreal rotfriction;
+
+    qreal acc;
+    qreal brake;
+    qreal slideacc;
+    qreal rotacc;
+
 
 };
 

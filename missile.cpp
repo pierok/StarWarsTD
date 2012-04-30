@@ -66,7 +66,6 @@ void Missile::control()
         {
             //std::cout<<"desctive"<<std::endl;
             deactive=true;
-            //Arena::destroyExplosion.enqueue(this);
             Arena::factoy.deactivateMissile(this);
             this->hide();
             Explosion* expl = Arena::factoy.getExplosion(30);
@@ -78,18 +77,21 @@ void Missile::control()
             if((playerX-this->scenePos().x())*(playerX-this->scenePos().x())
                     +(playerY-this->scenePos().y())*(playerY-this->scenePos().y())<=200*200)
             {
-                target->hit(1);
+                target->hit(5);
             }
-           //Window::kill.enqueue(this);
+            //Window::kill.enqueue(this);
         }
     }
 }
 
 void Missile::setTarget(DeathStar* d)
-    {
-        target=d;
-    }
-Laser::Laser()
+{
+    target=d;
+}
+
+//========================================Plasma========================================
+
+Plasma::Plasma()
 {
     deactive=false;
     lifetimer = 50;
@@ -106,10 +108,72 @@ Laser::Laser()
 }
 
 
-void Laser::reset()
+void Plasma::reset()
 {
     deactive=false;
     lifetimer = 50;
+
+    angle = 0;
+    speed = 0;
+    slide = 0;
+    rot = 0;
+
+    friction = 0.9975;
+    slidefriction = 0.96;
+    rotfriction = 0.98;
+
+}
+
+
+void Plasma::control()
+{
+    if(deactive==false)
+    {
+        if(lifetimer>0)
+        {
+            //this->setPos(this->scenePos().x()+velocity.toPoint().x()*2,this->scenePos().y()+velocity.toPoint().y()*2);
+            lifetimer--;
+        }else
+        {
+            //std::cout<<"desctive"<<std::endl;
+            deactive=true;
+            //Arena::destroyExplosion.enqueue(this);
+            Arena::factoy.deactivateMissile(this,2);
+            this->hide();
+        }
+    }
+}
+
+void Plasma::paint(QPainter *painter, const QStyleOptionGraphicsItem *, QWidget *)
+{
+    painter->setPen(Qt::NoPen);
+    painter->setBrush(Qt::yellow);
+    painter->drawEllipse(0,0,8,8);
+}
+
+//========================================Laser========================================
+
+Laser::Laser()
+{
+    deactive=false;
+    lifetimer = 100;
+
+    angle = 0;
+    speed = 0;
+    slide = 0;
+    rot = 0;
+
+    friction = 0.9975;
+    slidefriction = 0.96;
+    rotfriction = 0.98;
+
+}
+
+
+void Laser::reset()
+{
+    deactive=false;
+    lifetimer = 100;
 
     angle = 0;
     speed = 0;
@@ -158,10 +222,14 @@ void Laser::control()
             //Arena::destroyExplosion.enqueue(this);
             Arena::factoy.deactivateMissile(this,1);
             this->hide();
-           //Window::kill.enqueue(this);
+            //Window::kill.enqueue(this);
         }
     }
 }
+
+
+//========================================Prism========================================
+
 
 Prism::Prism()
 {

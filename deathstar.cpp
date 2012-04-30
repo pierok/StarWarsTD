@@ -4,7 +4,7 @@ DeathStar::DeathStar()
 {
     m_boundingRect=QRectF(-145,-145,290,290);
     life=1000;
-    deactive==false;
+    deactive=false;
 }
 
 void DeathStar::paint(QPainter *painter, const QStyleOptionGraphicsItem *, QWidget *)

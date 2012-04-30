@@ -5,5 +5,7 @@
         <file>data/SokolMilenium.png</file>
         <file>data/gw.jpg</file>
         <file>data/X-Wing.png</file>
+        <file>data/TIE_fighter.png</file>
+        <file>data/plazmaTower.png</file>
     </qresource>
 </RCC>

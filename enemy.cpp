@@ -20,7 +20,7 @@ Enemy::Enemy()
     brake = 0.10;
     rotacc = 0.2;
 
-    life=200;
+    life=400;
     armor=100;
     death=false;
     fire=true;
@@ -32,8 +32,6 @@ void Enemy::paint(QPainter *painter, const QStyleOptionGraphicsItem *, QWidget *
 {
     QPixmap ship(":/data/SokolMilenium.png");
     painter->drawPixmap(QRect(-350/16,-470/16,350/8,470/8),ship);
-    //painter->setPen(QPen(Qt::white));
-    //painter->drawRect(-350/16,-470/16,350/8,470/8);
 }
 
 void Enemy::hit(double damage)
@@ -45,7 +43,6 @@ void Enemy::hit(double damage)
         this->hide();
         Explosion* expl = Arena::factoy.getExplosion(60);
         expl->setPos(this->scenePos());
-        //Arena::spawnExplosion.enqueue(expl);
     }
 }
 
@@ -128,7 +125,6 @@ void Enemy::setBoundingRect(QRectF rect)
 
 void Enemy::weaponFire()
 {
-
     Missile *missile = Arena::factoy.getMissile();
     // missile->deactive=false;
     //missile->lifetimer=100;
@@ -140,13 +136,8 @@ void Enemy::weaponFire()
 
 }
 
-
-
-
 Xwing::Xwing()
 {
-
-
     radius=1000;
     angle = 0;
     speed = 0.5;
@@ -162,7 +153,7 @@ Xwing::Xwing()
     brake = 0.10;
     rotacc = 0.2;
 
-    life=50;
+    life=150;
     armor=100;
     death=false;
     fire=true;
@@ -174,7 +165,7 @@ Xwing::Xwing()
 
 void Xwing::weaponFire()
 {
-  /*  Missile *missile = Arena::factoy.getMissile();
+  /* Missile *missile = Arena::factoy.getMissile();
     // missile->deactive=false;
     //missile->lifetimer=100;
     missile->setPos(this->scenePos());
@@ -190,10 +181,7 @@ void Xwing::weaponFire()
     missile->rotate(this->angle);// - 0.5 + 1.0*rand()/RAND_MAX);
     missile->speed = this->speed+7;
     missile->slide = this->slide - 0.08;
-
-
 }
-
 
 void Xwing::paint(QPainter *painter, const QStyleOptionGraphicsItem *, QWidget *)
 {

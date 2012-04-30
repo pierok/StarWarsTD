@@ -39,6 +39,9 @@ void Factory::deactivateMissile(Missile*m, int type)
     }else if(type==1)
     {
         lasers.enqueue(m);
+    }else if(type==2)
+    {
+        plasma.enqueue(m);
     }
 }
 
@@ -61,7 +64,7 @@ Missile* Factory::getMissile(int type)
         }
     }else if(type==1)
     {
-        if(!missile.isEmpty())
+        if(!lasers.isEmpty())
         {
             Missile *m=lasers.dequeue();
             m->reset();
@@ -74,7 +77,21 @@ Missile* Factory::getMissile(int type)
             Arena::spawnMissile.enqueue(m);
             return m;
         }
-
+    }else if(type==2)
+    {
+        if(!plasma.isEmpty())
+        {
+            Missile *m=plasma.dequeue();
+            m->reset();
+            m->show();
+            m->resetTransform();
+            return m;
+        }else
+        {
+            Missile *m=new Plasma();
+            Arena::spawnMissile.enqueue(m);
+            return m;
+        }
     }
     return NULL;
 }

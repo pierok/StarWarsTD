@@ -37,6 +37,7 @@ public:
 private:
     QQueue<Missile*> missile;
     QQueue<Missile*> lasers;
+    QQueue<Missile*> plasma;
     QQueue<Enemy*> enemys;
     QQueue<Explosion*> explosions;
 };

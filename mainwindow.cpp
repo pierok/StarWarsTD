@@ -25,6 +25,9 @@ MainWindow::MainWindow(QWidget *parent) :
 
     actions.insert( Qt::Key_W, ZoomIn );
     actions.insert( Qt::Key_S, ZoomOut );
+    actions.insert(Qt::Key_1, PRISM);
+    actions.insert(Qt::Key_2, PLASMA);
+    actions.insert(Qt::Key_0, None);
 
     maintimer.start(30);
 
@@ -81,6 +84,15 @@ void MainWindow::keyPressEvent( QKeyEvent *event )
     case ZoomOut:
         scale = 1.0 - 0.01;
         ui->gameView->scale(scale,scale);
+        break;
+    case PRISM:
+        arena->setGun(A_PRISM);
+        break;
+    case PLASMA:
+        arena->setGun(A_PLASMA);
+        break;
+    case None:
+        arena->setGun(A_NONE);
         break;
     default:
         event->ignore();

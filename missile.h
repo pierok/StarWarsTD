@@ -11,6 +11,9 @@
 #include "arena.h"
 
 
+enum guns {MISSILE, LASER, PLASMA};
+
+
 class Missile :  public MovingObject
 {
 public:
@@ -20,7 +23,7 @@ public:
                QWidget *widget);
     int lifetimer;
     bool deactive;
-    void reset();
+    virtual void reset();
     void control();
 
     void setTarget(DeathStar* d);
@@ -29,6 +32,16 @@ protected:
     DeathStar* target;
 };
 
+class Plasma : public Missile
+{
+public:
+    Plasma();
+    void paint(QPainter *painter, const QStyleOptionGraphicsItem *option,
+               QWidget *widget);
+    void control();
+    void reset();
+
+};
 
 class Laser : public Missile
 {
