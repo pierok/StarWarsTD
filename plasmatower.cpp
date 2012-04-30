@@ -8,7 +8,6 @@ PlasmaTower::PlasmaTower()
     weapon1state=0;
     fire=false;
 
-
     angle = 0;
     speed = 0;
     slide = 0;
@@ -22,7 +21,7 @@ PlasmaTower::PlasmaTower()
     slideacc = 0.12;
     brake = 0.10;
     rotacc = 0.4;
-
+    enemy=NULL;
 }
 
 
@@ -42,8 +41,6 @@ void PlasmaTower::weaponFire()
     missile->rotate(this->angle);// - 0.5 + 1.0*rand()/RAND_MAX);
     missile->speed = this->speed+18;
     missile->slide = this->slide - 0.08;
-
-
 }
 
 bool PlasmaTower::inRange(Enemy *e)
@@ -67,7 +64,6 @@ bool PlasmaTower::inRange(Enemy *e)
 
 void PlasmaTower::control()
 {
-
     if(enemy!=NULL)
     {
         qreal playerX=enemy->scenePos().x();
@@ -127,10 +123,7 @@ void PlasmaTower::control()
                 weapon1state--;
             }
         }
-
-
         physics();
         step();
     }
-
 }

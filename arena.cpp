@@ -76,21 +76,17 @@ void Arena::step()
 
     foreach(Tower *tower, towers)
     {
-        std::cout<<"Przed"<<std::endl;
         foreach(Enemy *enemy, enemys)
         {
             if(enemy->death==false)
             {
                 if(tower->inRange(enemy))
                 {
-
+                    //break;
                 }
             }
         }
-        std::cout<<"Przed Control "<<std::endl;
         tower->control();
-
-        std::cout<<"Po"<<std::endl;
     }
 
     foreach(Enemy *enemy, enemys)
@@ -116,14 +112,11 @@ void Arena::step()
             exp->control();
     }
 
-
     while(!spawnMissile.empty())
     {
         Missile* misile= spawnMissile.dequeue();
         this->addItem(misile);
-        //std::cout<<"ok1"<<std::endl;
         missiles.insert(misile);
-        //std::cout<<"ok2"<<std::endl;
 
     }
 

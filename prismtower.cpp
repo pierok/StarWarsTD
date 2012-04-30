@@ -10,6 +10,7 @@ PrismTower::PrismTower()
     radius=1;
     weapon1state=0;
     fire=false;
+    enemy=NULL;
 }
 
 void PrismTower::paint(QPainter *painter, const QStyleOptionGraphicsItem *, QWidget *)
