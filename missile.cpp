@@ -75,7 +75,7 @@ void Missile::control()
             if((playerX-this->scenePos().x())*(playerX-this->scenePos().x())
                     +(playerY-this->scenePos().y())*(playerY-this->scenePos().y())<=200*200)
             {
-                target->hit(5);
+                target->hit(8);
             }
             //Window::kill.enqueue(this);
         }

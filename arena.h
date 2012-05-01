@@ -43,16 +43,26 @@ public:
         gun=g;
     }
 
+    inline void setInfo(QString* s)
+    {
+        info=s;
+    }
+
+
 private:
     GUNS gun;
     QPixmap* qp;
     DeathStar* deathStar;
+
+
+    QString* info;
 
     QSet<Tower*> towers;
     QSet<Enemy*> enemys;
     QSet<Missile*> missiles;
     QList<Explosion*> explosions;
 
+    int amount;
     int time;
 
 

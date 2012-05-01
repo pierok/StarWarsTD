@@ -37,6 +37,11 @@ public:
         cost=c;
     }
 
+    inline int getCost()
+    {
+        return cost;
+    }
+
 protected:
     Enemy* enemy;
     double radius;

@@ -11,12 +11,16 @@ MainWindow::MainWindow(QWidget *parent) :
     qsrand(QTime(0,0,0).secsTo(QTime::currentTime()));
     connect(&maintimer, SIGNAL(timeout()), this, SLOT(MainClockTick()));
 
+    info=new QString("");
+    info->setNum(800);
+
     qp= new QPixmap(":/data/gw.jpg");
     arena=new Arena(qp);
 
     arena->setBackgroundBrush(Qt::black);
     arena->setSceneRect(0, 0, 2687 , 2683);
     arena->setItemIndexMethod(QGraphicsScene::NoIndex);
+    arena->setInfo(info);
 
     ui->gameView->setScene(arena);
     ui->gameView->scale(0.5,0.5);
@@ -31,16 +35,20 @@ MainWindow::MainWindow(QWidget *parent) :
 
     maintimer.start(30);
 
-       // Resize refer to desktop
-       //this->resize( QApplication::desktop()->size() );
-        int x=QApplication::desktop()->size().width();
-         int y= QApplication::desktop()->size().height();
-        this->resize(x-10,y-68);
+    // Resize refer to desktop
+    //this->resize( QApplication::desktop()->size() );
+    int x=QApplication::desktop()->size().width();
+    int y= QApplication::desktop()->size().height();
+    this->resize(x-10,y-68);
 
-         std::cout<<"x: "<<x<<" y: "<<y<<std::endl;
-      // this->setFocusPolicy( Qt::StrongFocus );
-      // this->setAttribute(Qt::WA_QuitOnClose, true);
+    // this->setFocusPolicy( Qt::StrongFocus );
+    // this->setAttribute(Qt::WA_QuitOnClose, true);
 
+    ui->plasmaButton->setIcon(QIcon(QPixmap(":/data/plazmaTower.png")));
+    ui->plasmaButton->setIconSize(QSize(61,61));
+
+    ui->prismButton->setIcon(QIcon(QPixmap(":/data/PrismTower.png")));
+    ui->prismButton->setIconSize(QSize(61,61));
 
 }
 
@@ -52,6 +60,7 @@ void MainWindow::MainClockTick()
 
         arena->step();
         arena->update();
+        ui->lineEdit->setText(*(info));
         processed=true;
     }
 }
@@ -110,4 +119,14 @@ void MainWindow::on_pushButton_clicked()
 {
     arena->deploy1->start();
     arena->deploy2->start();
+}
+
+void MainWindow::on_prismButton_clicked()
+{
+    arena->setGun(A_PRISM);
+}
+
+void MainWindow::on_plasmaButton_clicked()
+{
+    arena->setGun(A_PLASMA);
 }

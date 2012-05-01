@@ -15,6 +15,8 @@ Arena::Arena(QPixmap *p)
 {
     gun=A_NONE;
     qp=p;
+    amount=800;
+
     LifeBar* l= new LifeBar(1000);
 
     this->addPixmap(*qp);
@@ -30,14 +32,14 @@ Arena::Arena(QPixmap *p)
     deploy1->deployEnemy(0);
     deploy1->setPos(60,60);
     deploy1->setRate(80);
-    deploy1->deploySize(1);
+    deploy1->deploySize(20);
 
     deploy2=new Deploy();
 
     deploy2->deployEnemy(1);
     deploy2->setPos(qp->size().width()-500,60);
     deploy2->setRate(20);
-    deploy2->deploySize(0);
+    deploy2->deploySize(20);
 
     this->addItem(deploy1);
     this->addItem(deploy2);
@@ -156,29 +158,42 @@ void Arena::wheelEvent( QGraphicsSceneWheelEvent *event )
 
 void Arena::mousePressEvent(QGraphicsSceneMouseEvent *event)
 {
-    if(gun==A_PRISM)
+    if(amount>0)
     {
-        PrismTower* prism1= new PrismTower();
+        if(gun==A_PRISM)
+        {
+            PrismTower* prism1= new PrismTower();
 
-        prism1->setPos(event->scenePos().x(),event->scenePos().y());
+            prism1->setPos(event->scenePos().x(),event->scenePos().y());
 
-        prism1->setRadius(300);
-        prism1->setBoundingRect(QRectF(-150,-150,300,300));
+            prism1->setRadius(300);
+            prism1->setBoundingRect(QRectF(-150,-150,300,300));
 
-        Prism* missile=new Prism();
-        prism1->addPrism(missile);
+            Prism* missile=new Prism();
+            prism1->addPrism(missile);
 
-        towers.insert(prism1);
-        this->addItem(prism1);
-        this->addItem(missile);
-    }else if(gun==A_PLASMA)
+            towers.insert(prism1);
+            this->addItem(prism1);
+            this->addItem(missile);
+
+            amount-=prism1->getCost();
+            info->setNum(amount);
+        }else if(gun==A_PLASMA)
+        {
+            PlasmaTower* plasma= new PlasmaTower();
+            plasma->setPos(event->scenePos().x(),event->scenePos().y());
+            plasma->setRadius(800);
+            plasma->setBoundingRect(QRectF(-150,-150,300,300));
+            this->addItem(plasma);
+            towers.insert(plasma);
+
+            amount-=plasma->getCost();
+            info->setNum(amount);
+        }
+    }else
     {
-        PlasmaTower* plasma= new PlasmaTower();
-        plasma->setPos(event->scenePos().x(),event->scenePos().y());
-        plasma->setRadius(800);
-        plasma->setBoundingRect(QRectF(-150,-150,300,300));
-        this->addItem(plasma);
-        towers.insert(plasma);
+        std::cout<<"Brak kredytow1"<<std::endl;
+        *info=QString("Brak kredytow");
     }
     event->accept();
 }

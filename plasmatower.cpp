@@ -22,6 +22,7 @@ PlasmaTower::PlasmaTower()
     brake = 0.10;
     rotacc = 0.9;
     enemy=NULL;
+    cost=10;
 }
 
 
@@ -41,7 +42,7 @@ void PlasmaTower::weaponFire()
     //missile->setPos(missile->scenePos().x()-5,missile->scenePos().y()-20);
     //missile->translate(-10,-40);
     missile->rotate(this->angle);// - 0.5 + 1.0*rand()/RAND_MAX);
-    missile->speed = this->speed+20;
+    missile->speed = this->speed+15;
     //missile->slide = this->slide - 0.08;
 }
 
@@ -91,7 +92,7 @@ void PlasmaTower::control()
         enemy->direction.normalize();
         enemy->direction*=60;
 
-        enemy->direction*=(((enemy->speed*enemy->speed)/(this->speed+20)));
+        enemy->direction*=(((enemy->speed/*enemy->speed*/)/(this->speed+15)));
 
         playerX+=enemy->direction.x();
         playerY+=enemy->direction.y();
@@ -134,7 +135,7 @@ void PlasmaTower::control()
         {
             if(weapon1state==0)
             {
-                weapon1state=10;
+                weapon1state=5;
                 weaponFire();
             }
 
