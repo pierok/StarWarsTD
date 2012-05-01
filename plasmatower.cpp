@@ -20,7 +20,7 @@ PlasmaTower::PlasmaTower()
     acc = 0.07;
     slideacc = 0.12;
     brake = 0.10;
-    rotacc = 0.5;
+    rotacc = 0.9;
     enemy=NULL;
 }
 
@@ -67,6 +67,14 @@ void PlasmaTower::control()
 {
     if(enemy!=NULL)
     {
+
+      //  enemy->direction.normalize();
+
+      //  enemy->direction*=60;
+
+       // std::cout<<"direction "<<enemy->direction.length()<<std::endl;
+
+
         qreal playerX=enemy->scenePos().x();
         qreal playerY=enemy->scenePos().y();
 
@@ -80,10 +88,13 @@ void PlasmaTower::control()
             fire=false;
         }
 
-        //enemy->direction.normalize();
-        enemy->direction*=(((enemy->speed)/(this->speed+20)));
+        enemy->direction.normalize();
+        enemy->direction*=60;
+
+        enemy->direction*=(((enemy->speed*enemy->speed)/(this->speed+20)));
+
         playerX+=enemy->direction.x();
-        playerY+=enemy->direction.x();
+        playerY+=enemy->direction.y();
 
         double linex = ( playerX- this->scenePos().x());
         double liney = ( playerY- this->scenePos().y());

@@ -74,6 +74,16 @@ void Arena::step()
         enemys.insert(en1);
     }
 
+    foreach(Enemy *enemy, enemys)
+    {
+        if(enemy->death==false)
+        {
+            enemy->control();
+            enemy->physics();
+            enemy->step();
+        }
+    }
+
     foreach(Tower *tower, towers)
     {
         foreach(Enemy *enemy, enemys)
@@ -89,15 +99,6 @@ void Arena::step()
         tower->control();
     }
 
-    foreach(Enemy *enemy, enemys)
-    {
-        if(enemy->death==false)
-        {
-            enemy->control();
-            enemy->physics();
-            enemy->step();
-        }
-    }
 
     while(!spawnExplosion.empty())
     {
@@ -155,7 +156,6 @@ void Arena::wheelEvent( QGraphicsSceneWheelEvent *event )
 
 void Arena::mousePressEvent(QGraphicsSceneMouseEvent *event)
 {
-    std::cout<<"x "<<event->scenePos().x()<<" y "<<event->scenePos().y()<<std::endl;
     if(gun==A_PRISM)
     {
         PrismTower* prism1= new PrismTower();
@@ -180,9 +180,5 @@ void Arena::mousePressEvent(QGraphicsSceneMouseEvent *event)
         this->addItem(plasma);
         towers.insert(plasma);
     }
-
-
-    std::cout<<"towers count: "<<towers.size()<<std::endl;
-
     event->accept();
 }
