@@ -15,12 +15,12 @@ PlasmaTower::PlasmaTower()
 
     friction = 0.9925;
     slidefriction = 0.9850;
-    rotfriction = 0.9750;
+    rotfriction = 1.0;//0.9750;
 
     acc = 0.07;
     slideacc = 0.12;
     brake = 0.10;
-    rotacc = 0.8;
+    rotacc = 0.5;
     enemy=NULL;
 }
 
@@ -41,8 +41,8 @@ void PlasmaTower::weaponFire()
     //missile->setPos(missile->scenePos().x()-5,missile->scenePos().y()-20);
     //missile->translate(-10,-40);
     missile->rotate(this->angle);// - 0.5 + 1.0*rand()/RAND_MAX);
-    missile->speed = this->speed+18;
-    missile->slide = this->slide - 0.08;
+    missile->speed = this->speed+20;
+    //missile->slide = this->slide - 0.08;
 }
 
 bool PlasmaTower::inRange(Enemy *e)
@@ -51,7 +51,6 @@ bool PlasmaTower::inRange(Enemy *e)
     {
         qreal enemyX=e->scenePos().x();
         qreal enemyY=e->scenePos().y();
-
 
         if((enemyX-this->scenePos().x())*(enemyX-this->scenePos().x())
                 +(enemyY-this->scenePos().y())*(enemyY-this->scenePos().y())<=radius*radius){
@@ -71,9 +70,6 @@ void PlasmaTower::control()
         qreal playerX=enemy->scenePos().x();
         qreal playerY=enemy->scenePos().y();
 
-
-
-
         if((playerX-this->scenePos().x())*(playerX-this->scenePos().x())
                 +(playerY-this->scenePos().y())*(playerY-this->scenePos().y())<=radius*radius)
         {
@@ -84,18 +80,13 @@ void PlasmaTower::control()
             fire=false;
         }
 
-
-        enemy->direction.normalize();
-        enemy->direction*=(enemy->speed*(this->speed+18));
-        std::cout<<"Przed: X: "<<playerX<<" Y: "<<playerY<<std::endl;
+        //enemy->direction.normalize();
+        enemy->direction*=(((enemy->speed)/(this->speed+20)));
         playerX+=enemy->direction.x();
         playerY+=enemy->direction.x();
-        std::cout<<"Po: X: "<<playerX<<" Y: "<<playerY<<std::endl;
 
         double linex = ( playerX- this->scenePos().x());
         double liney = ( playerY- this->scenePos().y());
-
-
 
         double arc = atan2(linex,-liney);
         arc = arc * 180.0 / Pi;
@@ -141,6 +132,5 @@ void PlasmaTower::control()
                 weapon1state--;
             }
         }
-
     }
 }

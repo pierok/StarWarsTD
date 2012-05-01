@@ -144,7 +144,7 @@ void Enemy::weaponFire()
 bool Enemy::isCollide(int mX, int mY)
 {
 
-    int rad=40;
+    int rad=50;
     if((mX-this->scenePos().x())*(mX-this->scenePos().x())
             +(mY-this->scenePos().y())*(mY-this->scenePos().y())<=rad*rad)
     {
