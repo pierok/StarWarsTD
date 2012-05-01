@@ -39,7 +39,7 @@ void Deploy::deploy()
             if(timer==0)
             {
 
-                Enemy* tmp;
+                Enemy* tmp=NULL;
                 if(enemy==0)
                 {
                     timer=rate;

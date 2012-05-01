@@ -23,12 +23,18 @@ public:
                QWidget *widget);
     int lifetimer;
     bool deactive;
-    virtual void reset();
     void control();
-
+    virtual void reset();
     void setTarget(DeathStar* d);
 
+    inline double getDamage()
+    {
+        return damage;
+    }
+
+    bool isEnemy;
 protected:
+    double damage;
     DeathStar* target;
 };
 

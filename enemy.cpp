@@ -25,6 +25,7 @@ Enemy::Enemy()
     death=false;
     fire=true;
     weapon1state=0;
+    direction=QVector2D(0,0);
     m_boundingRect=QRectF(-350/16,-470/16,350/8,470/8);
 }
 
@@ -32,6 +33,7 @@ void Enemy::paint(QPainter *painter, const QStyleOptionGraphicsItem *, QWidget *
 {
     QPixmap ship(":/data/SokolMilenium.png");
     painter->drawPixmap(QRect(-350/16,-470/16,350/8,470/8),ship);
+    painter->setPen(Qt::white);
 }
 
 void Enemy::hit(double damage)
@@ -52,8 +54,6 @@ void Enemy::control()
     qreal playerX=target->scenePos().x();
     qreal playerY=target->scenePos().y();
 
-
-
     if((playerX-this->scenePos().x())*(playerX-this->scenePos().x())
             +(playerY-this->scenePos().y())*(playerY-this->scenePos().y())<=radius*radius)
     {
@@ -66,6 +66,9 @@ void Enemy::control()
 
     double linex = ( playerX- this->scenePos().x());
     double liney = ( playerY- this->scenePos().y());
+
+    direction.setX(linex);
+    direction.setY(liney);
 
     double arc = atan2(linex,-liney);
     arc = arc * 180.0 / Pi;
@@ -135,6 +138,22 @@ void Enemy::weaponFire()
     missile->slide = this->slide - 0.08;
 
 }
+
+
+
+bool Enemy::isCollide(int mX, int mY)
+{
+
+    int rad=40;
+    if((mX-this->scenePos().x())*(mX-this->scenePos().x())
+            +(mY-this->scenePos().y())*(mY-this->scenePos().y())<=rad*rad)
+    {
+
+        return true;
+    }
+    return false;
+}
+
 
 Xwing::Xwing()
 {

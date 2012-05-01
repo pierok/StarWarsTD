@@ -30,14 +30,14 @@ Arena::Arena(QPixmap *p)
     deploy1->deployEnemy(0);
     deploy1->setPos(60,60);
     deploy1->setRate(80);
-    deploy1->deploySize(20);
+    deploy1->deploySize(1);
 
     deploy2=new Deploy();
 
     deploy2->deployEnemy(1);
     deploy2->setPos(qp->size().width()-500,60);
     deploy2->setRate(20);
-    deploy2->deploySize(40);
+    deploy2->deploySize(0);
 
     this->addItem(deploy1);
     this->addItem(deploy2);
@@ -127,9 +127,24 @@ void Arena::step()
             misile->control();
             misile->physics();
             misile->step();
+            if(!misile->isEnemy)
+            {
+                foreach(Enemy* enemy, enemys)
+                {
+                    if(enemy->death==false&&enemy->isCollide(misile->scenePos().x(),misile->scenePos().y()))
+                    {
+                        enemy->hit(misile->getDamage());
+                        misile->deactive=true;
+                        misile->hide();
+                        factoy.deactivateMissile(misile,2);
+
+                        Explosion* exp=factoy.getExplosion(20);
+                        exp->setPos(misile->scenePos());
+                    }
+                }
+            }
         }
     }
-
 }
 
 void Arena::wheelEvent( QGraphicsSceneWheelEvent *event )
@@ -160,7 +175,7 @@ void Arena::mousePressEvent(QGraphicsSceneMouseEvent *event)
     {
         PlasmaTower* plasma= new PlasmaTower();
         plasma->setPos(event->scenePos().x(),event->scenePos().y());
-        plasma->setRadius(300);
+        plasma->setRadius(800);
         plasma->setBoundingRect(QRectF(-150,-150,300,300));
         this->addItem(plasma);
         towers.insert(plasma);

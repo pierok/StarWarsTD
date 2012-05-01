@@ -4,6 +4,7 @@
 #include <QGraphicsItem>
 #include <QPainter>
 #include <QStyleOption>
+#include <QVector2D>
 #include <iostream>
 #include "deathstar.h"
 #include "movingobject.h"
@@ -45,9 +46,11 @@ public:
 
 
     virtual void weaponFire();
+    virtual bool isCollide(int x, int y);
     bool inRange();
     bool fire;
     int weapon1state;
+    QVector2D direction;
 
 
 protected:
@@ -55,7 +58,6 @@ protected:
     double armor;
 
     DeathStar* target;
-
     QRectF m_boundingRect;
 };
 

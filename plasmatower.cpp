@@ -20,7 +20,7 @@ PlasmaTower::PlasmaTower()
     acc = 0.07;
     slideacc = 0.12;
     brake = 0.10;
-    rotacc = 0.4;
+    rotacc = 0.8;
     enemy=NULL;
 }
 
@@ -38,6 +38,8 @@ void PlasmaTower::weaponFire()
     // missile->deactive=false;
     //missile->lifetimer=100;
     missile->setPos(this->scenePos());
+    //missile->setPos(missile->scenePos().x()-5,missile->scenePos().y()-20);
+    //missile->translate(-10,-40);
     missile->rotate(this->angle);// - 0.5 + 1.0*rand()/RAND_MAX);
     missile->speed = this->speed+18;
     missile->slide = this->slide - 0.08;
@@ -69,6 +71,9 @@ void PlasmaTower::control()
         qreal playerX=enemy->scenePos().x();
         qreal playerY=enemy->scenePos().y();
 
+
+
+
         if((playerX-this->scenePos().x())*(playerX-this->scenePos().x())
                 +(playerY-this->scenePos().y())*(playerY-this->scenePos().y())<=radius*radius)
         {
@@ -79,8 +84,18 @@ void PlasmaTower::control()
             fire=false;
         }
 
+
+        enemy->direction.normalize();
+        enemy->direction*=(enemy->speed*(this->speed+18));
+        std::cout<<"Przed: X: "<<playerX<<" Y: "<<playerY<<std::endl;
+        playerX+=enemy->direction.x();
+        playerY+=enemy->direction.x();
+        std::cout<<"Po: X: "<<playerX<<" Y: "<<playerY<<std::endl;
+
         double linex = ( playerX- this->scenePos().x());
         double liney = ( playerY- this->scenePos().y());
+
+
 
         double arc = atan2(linex,-liney);
         arc = arc * 180.0 / Pi;
@@ -110,6 +125,9 @@ void PlasmaTower::control()
             rot = rot - rotacc;
         }
 
+        physics();
+        step();
+
         if(fire)
         {
             if(weapon1state==0)
@@ -123,7 +141,6 @@ void PlasmaTower::control()
                 weapon1state--;
             }
         }
-        physics();
-        step();
+
     }
 }

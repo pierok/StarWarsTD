@@ -21,9 +21,8 @@ Missile::Missile()
     friction = 0.9975;
     slidefriction = 0.96;
     rotfriction = 0.98;
-
+    isEnemy=true;
 }
-
 
 void Missile::reset()
 {
@@ -38,9 +37,8 @@ void Missile::reset()
     friction = 0.9975;
     slidefriction = 0.96;
     rotfriction = 0.98;
-
+    isEnemy=true;
 }
-
 
 void Missile::paint(QPainter *painter, const QStyleOptionGraphicsItem *, QWidget *)
 {
@@ -104,9 +102,9 @@ Plasma::Plasma()
     friction = 0.9975;
     slidefriction = 0.96;
     rotfriction = 0.98;
-
+    isEnemy=false;
+    damage=10;
 }
-
 
 void Plasma::reset()
 {
@@ -121,9 +119,9 @@ void Plasma::reset()
     friction = 0.9975;
     slidefriction = 0.96;
     rotfriction = 0.98;
-
+    isEnemy=false;
+    damage=10;
 }
-
 
 void Plasma::control()
 {
@@ -148,7 +146,7 @@ void Plasma::paint(QPainter *painter, const QStyleOptionGraphicsItem *, QWidget 
 {
     painter->setPen(Qt::NoPen);
     painter->setBrush(Qt::yellow);
-    painter->drawEllipse(0,0,8,8);
+    painter->drawEllipse(-4,-4,8,8);
 }
 
 //========================================Laser========================================
@@ -166,9 +164,8 @@ Laser::Laser()
     friction = 0.9975;
     slidefriction = 0.96;
     rotfriction = 0.98;
-
+    isEnemy=true;
 }
-
 
 void Laser::reset()
 {
@@ -183,7 +180,7 @@ void Laser::reset()
     friction = 0.9975;
     slidefriction = 0.96;
     rotfriction = 0.98;
-
+    isEnemy=true;
 }
 
 void Laser::paint(QPainter *painter, const QStyleOptionGraphicsItem *, QWidget *)
@@ -192,7 +189,6 @@ void Laser::paint(QPainter *painter, const QStyleOptionGraphicsItem *, QWidget *
     painter->setBrush(Qt::green);
     painter->drawRect(-2,0,4,10);
 }
-
 
 void Laser::control()
 {
@@ -227,10 +223,7 @@ void Laser::control()
     }
 }
 
-
 //========================================Prism========================================
-
-
 Prism::Prism()
 {
     // std::cout<<"Prism counstract"<<std::endl;
