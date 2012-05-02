@@ -37,9 +37,9 @@ MainWindow::MainWindow(QWidget *parent) :
 
     // Resize refer to desktop
     //this->resize( QApplication::desktop()->size() );
-    int x=QApplication::desktop()->size().width();
-    int y= QApplication::desktop()->size().height();
-    this->resize(x-10,y-68);
+    //int x=QApplication::desktop()->size().width();
+    //int y= QApplication::desktop()->size().height();
+    //this->resize(x-10,y-68);
 
     // this->setFocusPolicy( Qt::StrongFocus );
     // this->setAttribute(Qt::WA_QuitOnClose, true);
@@ -49,6 +49,12 @@ MainWindow::MainWindow(QWidget *parent) :
 
     ui->prismButton->setIcon(QIcon(QPixmap(":/data/PrismTower.png")));
     ui->prismButton->setIconSize(QSize(61,61));
+
+    ui->infoLabel->setBackgroundRole(QPalette::Base);
+    ui->infoLabel->setSizePolicy(QSizePolicy::Ignored, QSizePolicy::Ignored);
+    ui->infoLabel->setScaledContents(true);
+
+    ui->infoLabel->setPixmap(QPixmap(":/data/info.png"));
 
 }
 
@@ -115,18 +121,20 @@ MainWindow::~MainWindow()
     delete ui;
 }
 
-void MainWindow::on_pushButton_clicked()
-{
-    arena->deploy1->start();
-    arena->deploy2->start();
-}
-
 void MainWindow::on_prismButton_clicked()
 {
     arena->setGun(A_PRISM);
+    ui->infoLabel->setPixmap(QPixmap(":/data/prismInfo.png"));
 }
 
 void MainWindow::on_plasmaButton_clicked()
 {
     arena->setGun(A_PLASMA);
+    ui->infoLabel->setPixmap(QPixmap(":/data/plasmaInfo.png"));
+}
+
+void MainWindow::on_startButton_clicked()
+{
+    arena->deploy1->start();
+    arena->deploy2->start();
 }

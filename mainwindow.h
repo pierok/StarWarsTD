@@ -30,18 +30,15 @@ private:
     bool processed;
     QPixmap* qp;
 
-    QLabel *imageLabel;
-
-
 public slots:
     void keyPressEvent( QKeyEvent *event );
     void wheelEvent( QWheelEvent *event);
 
 private slots:
     void MainClockTick();
-    void on_pushButton_clicked();
     void on_prismButton_clicked();
     void on_plasmaButton_clicked();
+    void on_startButton_clicked();
 };
 
 #endif // MAINWINDOW_H

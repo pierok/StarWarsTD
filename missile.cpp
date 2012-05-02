@@ -103,7 +103,7 @@ Plasma::Plasma()
     slidefriction = 0.96;
     rotfriction = 0.98;
     isEnemy=false;
-    damage=1;
+    damage=2;
 }
 
 void Plasma::reset()

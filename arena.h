@@ -48,12 +48,10 @@ public:
         info=s;
     }
 
-
 private:
     GUNS gun;
     QPixmap* qp;
     DeathStar* deathStar;
-
 
     QString* info;
 

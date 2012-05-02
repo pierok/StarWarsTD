@@ -7,5 +7,8 @@
         <file>data/X-Wing.png</file>
         <file>data/TIE_fighter.png</file>
         <file>data/plazmaTower.png</file>
+        <file>data/plasmaInfo.png</file>
+        <file>data/prismInfo.png</file>
+        <file>data/info.png</file>
     </qresource>
 </RCC>
