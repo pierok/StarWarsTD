@@ -10,5 +10,7 @@
         <file>data/plasmaInfo.png</file>
         <file>data/prismInfo.png</file>
         <file>data/info.png</file>
+        <file>data/start.png</file>
+        <file>data/start2.png</file>
     </qresource>
 </RCC>

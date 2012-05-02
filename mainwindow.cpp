@@ -51,10 +51,10 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->prismButton->setIconSize(QSize(61,61));
 
     ui->infoLabel->setBackgroundRole(QPalette::Base);
-    ui->infoLabel->setSizePolicy(QSizePolicy::Ignored, QSizePolicy::Ignored);
-    ui->infoLabel->setScaledContents(true);
+    //ui->infoLabel->setSizePolicy(QSizePolicy::Ignored, QSizePolicy::Ignored);
+    //ui->infoLabel->setScaledContents(true);
 
-    ui->infoLabel->setPixmap(QPixmap(":/data/info.png"));
+    ui->infoLabel->setPixmap(QPixmap(":/data/start2.png"));
 
 }
 
