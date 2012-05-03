@@ -1,7 +1,8 @@
 #include "lifebar.h"
 
-LifeBar::LifeBar(int life):life(life)
+LifeBar::LifeBar(int life,int size):life(life),size(size)
 {
+    sizeLife=life/size;
 }
 
 
@@ -15,8 +16,8 @@ void LifeBar::paint(QPainter *painter, const QStyleOptionGraphicsItem *, QWidget
     painter->setPen(Qt::black);
 
     painter->setBrush(Qt::red);
-    painter->drawRect(125,5,250,10);
+    painter->drawRect(125,5,size,10);
 
     painter->setBrush(Qt::green);
-    painter->drawRect(125,5,(life/4),10);
+    painter->drawRect(125,5,(life/sizeLife),10);
 }

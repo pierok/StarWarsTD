@@ -7,10 +7,11 @@
         <file>data/X-Wing.png</file>
         <file>data/TIE_fighter.png</file>
         <file>data/plazmaTower.png</file>
-        <file>data/plasmaInfo.png</file>
-        <file>data/prismInfo.png</file>
         <file>data/info.png</file>
         <file>data/start.png</file>
         <file>data/start2.png</file>
+        <file>data/plasmaInfo.png</file>
+        <file>data/prismInfo.png</file>
+        <file>data/generator.png</file>
     </qresource>
 </RCC>

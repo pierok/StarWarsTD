@@ -24,7 +24,8 @@ SOURCES += main.cpp\
     factory.cpp \
     lifebar.cpp \
     customview.cpp \
-    plasmatower.cpp
+    plasmatower.cpp \
+    generator.cpp
 
 HEADERS  += mainwindow.h \
     tower.h \
@@ -39,12 +40,15 @@ HEADERS  += mainwindow.h \
     factory.h \
     lifebar.h \
     customview.h \
-    plasmatower.h
+    plasmatower.h \
+    generator.h
 
 FORMS    += mainwindow.ui
 
 RESOURCES += \
     data.qrc
+
+
 
 
 

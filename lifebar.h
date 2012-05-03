@@ -9,7 +9,7 @@
 class LifeBar : public QGraphicsItem
 {
 public:
-    LifeBar(int life);
+    LifeBar(int life,int size);
 
     QRectF boundingRect() const;
     void setBoundingRect(QRectF);
@@ -25,8 +25,10 @@ public:
     }
 
     int life;
+    int size;
 private:
     QRectF m_boundingRect;
+    int sizeLife;
     //int life;
 
 };

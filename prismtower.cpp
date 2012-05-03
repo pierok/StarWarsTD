@@ -8,7 +8,7 @@
 PrismTower::PrismTower()
 {
     radius=1;
-    cost=50;
+    cost=30;
     weapon1state=0;
     fire=false;
     enemy=NULL;
@@ -53,7 +53,7 @@ void PrismTower::control()
     {
         if(weapon1state==0)
         {
-            weapon1state=100;
+            weapon1state=90;
             weaponFire();
         }
 

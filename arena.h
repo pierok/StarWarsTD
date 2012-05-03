@@ -11,6 +11,7 @@
 #include "factory.h"
 #include "tower.h"
 #include "deathstar.h"
+#include "generator.h"
 #include "deploy.h"
 
 class Tower;
@@ -52,6 +53,8 @@ private:
     GUNS gun;
     QPixmap* qp;
     DeathStar* deathStar;
+    Generator* gen1;
+    Generator* gen2;
 
     QString* info;
 
