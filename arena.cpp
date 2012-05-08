@@ -76,7 +76,8 @@ Arena::Arena(QPixmap *p)
     this->addLine(gen2->scenePos().x(),gen2->scenePos().y(),
                   deathStar->scenePos().x(),deathStar->scenePos().y(),QPen(Qt::gray,2));
 
-    this->addEllipse(deathStar->scenePos().x()-300,deathStar->scenePos().y()-300,600,600,QPen(Qt::red,4));
+    this->addEllipse(deathStar->scenePos().x()-300,deathStar->scenePos().y()-300,600,600,
+                     QPen(QColor(240,0,0,100),2),QBrush(QColor(255,0,0,40)));
 
 
     this->addItem(deploy1);
@@ -121,7 +122,6 @@ void Arena::step()
             {
                 enemy->setTarget(gen2);
             }
-
         }
     }
 
@@ -139,7 +139,6 @@ void Arena::step()
             {
                 enemy->setTarget(deathStar);
             }
-
         }
     }
 

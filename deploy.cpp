@@ -12,13 +12,12 @@ Deploy::Deploy()
 void Deploy::paint(QPainter *painter, const QStyleOptionGraphicsItem *, QWidget *)
 {
     painter->setPen(QPen(Qt::NoPen));
-    painter->setBrush(QColor(0,0,0,220));
+    painter->setBrush(QColor(0,0,0,120));
     painter->drawEllipse(0,0,200,200);
     /*painter->setBrush(QColor(0,0,0,200));
     painter->drawEllipse(25,25,150,150);
     painter->setBrush(QColor(0,0,0,250));
     painter->drawEllipse(50,50,100,100);*/
-
 }
 
 QRectF Deploy::boundingRect() const
@@ -38,7 +37,6 @@ void Deploy::deploy()
         {
             if(timer==0)
             {
-
                 Enemy* tmp=NULL;
                 if(enemy==0)
                 {
