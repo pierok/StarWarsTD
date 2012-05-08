@@ -45,10 +45,10 @@ Arena::Arena(QPixmap *p)
     gen2->setPos(qp->size().width()-500,qp->size().height()-200);
 
     lifgen1->setPos(gen1->scenePos());
-    lifgen1->translate(-250,100);
+    lifgen1->translate(-180,100);
 
     lifgen2->setPos(gen2->scenePos());
-    lifgen2->translate(-250,100);
+    lifgen2->translate(-180,100);
 
     deploy1=new Deploy();
     deploy1->deployEnemy(0);
@@ -62,6 +62,22 @@ Arena::Arena(QPixmap *p)
     deploy2->setPos(qp->size().width()-500,60);
     deploy2->setRate(20);
     deploy2->deploySize(20);
+
+
+    this->addLine(deploy1->scenePos().x()+100,deploy1->scenePos().y()+100,
+                  gen1->scenePos().x(),gen1->scenePos().y(),QPen(Qt::gray,2));
+
+    this->addLine(deploy2->scenePos().x()+100,deploy2->scenePos().y()+100,
+                  gen1->scenePos().x(),gen1->scenePos().y(),QPen(Qt::gray,2));
+
+    this->addLine(gen1->scenePos().x(),gen1->scenePos().y(),
+                  gen2->scenePos().x(),gen2->scenePos().y(),QPen(Qt::gray,2));
+
+    this->addLine(gen2->scenePos().x(),gen2->scenePos().y(),
+                  deathStar->scenePos().x(),deathStar->scenePos().y(),QPen(Qt::gray,2));
+
+    this->addEllipse(deathStar->scenePos().x()-300,deathStar->scenePos().y()-300,600,600,QPen(Qt::red,4));
+
 
     this->addItem(deploy1);
     this->addItem(deploy2);
