@@ -66,7 +66,6 @@ private:
     int amount;
     int time;
 
-
 public slots:
     void mousePressEvent(QGraphicsSceneMouseEvent *event);
     void wheelEvent( QGraphicsSceneWheelEvent *event);

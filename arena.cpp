@@ -40,16 +40,15 @@ Arena::Arena(QPixmap *p)
     gen1->setLifeBar(lifgen1);
     gen2->setLifeBar(lifgen2);
 
-    gen1->setPos(600,qp->size().height()-600);
+    gen1->setPos(600,1300);
 
-    gen2->setPos(qp->size().width()-500,qp->size().height()/2-200);
+    gen2->setPos(qp->size().width()-500,qp->size().height()-200);
 
     lifgen1->setPos(gen1->scenePos());
     lifgen1->translate(-250,100);
 
     lifgen2->setPos(gen2->scenePos());
     lifgen2->translate(-250,100);
-
 
     deploy1=new Deploy();
     deploy1->deployEnemy(0);
@@ -72,7 +71,6 @@ Arena::Arena(QPixmap *p)
     this->addItem(lifgen2);
     this->addItem(deathStar);
     this->addItem(l);
-
 }
 
 void Arena::step()
@@ -102,6 +100,12 @@ void Arena::step()
             exp->setPos(gen1->scenePos());
             gen1->hide();
             gen1->deactive=true;
+
+            foreach(Enemy *enemy, enemys)
+            {
+                enemy->setTarget(gen2);
+            }
+
         }
     }
 
@@ -114,6 +118,12 @@ void Arena::step()
             exp->setPos(gen2->scenePos());
             gen2->hide();
             gen2->deactive=true;
+
+            foreach(Enemy *enemy, enemys)
+            {
+                enemy->setTarget(deathStar);
+            }
+
         }
     }
 
@@ -123,7 +133,7 @@ void Arena::step()
     while(!spawnEnemy.empty())
     {
         Enemy* en1= spawnEnemy.dequeue();
-        en1->setTarget(deathStar);
+        en1->setTarget(gen1);//(deathStar);
         this->addItem(en1);
         enemys.insert(en1);
     }

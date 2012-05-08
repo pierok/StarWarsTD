@@ -9,7 +9,7 @@
 #include <QColor>
 #include "movingobject.h"
 #include "arena.h"
-
+#include "target.h"
 
 enum guns {MISSILE, LASER, PLASMA};
 
@@ -25,7 +25,7 @@ public:
     bool deactive;
     void control();
     virtual void reset();
-    void setTarget(DeathStar* d);
+    void setTarget(Target* d);
 
     inline double getDamage()
     {
@@ -35,7 +35,7 @@ public:
     bool isEnemy;
 protected:
     double damage;
-    DeathStar* target;
+    Target* target;
 };
 
 class Plasma : public Missile

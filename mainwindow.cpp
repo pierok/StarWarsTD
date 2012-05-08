@@ -7,6 +7,10 @@ MainWindow::MainWindow(QWidget *parent) :
     ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
+   // this->
+
+
+
     this->setWindowTitle("Star Wars TD");
     qsrand(QTime(0,0,0).secsTo(QTime::currentTime()));
     connect(&maintimer, SIGNAL(timeout()), this, SLOT(MainClockTick()));

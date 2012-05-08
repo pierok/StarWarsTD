@@ -5,9 +5,10 @@
 #include <QGraphicsItem>
 #include <QPainter>
 #include <QStyleOption>
+#include "target.h"
 #include "lifebar.h"
 
-class Generator: public QGraphicsItem
+class Generator: public Target
 {
 public:
     Generator();
@@ -19,15 +20,7 @@ public:
     void setBoundingRect(QRectF);
 
     void step();
-    inline void hit(double i)
-    {
-        life-=i;
-        lifebar->updateLife(life);
-        if(life<=0)
-        {
-            lifebar->hide();
-        }
-    }
+    void hit(double i);
 
     inline void setLifeBar(LifeBar *l)
     {

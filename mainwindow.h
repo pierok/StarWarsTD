@@ -11,6 +11,15 @@
 namespace Ui {
     class MainWindow;
 }
+/*
+#include <QGraphicsView>
+#include <QtOpenGL>
+#include <QMutex>*/
+/*
+class Window : public QGraphicsView
+{
+    Q_OBJECT    // makro mówi¹ce ¿e to jest QObject - obiekt interfejsu QT
+public:*/
 
 class MainWindow : public QMainWindow
 {

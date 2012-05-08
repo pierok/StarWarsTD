@@ -1,10 +1,11 @@
 #include "lifebar.h"
+#include "math.h"
+#include <iostream>
 
 LifeBar::LifeBar(int life,int size):life(life),size(size)
 {
-    sizeLife=life/size;
+    sizeLife=(double)life/size;
 }
-
 
 QRectF LifeBar::boundingRect() const
 {
@@ -21,3 +22,4 @@ void LifeBar::paint(QPainter *painter, const QStyleOptionGraphicsItem *, QWidget
     painter->setBrush(Qt::green);
     painter->drawRect(125,5,(life/sizeLife),10);
 }
+

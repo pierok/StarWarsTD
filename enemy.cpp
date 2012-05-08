@@ -164,13 +164,13 @@ Xwing::Xwing()
     rot = 0;
 
     friction = 0.9966;
-    slidefriction = 0.9850;
+    slidefriction = 0.9750;//0.9850
     rotfriction = 0.9750;
 
     acc = 0.18;
     slideacc = 0.12;
     brake = 0.10;
-    rotacc = 0.2;
+    rotacc = 0.4;
 
     life=150;
     armor=100;
@@ -180,21 +180,9 @@ Xwing::Xwing()
     m_boundingRect=QRectF(-410/16,-326/16,410/8,326/8);
 }
 
-
-
 void Xwing::weaponFire()
 {
-  /* Missile *missile = Arena::factoy.getMissile();
-    // missile->deactive=false;
-    //missile->lifetimer=100;
-    missile->setPos(this->scenePos());
-    missile->rotate(this->angle);// - 0.5 + 1.0*rand()/RAND_MAX);
-    missile->speed = this->speed+18;
-    missile->slide = this->slide - 0.08;*/
-
     Missile *missile = Arena::factoy.getMissile(1);
-    // missile->deactive=false;
-    //missile->lifetimer=100;
     missile->setTarget(target);
     missile->setPos(this->scenePos());
     missile->rotate(this->angle);// - 0.5 + 1.0*rand()/RAND_MAX);
@@ -207,8 +195,3 @@ void Xwing::paint(QPainter *painter, const QStyleOptionGraphicsItem *, QWidget *
     QPixmap ship(":/data/X-Wing.png");
     painter->drawPixmap(QRect(-410/16,-326/16,410/8,326/8),ship);
 }
-
-
-
-
-

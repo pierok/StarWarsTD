@@ -10,6 +10,7 @@
 #include "movingobject.h"
 #include "arena.h"
 #include "explosion.h"
+#include "target.h"
 
 static const double Pi = 3.14159265358979323846264338327950288419717;
 
@@ -37,7 +38,7 @@ public:
         return life;
     }
 
-    inline void setTarget(DeathStar* star)
+    inline void setTarget(Target* star)
     {
         target=star;
     }
@@ -57,7 +58,7 @@ protected:
     double life;
     double armor;
 
-    DeathStar* target;
+    Target* target;
     QRectF m_boundingRect;
 };
 

@@ -4,8 +4,9 @@
 Generator::Generator()
 {
     m_boundingRect=QRectF(-240/4,-180/4,480/4,360/4);
-    life=1000;
+    life=250;
     deactive=false;
+    radius=160;
 }
 
 void Generator::paint(QPainter *painter, const QStyleOptionGraphicsItem *, QWidget *)
@@ -31,3 +32,14 @@ void Generator::setBoundingRect(QRectF rect)
 {
     m_boundingRect=rect;
 }
+
+void Generator::hit(double i)
+{
+    life-=i;
+    lifebar->updateLife(life);
+    if(life<=0)
+    {
+        lifebar->hide();
+    }
+}
+

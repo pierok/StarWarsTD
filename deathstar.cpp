@@ -5,6 +5,7 @@ DeathStar::DeathStar()
     m_boundingRect=QRectF(-145,-145,290,290);
     life=1000;
     deactive=false;
+    radius=200;
 }
 
 void DeathStar::paint(QPainter *painter, const QStyleOptionGraphicsItem *, QWidget *)
@@ -31,6 +32,14 @@ void DeathStar::setBoundingRect(QRectF rect)
     m_boundingRect=rect;
 }
 
-
+void DeathStar::hit(double i)
+{
+    life-=i;
+    lifebar->updateLife(life);
+    if(life<=0)
+    {
+        lifebar->hide();
+    }
+}
 
 

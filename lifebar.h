@@ -28,7 +28,7 @@ public:
     int size;
 private:
     QRectF m_boundingRect;
-    int sizeLife;
+    double sizeLife;
     //int life;
 
 };
