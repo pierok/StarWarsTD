@@ -20,6 +20,8 @@ public:
     void setBoundingRect(QRectF);
 
     virtual void control()=0;
+    virtual void reset()=0;
+
     void physics();
     void step();
     virtual bool inRange(Enemy *)=0;

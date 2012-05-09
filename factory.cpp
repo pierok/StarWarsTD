@@ -4,15 +4,54 @@ Factory::Factory()
 {
 }
 
-Enemy* Factory::getEnemy()
+void Factory::deactivateEnemy(Enemy* e, int type)
 {
-    if(!enemys.isEmpty())
+    if(type==0)
     {
-        return enemys.dequeue();
-    }else
+        enemys.enqueue(e);
+    }else if(type==1)
     {
-        return new Enemy;
+        xwings.enqueue(e);
     }
+}
+
+
+Enemy* Factory::getEnemy(int type)
+{
+    if(type==0)
+    {
+        if(!enemys.isEmpty())
+        {
+            Enemy* e=enemys.dequeue();
+            e->reset();
+            e->show();
+            e->resetTransform();
+            e->death=false;
+            return e;
+        }else
+        {
+            Enemy* e=new Enemy();
+            Arena::spawnEnemy.enqueue(e);
+            return e;
+        }
+    }else if( type==1)
+    {
+        if(!xwings.isEmpty())
+        {
+            Enemy* e=xwings.dequeue();
+            e->reset();
+            e->show();
+            e->resetTransform();
+            e->death=false;
+            return e;
+        }else
+        {
+            Enemy* xwing=new Xwing();
+            Arena::spawnEnemy.enqueue(xwing);
+            return xwing;
+        }
+    }
+   return NULL;
 }
 
 Explosion* Factory::getExplosion(int size)

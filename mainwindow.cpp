@@ -7,9 +7,10 @@ MainWindow::MainWindow(QWidget *parent) :
     ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
-   // this->
 
-
+   // this->setWindowState(Qt::WindowFullScreen);
+    //this->setFocusPolicy( Qt::StrongFocus );
+   // this->setAttribute(Qt::WA_QuitOnClose, true);
 
     this->setWindowTitle("Star Wars TD");
     qsrand(QTime(0,0,0).secsTo(QTime::currentTime()));
@@ -36,6 +37,7 @@ MainWindow::MainWindow(QWidget *parent) :
     actions.insert(Qt::Key_1, PRISM);
     actions.insert(Qt::Key_2, PLASMA);
     actions.insert(Qt::Key_0, None);
+    actions.insert(Qt::Key_Escape, Quit);
 
     maintimer.start(30);
 
@@ -55,10 +57,10 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->prismButton->setIconSize(QSize(61,61));
 
     ui->infoLabel->setBackgroundRole(QPalette::Base);
-    //ui->infoLabel->setSizePolicy(QSizePolicy::Ignored, QSizePolicy::Ignored);
-    //ui->infoLabel->setScaledContents(true);
-
     ui->infoLabel->setPixmap(QPixmap(":/data/start2.png"));
+
+    ui->selectMode->setTabText(0,"Game mode");
+    ui->selectMode->setTabText(1,"Learn mode");
 
 }
 
@@ -113,6 +115,8 @@ void MainWindow::keyPressEvent( QKeyEvent *event )
     case None:
         arena->setGun(A_NONE);
         break;
+    case Quit:
+        this->close();
     default:
         event->ignore();
         return;
@@ -139,6 +143,15 @@ void MainWindow::on_plasmaButton_clicked()
 
 void MainWindow::on_startButton_clicked()
 {
+
+    arena->deploy1->setRate(80);
+    arena->deploy1->timer=0;
+    arena->deploy1->deploySize(40);
     arena->deploy1->start();
+
+
+    arena->deploy2->setRate(20);
+    arena->deploy2->timer=0;
+    arena->deploy2->deploySize(80);
     arena->deploy2->start();
 }

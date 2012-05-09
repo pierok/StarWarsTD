@@ -18,10 +18,7 @@ class Factory
 public:
     Factory();
 
-    inline void deactivateEnemy(Enemy* e)
-    {
-        enemys.enqueue(e);
-    }
+    void deactivateEnemy(Enemy* e, int type=0);
 
     inline void deactivateExplosion(Explosion* e)
     {
@@ -30,7 +27,7 @@ public:
 
     void deactivateMissile(Missile* m, int type=0);
 
-    Enemy* getEnemy();
+    Enemy* getEnemy(int type=0);
     Explosion* getExplosion(int size);
     Missile* getMissile(int type=0);
 
@@ -39,6 +36,7 @@ private:
     QQueue<Missile*> lasers;
     QQueue<Missile*> plasma;
     QQueue<Enemy*> enemys;
+    QQueue<Enemy*> xwings;
     QQueue<Explosion*> explosions;
 };
 

@@ -9,28 +9,28 @@ class MovingObject : public QGraphicsItem
 public:
     MovingObject();
     QRectF boundingRect() const;
-    virtual void control();
+    virtual void control()=0;
     virtual void physics();
     virtual void step();
     void paint(QPainter *painter, const QStyleOptionGraphicsItem *option,
                QWidget *widget);
 
-    qreal radius;          // przybli¿ony promieñ obiektu do wstêpnej detekcji kolizji
-    int health;            // punkty ¿ycia
+    float radius;
 
-    qreal angle;           // k¹t pod jakim obrocony jest obiekt wzgledem sceny
-    qreal speed;           // predkosc do przodu wzgledem obiektu
-    qreal slide;           // predkosc w bok wzgledem obiektu
-    qreal rot;             // predkosc obrotowa
 
-    qreal friction;        // wspolczynnik 1-tarcie do przodu
-    qreal slidefriction;   // na boki
-    qreal rotfriction;     // obrotowy
+    float angle;
+    float speed;
+    float slide;
+    float rot;
 
-    qreal acc;             // przyspieszenie
-    qreal brake;           // hamowanie
-    qreal slideacc;        // przyspieszenie boczne
-    qreal rotacc;          // przyspieszenie obrotowe
+    float friction;
+    float slidefriction;
+    float rotfriction;
+
+    float acc;
+    float brake;
+    float slideacc;
+    float rotacc;
 };
 
 

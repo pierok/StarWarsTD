@@ -20,6 +20,7 @@ public:
         prism->setTarget(QPoint(this->scenePos().x(),this->scenePos().y()));
     }
 
+    void reset();
 
     void weaponFire();
     bool inRange(Enemy *);

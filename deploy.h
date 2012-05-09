@@ -43,11 +43,14 @@ public:
         this->rate=rate;
     }
 
+
+
+
+    int timer;
 private:
     int rate;
     int enemy;
     int count;
-    int timer;
     bool startDeploy;
     QRectF m_boundingRect;
 };

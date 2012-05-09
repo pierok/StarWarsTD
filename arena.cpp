@@ -21,7 +21,6 @@ Arena::Arena(QPixmap *p)
 
     this->addPixmap(*qp);
 
-
     deathStar= new DeathStar();
     deathStar->setPos(qp->size().width()/2,qp->size().height()/2);
     deathStar->setLifeBar(l);
@@ -105,6 +104,14 @@ void Arena::step()
             {
                 enemy->hit(10000);
             }
+
+            foreach(Tower *tower, towers)
+            {
+                tower->reset();
+            }
+
+            deploy1->stop();
+            deploy2->stop();
         }
     }
 
@@ -197,7 +204,6 @@ void Arena::step()
         Missile* misile= spawnMissile.dequeue();
         this->addItem(misile);
         missiles.insert(misile);
-
     }
 
     foreach(Missile *misile, missiles)
@@ -229,7 +235,6 @@ void Arena::step()
 
 void Arena::wheelEvent( QGraphicsSceneWheelEvent *event )
 {
-    //float scale = 1.0 + event->delta()*0.001;
     event->accept();
 }
 

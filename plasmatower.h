@@ -15,6 +15,7 @@ public:
     void weaponFire();
     bool inRange(Enemy *);
     void control();
+    void reset();
 
     bool fire;
     int weapon1state;

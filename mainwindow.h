@@ -30,7 +30,7 @@ public:
     ~MainWindow();
 
 private:
-    enum Action {None ,ZoomIn, ZoomOut, PRISM, PLASMA};
+    enum Action {None ,ZoomIn, ZoomOut, PRISM, PLASMA, Quit};
     QMap<int,Action> actions;
     Ui::MainWindow *ui;
     QTimer maintimer;

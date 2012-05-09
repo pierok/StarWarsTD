@@ -12,8 +12,6 @@
 #include "explosion.h"
 #include "target.h"
 
-static const double Pi = 3.14159265358979323846264338327950288419717;
-
 //class Arena;
 
 class Enemy: public MovingObject
@@ -31,7 +29,8 @@ public:
     QRectF boundingRect() const;
     void setBoundingRect(QRectF);
 
-    void hit(double damage);
+    virtual void hit(double damage);
+    virtual void reset();
 
     inline double getLife()
     {
@@ -72,6 +71,9 @@ public:
 
     void paint(QPainter *painter, const QStyleOptionGraphicsItem *option,
                QWidget *widget);
+
+    void hit(double damage);
+    void reset();
 
     void weaponFire();
 

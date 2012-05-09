@@ -29,6 +29,32 @@ Enemy::Enemy()
     m_boundingRect=QRectF(-350/16,-470/16,350/8,470/8);
 }
 
+void Enemy::reset()
+{
+    radius=300;
+    angle = 0;
+    speed = 0.0;
+    slide = 0;
+    rot = 0;
+
+    friction = 0.9966;
+    slidefriction = 0.9850;
+    rotfriction = 0.9750;
+
+    acc = 0.05;
+    slideacc = 0.12;
+    brake = 0.10;
+    rotacc = 0.2;
+
+    life=400;
+    armor=100;
+    death=false;
+    fire=true;
+    weapon1state=0;
+    direction=QVector2D(0,0);
+    m_boundingRect=QRectF(-350/16,-470/16,350/8,470/8);
+}
+
 void Enemy::paint(QPainter *painter, const QStyleOptionGraphicsItem *, QWidget *)
 {
     QPixmap ship(":/data/SokolMilenium.png");
@@ -43,6 +69,7 @@ void Enemy::hit(double damage)
     {
         death=true;
         this->hide();
+        Arena::factoy.deactivateEnemy(this);
         Explosion* expl = Arena::factoy.getExplosion(60);
         expl->setPos(this->scenePos());
     }
@@ -71,7 +98,7 @@ void Enemy::control()
     direction.setY(liney);
 
     double arc = atan2(linex,-liney);
-    arc = arc * 180.0 / Pi;
+    arc = arc * 180.0 / M_PI ;
     if(arc<0) arc+=360;
     double diff = angle - arc;
     if(diff<-180) diff+=360;
@@ -179,6 +206,46 @@ Xwing::Xwing()
     weapon1state=0;
     m_boundingRect=QRectF(-410/16,-326/16,410/8,326/8);
 }
+
+void Xwing::reset()
+{
+    radius=1000;
+    angle = 0;
+    speed = 0.5;
+    slide = 0;
+    rot = 0;
+
+    friction = 0.9966;
+    slidefriction = 0.9750;//0.9850
+    rotfriction = 0.9750;
+
+    acc = 0.18;
+    slideacc = 0.12;
+    brake = 0.10;
+    rotacc = 0.4;
+
+    life=150;
+    armor=100;
+    death=false;
+    fire=true;
+    weapon1state=0;
+    m_boundingRect=QRectF(-410/16,-326/16,410/8,326/8);
+}
+
+
+void Xwing::hit(double damage)
+{
+    life-=damage;
+    if(life<=0)
+    {
+        death=true;
+        this->hide();
+        Arena::factoy.deactivateEnemy(this,1);
+        Explosion* expl = Arena::factoy.getExplosion(60);
+        expl->setPos(this->scenePos());
+    }
+}
+
 
 void Xwing::weaponFire()
 {

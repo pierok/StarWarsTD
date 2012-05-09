@@ -25,6 +25,12 @@ PlasmaTower::PlasmaTower()
     cost=10;
 }
 
+void PlasmaTower::reset()
+{
+    weapon1state=0;
+    fire=false;
+    enemy=NULL;
+}
 
 void PlasmaTower::paint(QPainter *painter, const QStyleOptionGraphicsItem *option,
                         QWidget *widget)
@@ -68,14 +74,6 @@ void PlasmaTower::control()
 {
     if(enemy!=NULL)
     {
-
-      //  enemy->direction.normalize();
-
-      //  enemy->direction*=60;
-
-       // std::cout<<"direction "<<enemy->direction.length()<<std::endl;
-
-
         qreal playerX=enemy->scenePos().x();
         qreal playerY=enemy->scenePos().y();
 
@@ -101,7 +99,7 @@ void PlasmaTower::control()
         double liney = ( playerY- this->scenePos().y());
 
         double arc = atan2(linex,-liney);
-        arc = arc * 180.0 / Pi;
+        arc = arc * 180.0 / M_PI;
         if(arc<0) arc+=360;
         double diff = angle - arc;
         if(diff<-180) diff+=360;

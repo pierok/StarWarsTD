@@ -28,11 +28,6 @@ QRectF MovingObject::boundingRect() const
     return QRectF(-10,-10,20,20);
 }
 
-void MovingObject::control()
-{
-    ;
-}
-
 void MovingObject::physics()
 {
     if((speed >= 0.025) || (speed <= -0.025))

@@ -20,7 +20,6 @@ void Generator::paint(QPainter *painter, const QStyleOptionGraphicsItem *, QWidg
 void Generator::step()
 {
     this->rotate(0.08);
-    //lifebar->updateLife(lifebar->life-1);
 }
 
 QRectF Generator::boundingRect() const

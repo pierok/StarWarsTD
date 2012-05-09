@@ -14,6 +14,13 @@ PrismTower::PrismTower()
     enemy=NULL;
 }
 
+void PrismTower::reset()
+{
+    weapon1state=0;
+    fire=false;
+    enemy=NULL;
+}
+
 void PrismTower::paint(QPainter *painter, const QStyleOptionGraphicsItem *, QWidget *)
 {
     /*painter->setPen(Qt::NoPen);
