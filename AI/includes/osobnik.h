@@ -1,12 +1,12 @@
-#ifndef CHROMOSOM_H
-#define CHROMOSOM_H
+#ifndef OSOBNIK_H
+#define OSOBNIK_H
 
 #include <QList>
 #include "AI/includes/gen.h"
-class Chromosom
+class Osobnik
 {
 public:
-    Chromosom();
+    Osobnik();
     void addGen(Gen* gen)
     {
         gens.push_back(gen);

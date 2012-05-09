@@ -46,12 +46,14 @@ HEADERS  += mainwindow.h \
     generator.h \
     target.h \
     AI/includes/gen.h \
-    AI/includes/Chromosom.h
+    AI/includes/osobnik.h
 
 FORMS    += mainwindow.ui
 
 RESOURCES += \
     data.qrc
+
+
 
 
 

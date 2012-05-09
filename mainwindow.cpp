@@ -83,7 +83,7 @@ void MainWindow::wheelEvent( QWheelEvent *event )
 
     float scale = 1.0 + event->delta()*0.001;
     ui->gameView->scale(scale,scale);
-    std::cout<<"Main window event wheel"<<std::endl;
+    //std::cout<<"Main window event wheel"<<std::endl;
     event->accept();
 }
 
