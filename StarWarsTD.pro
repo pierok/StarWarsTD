@@ -26,7 +26,8 @@ SOURCES += main.cpp\
     customview.cpp \
     plasmatower.cpp \
     generator.cpp \
-    target.cpp
+    target.cpp \
+    AI/src/gen.cpp
 
 HEADERS  += mainwindow.h \
     tower.h \
@@ -43,12 +44,19 @@ HEADERS  += mainwindow.h \
     customview.h \
     plasmatower.h \
     generator.h \
-    target.h
+    target.h \
+    AI/includes/gen.h \
+    AI/includes/Chromosom.h
 
 FORMS    += mainwindow.ui
 
 RESOURCES += \
     data.qrc
+
+
+
+
+
 
 
 

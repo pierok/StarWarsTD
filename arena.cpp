@@ -79,6 +79,9 @@ Arena::Arena(QPixmap *p)
                      QPen(QColor(240,0,0,100),2),QBrush(QColor(255,0,0,40)));
 
 
+   // this->addEllipse(2048,2048,3,3, QPen(QColor(240,0,0,100),2),QBrush(QColor(255,0,0)));
+
+
     this->addItem(deploy1);
     this->addItem(deploy2);
     this->addItem(gen1);
