@@ -6,13 +6,18 @@
 class Osobnik
 {
 public:
-    Osobnik();
-    void addGen(Gen* gen)
+    Osobnik()
     {
-        gens.push_back(gen);
+        amount=800;
     }
+
+
+    void generujChromosom();
+
+    QList<Gen*> chromosom;
+
 private:
-    QList<Gen*> gens;
+    int amount;
 };
 
 

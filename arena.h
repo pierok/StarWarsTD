@@ -49,6 +49,8 @@ public:
         info=s;
     }
 
+    void addTower(int x, int y);
+
 private:
     GUNS gun;
     QPixmap* qp;

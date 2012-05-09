@@ -7,6 +7,7 @@
 #include <QPixmap>
 #include <QString>
 #include "arena.h"
+#include "AI/includes/populacja.h"
 
 namespace Ui {
     class MainWindow;
@@ -38,6 +39,8 @@ private:
     QString* info;
     bool processed;
     QPixmap* qp;
+    Populacja* nowaPopulacja;
+    int speed;
 
 public slots:
     void keyPressEvent( QKeyEvent *event );
@@ -48,6 +51,9 @@ private slots:
     void on_prismButton_clicked();
     void on_plasmaButton_clicked();
     void on_startButton_clicked();
+    void on_learnButton_clicked();
+    void on_horizontalSlider_sliderMoved(int position);
+    void on_horizontalSlider_sliderReleased();
 };
 
 #endif // MAINWINDOW_H

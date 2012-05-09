@@ -241,13 +241,14 @@ void Arena::wheelEvent( QGraphicsSceneWheelEvent *event )
     event->accept();
 }
 
-void Arena::mousePressEvent(QGraphicsSceneMouseEvent *event)
+
+
+void Arena::addTower(int X, int Y)
 {
     if(amount>0)
     {
-
-        int x=event->scenePos().x();
-        int y=event->scenePos().y();
+        int x=X;
+        int y=Y;
 
         if((deathStar->scenePos().x()-x)*(deathStar->scenePos().x()-x)
                 +(deathStar->scenePos().y()-y)*(deathStar->scenePos().y()-y)<=300*300)
@@ -259,7 +260,7 @@ void Arena::mousePressEvent(QGraphicsSceneMouseEvent *event)
             {
                 PrismTower* prism1= new PrismTower();
 
-                prism1->setPos(event->scenePos().x(),event->scenePos().y());
+                prism1->setPos(x,y);
 
                 prism1->setRadius(300);
                 prism1->setBoundingRect(QRectF(-150,-150,300,300));
@@ -276,7 +277,7 @@ void Arena::mousePressEvent(QGraphicsSceneMouseEvent *event)
             }else if(gun==A_PLASMA)
             {
                 PlasmaTower* plasma= new PlasmaTower();
-                plasma->setPos(event->scenePos().x(),event->scenePos().y());
+                plasma->setPos(x,y);
                 plasma->setRadius(700);
                 plasma->setBoundingRect(QRectF(-150,-150,300,300));
                 this->addItem(plasma);
@@ -291,5 +292,15 @@ void Arena::mousePressEvent(QGraphicsSceneMouseEvent *event)
         std::cout<<"Brak kredytow1"<<std::endl;
         *info=QString("Brak kredytow");
     }
+}
+
+void Arena::mousePressEvent(QGraphicsSceneMouseEvent *event)
+{
+    int x=event->scenePos().x();
+    int y=event->scenePos().y();
+
+    addTower(x,y);
+
+
     event->accept();
 }

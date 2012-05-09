@@ -73,7 +73,7 @@ void Missile::control()
             qreal playerY=target->scenePos().y();
 
             if((playerX-this->scenePos().x())*(playerX-this->scenePos().x())
-                    +(playerY-this->scenePos().y())*(playerY-this->scenePos().y())<=radius*radius)//200*200)
+                    +(playerY-this->scenePos().y())*(playerY-this->scenePos().y())<=200*200)
             {
                 target->hit(8);
             }
@@ -202,7 +202,7 @@ void Laser::control()
             qreal playerY=target->scenePos().y();
 
             if((playerX-this->scenePos().x())*(playerX-this->scenePos().x())
-                    +(playerY-this->scenePos().y())*(playerY-this->scenePos().y())<=(target->radius-80)*(target->radius-80))//120*120)
+                    +(playerY-this->scenePos().y())*(playerY-this->scenePos().y())<=120*120)
             {
                 target->hit(0.5);
                 deactive=true;

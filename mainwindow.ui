@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>1270</width>
-    <height>675</height>
+    <height>726</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -259,6 +259,9 @@
         <string>Tab 2</string>
        </attribute>
        <layout class="QFormLayout" name="formLayout_2">
+        <property name="fieldGrowthPolicy">
+         <enum>QFormLayout::AllNonFixedFieldsGrow</enum>
+        </property>
         <item row="0" column="0">
          <layout class="QVBoxLayout">
           <property name="leftMargin">
@@ -310,6 +313,13 @@
             </property>
             <property name="text">
              <string>Start learn</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QSlider" name="horizontalSlider">
+            <property name="orientation">
+             <enum>Qt::Horizontal</enum>
             </property>
            </widget>
           </item>

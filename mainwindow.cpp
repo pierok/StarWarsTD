@@ -62,6 +62,9 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->selectMode->setTabText(0,"Game mode");
     ui->selectMode->setTabText(1,"Learn mode");
 
+
+
+    nowaPopulacja=new Populacja(1000);
 }
 
 void MainWindow::MainClockTick()
@@ -133,12 +136,14 @@ void MainWindow::on_prismButton_clicked()
 {
     arena->setGun(A_PRISM);
     ui->infoLabel->setPixmap(QPixmap(":/data/prismInfo.png"));
+    //maintimer.start(1);
 }
 
 void MainWindow::on_plasmaButton_clicked()
 {
     arena->setGun(A_PLASMA);
     ui->infoLabel->setPixmap(QPixmap(":/data/plasmaInfo.png"));
+
 }
 
 void MainWindow::on_startButton_clicked()
@@ -154,4 +159,45 @@ void MainWindow::on_startButton_clicked()
     arena->deploy2->timer=0;
     arena->deploy2->deploySize(80);
     arena->deploy2->start();
+}
+
+void MainWindow::on_learnButton_clicked()
+{
+    std::cout<<"Populacja size: "<<nowaPopulacja->populacja.size()<<std::endl;
+
+    Osobnik* osobnik=nowaPopulacja->populacja[0];
+
+    foreach(Gen* gen, osobnik->chromosom)
+    {
+        if(gen->getTowerType()==1)
+        {
+            arena->setGun(A_PRISM);
+            arena->addTower(gen->getTowerX(),gen->getTowerY());
+        }else if(gen->getTowerType()==2)
+        {
+            arena->setGun(A_PLASMA);
+            arena->addTower(gen->getTowerX(),gen->getTowerY());
+        }
+    }
+
+
+}
+
+
+void MainWindow::on_horizontalSlider_sliderMoved(int position)
+{
+    speed=30-position/3;
+    if(speed>30)
+    {
+        speed=30;
+    }else if(speed<=0)
+    {
+        speed=1;
+    }
+}
+
+void MainWindow::on_horizontalSlider_sliderReleased()
+{
+    maintimer.start(speed);
+    std::cout<<"speed: "<<speed<<std::endl;
 }
