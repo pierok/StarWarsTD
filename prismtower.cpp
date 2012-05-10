@@ -12,6 +12,7 @@ PrismTower::PrismTower()
     weapon1state=0;
     fire=false;
     enemy=NULL;
+    deactive=false;
 }
 
 void PrismTower::reset()
@@ -19,6 +20,7 @@ void PrismTower::reset()
     weapon1state=0;
     fire=false;
     enemy=NULL;
+    deactive=false;
 }
 
 void PrismTower::paint(QPainter *painter, const QStyleOptionGraphicsItem *, QWidget *)

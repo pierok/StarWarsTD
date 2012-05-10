@@ -27,6 +27,12 @@ public:
         lifebar=l;
     }
 
+    inline void showLifeBar()
+    {
+        lifebar->updateLife(life);
+        lifebar->show();
+    }
+
     bool deactive;
     double life;
 

@@ -140,21 +140,18 @@ void MainWindow::on_plasmaButton_clicked()
 {
     arena->setGun(A_PLASMA);
     ui->infoLabel->setPixmap(QPixmap(":/data/plasmaInfo.png"));
-
 }
 
 void MainWindow::on_startButton_clicked()
 {
-
     arena->deploy1->setRate(80);
     arena->deploy1->timer=0;
-    arena->deploy1->deploySize(40);
+    arena->deploy1->deploySize(60);
     arena->deploy1->start();
 
-
-    arena->deploy2->setRate(20);
+    arena->deploy2->setRate(15);
     arena->deploy2->timer=0;
-    arena->deploy2->deploySize(80);
+    arena->deploy2->deploySize(100);
     arena->deploy2->start();
 }
 

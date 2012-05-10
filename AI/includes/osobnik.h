@@ -9,13 +9,13 @@ public:
     Osobnik()
     {
         amount=800;
+        przystosowanie=0;
     }
-
 
     void generujChromosom();
 
     QList<Gen*> chromosom;
-
+    double przystosowanie;
 private:
     int amount;
 };

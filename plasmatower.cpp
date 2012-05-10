@@ -23,6 +23,7 @@ PlasmaTower::PlasmaTower()
     rotacc = 0.9;
     enemy=NULL;
     cost=10;
+    deactive=false;
 }
 
 void PlasmaTower::reset()
@@ -30,6 +31,7 @@ void PlasmaTower::reset()
     weapon1state=0;
     fire=false;
     enemy=NULL;
+    deactive=false;
 }
 
 void PlasmaTower::paint(QPainter *painter, const QStyleOptionGraphicsItem *option,

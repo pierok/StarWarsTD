@@ -23,6 +23,8 @@ Arena::Arena(QPixmap *p)
 
     this->addPixmap(*qp);
 
+    //this->setBackgroundBrush(QBrush(QImage(":/data/gw.jpg")));
+
     deathStar= new DeathStar();
     deathStar->setPos(qp->size().width()/2,qp->size().height()/2);
     deathStar->setLifeBar(l);
@@ -96,109 +98,121 @@ Arena::Arena(QPixmap *p)
 
 void Arena::step()
 {
-    if(deathStar->deactive==false)
+    if(deathStar->deactive==false||Arena::mode==GAME)
     {
-        deathStar->step();
-        if(deathStar->life<=0)
+        if(deathStar->deactive==false)
         {
-            Explosion* exp=factoy.getExplosion(1000);
-            exp->setPos(deathStar->scenePos());
-            deathStar->hide();
-            deathStar->deactive=true;
-            foreach(Enemy *enemy, enemys)
+            deathStar->step();
+            if(deathStar->life<=0)
             {
-                enemy->hit(10000);
-            }
+                Explosion* exp=factoy.getExplosion(1000);
+                exp->setPos(deathStar->scenePos());
+                deathStar->hide();
+                deathStar->deactive=true;
+                foreach(Enemy *enemy, enemys)
+                {
+                    enemy->hit(10000);
+                }
 
-            foreach(Tower *tower, towers)
-            {
-                tower->reset();
-            }
+                foreach(Tower *tower, towers)
+                {
+                    tower->reset();
+                }
 
-            deploy1->stop();
-            deploy2->stop();
-        }
-    }
-
-    if(gen1->deactive==false)
-    {
-        gen1->step();
-        if(gen1->life<=0)
-        {
-            Explosion* exp=factoy.getExplosion(300);
-            exp->setPos(gen1->scenePos());
-            gen1->hide();
-            gen1->deactive=true;
-
-            foreach(Enemy *enemy, enemys)
-            {
-                enemy->setTarget(gen2);
+                deploy1->stop();
+                deploy2->stop();
             }
         }
-    }
 
-    if(gen2->deactive==false)
-    {
-        gen2->step();
-        if(gen2->life<=0)
+        if(gen1->deactive==false)
         {
-            Explosion* exp=factoy.getExplosion(300);
-            exp->setPos(gen2->scenePos());
-            gen2->hide();
-            gen2->deactive=true;
-
-            foreach(Enemy *enemy, enemys)
+            gen1->step();
+            if(gen1->life<=0)
             {
-                enemy->setTarget(deathStar);
+                Explosion* exp=factoy.getExplosion(300);
+                exp->setPos(gen1->scenePos());
+                gen1->hide();
+                gen1->deactive=true;
+
+                foreach(Enemy *enemy, enemys)
+                {
+                    enemy->setTarget(gen2);
+                }
             }
         }
-    }
 
-    deploy1->deploy();
-    deploy2->deploy();
-
-    while(!spawnEnemy.empty())
-    {
-        Enemy* en1= spawnEnemy.dequeue();
-        en1->setTarget(gen1);//(deathStar);
-        this->addItem(en1);
-        enemys.insert(en1);
-    }
-
-    foreach(Enemy *enemy, enemys)
-    {
-        if(enemy->death==false)
+        if(gen2->deactive==false)
         {
-            enemy->control();
-            enemy->physics();
-            enemy->step();
+            gen2->step();
+            if(gen2->life<=0)
+            {
+                Explosion* exp=factoy.getExplosion(300);
+                exp->setPos(gen2->scenePos());
+                gen2->hide();
+                gen2->deactive=true;
+
+                foreach(Enemy *enemy, enemys)
+                {
+                    enemy->setTarget(deathStar);
+                }
+            }
         }
-    }
 
+        deploy1->deploy();
+        deploy2->deploy();
 
-    while(!spawnTower.empty())
-    {
-        Tower* tower = spawnTower.dequeue();
-        this->addItem(tower);
-    }
+        while(!spawnEnemy.empty())
+        {
+            Enemy* en1= spawnEnemy.dequeue();
+            if(gen1->deactive==true)
+            {
+                en1->setTarget(gen2);
+            }else if(gen2->deactive==true)
+            {
+                en1->setTarget(deathStar);
+            }else
+            {
+                en1->setTarget(gen1);
+            }
 
-    foreach(Tower *tower, towers)
-    {
+            this->addItem(en1);
+            enemys.insert(en1);
+        }
+
         foreach(Enemy *enemy, enemys)
         {
             if(enemy->death==false)
             {
-                if(tower->inRange(enemy))
-                {
-                    //break;
-                }
+                enemy->control();
+                enemy->physics();
+                enemy->step();
             }
         }
-        tower->control();
-    }
 
-   // if(Arena::mode==GAME)
-    //{
+        while(!spawnTower.empty())
+        {
+            Tower* tower = spawnTower.dequeue();
+            this->addItem(tower);
+        }
+
+        foreach(Tower *tower, towers)
+        {
+            if(tower->deactive==false)
+            {
+                foreach(Enemy *enemy, enemys)
+                {
+                    if(enemy->death==false)
+                    {
+                        if(tower->inRange(enemy))
+                        {
+                            //break;
+                        }
+                    }
+                }
+                tower->control();
+            }
+        }
+
         while(!spawnExplosion.empty())
         {
             Explosion* exp= spawnExplosion.dequeue();
@@ -211,48 +225,86 @@ void Arena::step()
             if(exp->deactive==false)
                 exp->control();
         }
-    //}
 
-    while(!spawnMissile.empty())
-    {
-        Missile* misile= spawnMissile.dequeue();
-        this->addItem(misile);
-        missiles.insert(misile);
-    }
-
-    foreach(Missile *misile, missiles)
-    {
-        if(misile->deactive==false)
+        while(!spawnMissile.empty())
         {
-            misile->control();
-            misile->physics();
-            misile->step();
-            if(!misile->isEnemy)
-            {
-                foreach(Enemy* enemy, enemys)
-                {
-                    if(enemy->death==false&&enemy->isCollide(misile->scenePos().x(),misile->scenePos().y()))
-                    {
-                        enemy->hit(misile->getDamage());
-                        misile->deactive=true;
-                        misile->hide();
-                        factoy.deactivateMissile(misile,2);
+            Missile* misile= spawnMissile.dequeue();
+            this->addItem(misile);
+            missiles.insert(misile);
+        }
 
-                        Explosion* exp=factoy.getExplosion(20);
-                        exp->setPos(misile->scenePos());
+        foreach(Missile *misile, missiles)
+        {
+            if(misile->deactive==false)
+            {
+                misile->control();
+                misile->physics();
+                misile->step();
+                if(!misile->isEnemy)
+                {
+                    foreach(Enemy* enemy, enemys)
+                    {
+                        if(enemy->death==false&&enemy->isCollide(misile->scenePos().x(),misile->scenePos().y()))
+                        {
+                            enemy->hit(misile->getDamage());
+                            misile->deactive=true;
+                            misile->hide();
+                            factoy.deactivateMissile(misile,2);
+
+                            Explosion* exp=factoy.getExplosion(20);
+                            exp->setPos(misile->scenePos());
+                        }
                     }
                 }
             }
         }
+
     }
+
+    if(Arena::mode==LEARN)
+    {
+        if(deathStar->deactive==true)
+        {
+
+            deploy1->stop();
+            deploy2->stop();
+            foreach(Enemy* enemy, enemys)
+            {
+                enemy->hit(10000);
+                enemy->setTarget(gen1);
+            }
+
+            foreach(Tower* tower, towers)
+            {
+                tower->deactive=true;
+                tower->hide();
+            }
+
+            deathStar->life=1000;
+            deathStar->show();
+            deathStar->showLifeBar();
+            deathStar->deactive=false;
+            gen1->life=250;
+            gen1->show();
+            gen1->showLifeBar();
+            gen1->deactive=false;
+            gen2->life=250;
+            gen2->show();
+            gen2->showLifeBar();
+            gen2->deactive=false;
+            amount=800;
+            info->setNum(amount);
+        }
+    }
+
+    std::cout<<"tower size: "<<towers.size()<<std::endl;
+
 }
 
 void Arena::wheelEvent( QGraphicsSceneWheelEvent *event )
 {
     event->accept();
 }
-
-
 
 void Arena::addTower(int X, int Y)
 {

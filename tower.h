@@ -13,6 +13,8 @@ class Tower: public QGraphicsItem
 {
 public:
     Tower();
+    bool deactive;
+
     void paint(QPainter *painter, const QStyleOptionGraphicsItem *option,
                QWidget *widget);
 
