@@ -73,6 +73,7 @@ void MainWindow::MainClockTick()
         arena->step();
         arena->update();
         ui->lineEdit->setText(*(info));
+        //ui->osobnikLineEdit->setText(*(infoOs));
         processed=true;
     }
 }
@@ -161,6 +162,8 @@ void MainWindow::on_learnButton_clicked()
 
     QString size=ui->populatonSizeTextEdit->text();
     nowaPopulacja=new Populacja(size.toInt());
+
+    arena->nPopulacja=nowaPopulacja;
 
     Osobnik* osobnik=nowaPopulacja->populacja[0];
     ui->osobnikLineEdit->setText(ui->osobnikLineEdit->text().setNum(0));

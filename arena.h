@@ -13,6 +13,7 @@
 #include "deathstar.h"
 #include "generator.h"
 #include "deploy.h"
+#include "AI/includes/populacja.h"
 
 class Tower;
 class Deploy;
@@ -55,6 +56,8 @@ public:
     }
 
     void addTower(int x, int y);
+    void nastepnyOsobnik();
+    Populacja* nPopulacja;
 
 private:
     GUNS gun;
@@ -72,6 +75,7 @@ private:
 
     int amount;
     int time;
+    int osobnik;
 
 public slots:
     void mousePressEvent(QGraphicsSceneMouseEvent *event);

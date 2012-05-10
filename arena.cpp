@@ -18,6 +18,7 @@ Arena::Arena(QPixmap *p)
     gun=A_NONE;
     qp=p;
     amount=800;
+    osobnik=0;
 
     LifeBar* l= new LifeBar(1000,250);
 
@@ -82,9 +83,7 @@ Arena::Arena(QPixmap *p)
     this->addEllipse(deathStar->scenePos().x()-300,deathStar->scenePos().y()-300,600,600,
                      QPen(QColor(240,0,0,100),2),QBrush(QColor(255,0,0,40)));
 
-
     // this->addEllipse(2048,2048,3,3, QPen(QColor(240,0,0,100),2),QBrush(QColor(255,0,0)));
-
 
     this->addItem(deploy1);
     this->addItem(deploy2);
@@ -294,17 +293,56 @@ void Arena::step()
             gen2->deactive=false;
             amount=800;
             info->setNum(amount);
+            osobnik++;
+            std::cout<<"osobniek: "<<osobnik<<std::endl;
+            nastepnyOsobnik();
+
+
+
+            deploy1->setRate(80);
+            deploy1->timer=0;
+            deploy1->deploySize(60);
+            deploy1->start();
+
+            deploy2->setRate(15);
+            deploy2->timer=0;
+            deploy2->deploySize(100);
+            deploy2->start();
+
+
+
         }
     }
 
-    std::cout<<"tower size: "<<towers.size()<<std::endl;
-
+    //std::cout<<"tower size: "<<towers.size()<<std::endl;
 }
 
 void Arena::wheelEvent( QGraphicsSceneWheelEvent *event )
 {
     event->accept();
 }
+
+void Arena::nastepnyOsobnik()
+{
+    Osobnik* os=nPopulacja->populacja[osobnik];
+
+    std::cout<<"os "<<os->chromosom[0]->getTowerType()<<" "<<os->chromosom[0]->getTowerX()<<" "<<os->chromosom[0]->getTowerY()<<std::endl;
+
+    foreach(Gen* gen, os->chromosom)
+    {
+        if(gen->getTowerType()==1)
+        {
+            setGun(A_PRISM);
+            addTower(gen->getTowerX(),gen->getTowerY());
+        }else if(gen->getTowerType()==2)
+        {
+            setGun(A_PLASMA);
+            addTower(gen->getTowerX(),gen->getTowerY());
+        }
+    }
+}
+
+
 
 void Arena::addTower(int X, int Y)
 {
@@ -363,7 +401,5 @@ void Arena::mousePressEvent(QGraphicsSceneMouseEvent *event)
     int y=event->scenePos().y();
 
     addTower(x,y);
-
-
     event->accept();
 }
