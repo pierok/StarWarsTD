@@ -1,4 +1,6 @@
 #include "factory.h"
+#include "prismtower.h"
+#include "plasmatower.h"
 
 Factory::Factory()
 {
@@ -14,7 +16,6 @@ void Factory::deactivateEnemy(Enemy* e, int type)
         xwings.enqueue(e);
     }
 }
-
 
 Enemy* Factory::getEnemy(int type)
 {
@@ -53,6 +54,58 @@ Enemy* Factory::getEnemy(int type)
     }
    return NULL;
 }
+
+
+void Factory::deactivateTower(Tower* t, int type)
+{
+    if(type==0)
+    {
+        t->hide();
+        prismTowers.enqueue(t);
+    }else if(type==1)
+    {
+        t->hide();
+        plasmaTowers.enqueue(t);
+    }
+}
+
+Tower* Factory::getTower(int type)
+{
+    if(type==0)
+    {
+        if(!prismTowers.isEmpty())
+        {
+            Tower* e=prismTowers.dequeue();
+            e->reset();
+            e->show();
+            e->resetTransform();
+            return e;
+        }else
+        {
+            Tower* e=new PrismTower();
+            Arena::spawnTower.enqueue(e);
+            return e;
+        }
+    }else if( type==1)
+    {
+        if(!plasmaTowers.isEmpty())
+        {
+            Tower* e=plasmaTowers.dequeue();
+            e->reset();
+            e->show();
+            e->resetTransform();
+            return e;
+        }else
+        {
+            Tower* e=new PlasmaTower();
+            Arena::spawnTower.enqueue(e);
+            return e;
+        }
+    }
+   return NULL;
+}
+
+
 
 Explosion* Factory::getExplosion(int size)
 {

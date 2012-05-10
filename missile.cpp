@@ -66,9 +66,11 @@ void Missile::control()
             deactive=true;
             Arena::factoy.deactivateMissile(this);
             this->hide();
-            Explosion* expl = Arena::factoy.getExplosion(30);
-            expl->setPos(this->scenePos());
-
+            if(Arena::mode==GAME)
+            {
+                Explosion* expl = Arena::factoy.getExplosion(30);
+                expl->setPos(this->scenePos());
+            }
             qreal playerX=target->scenePos().x();
             qreal playerY=target->scenePos().y();
 
@@ -207,8 +209,11 @@ void Laser::control()
                 target->hit(0.5);
                 deactive=true;
                 Arena::factoy.deactivateMissile(this,1);
-                Explosion* expl = Arena::factoy.getExplosion(30);
-                expl->setPos(this->scenePos());
+                if(Arena::mode==GAME)
+                {
+                    Explosion* expl = Arena::factoy.getExplosion(30);
+                    expl->setPos(this->scenePos());
+                }
                 this->hide();
             }
         }else

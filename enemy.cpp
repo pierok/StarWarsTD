@@ -70,8 +70,11 @@ void Enemy::hit(double damage)
         death=true;
         this->hide();
         Arena::factoy.deactivateEnemy(this);
-        Explosion* expl = Arena::factoy.getExplosion(60);
-        expl->setPos(this->scenePos());
+        if(Arena::mode==GAME)
+        {
+            Explosion* expl = Arena::factoy.getExplosion(60);
+            expl->setPos(this->scenePos());
+        }
     }
 }
 
@@ -241,8 +244,12 @@ void Xwing::hit(double damage)
         death=true;
         this->hide();
         Arena::factoy.deactivateEnemy(this,1);
-        Explosion* expl = Arena::factoy.getExplosion(60);
-        expl->setPos(this->scenePos());
+
+        if(Arena::mode==GAME)
+        {
+            Explosion* expl = Arena::factoy.getExplosion(60);
+            expl->setPos(this->scenePos());
+        }
     }
 }
 

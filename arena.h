@@ -22,10 +22,13 @@ class Explosion;
 class Missile;
 
 enum GUNS {A_NONE, A_PRISM, A_PLASMA};
+enum Mode {GAME, LEARN};
 
 class Arena: public QGraphicsScene
 {
 public:
+
+
     Arena(QPixmap *p);
     void step();
 
@@ -34,10 +37,12 @@ public:
     Deploy* deploy1;
     Deploy* deploy2;
 
+    static Mode mode;
     static Factory factoy;
     static QQueue<Enemy*> spawnEnemy;
     static QQueue<Explosion*> spawnExplosion;
     static QQueue<Missile*> spawnMissile;
+    static QQueue<Tower*>spawnTower;
 
     inline void setGun(GUNS g)
     {

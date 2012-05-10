@@ -8,8 +8,10 @@
 QQueue<Enemy*> Arena::spawnEnemy;
 QQueue<Explosion*> Arena::spawnExplosion;
 QQueue<Missile*> Arena::spawnMissile;
+QQueue<Tower*> Arena::spawnTower;
 
 Factory Arena::factoy;
+Mode Arena::mode=GAME;
 
 Arena::Arena(QPixmap *p)
 {
@@ -79,7 +81,7 @@ Arena::Arena(QPixmap *p)
                      QPen(QColor(240,0,0,100),2),QBrush(QColor(255,0,0,40)));
 
 
-   // this->addEllipse(2048,2048,3,3, QPen(QColor(240,0,0,100),2),QBrush(QColor(255,0,0)));
+    // this->addEllipse(2048,2048,3,3, QPen(QColor(240,0,0,100),2),QBrush(QColor(255,0,0)));
 
 
     this->addItem(deploy1);
@@ -173,6 +175,13 @@ void Arena::step()
         }
     }
 
+
+    while(!spawnTower.empty())
+    {
+        Tower* tower = spawnTower.dequeue();
+        this->addItem(tower);
+    }
+
     foreach(Tower *tower, towers)
     {
         foreach(Enemy *enemy, enemys)
@@ -188,19 +197,21 @@ void Arena::step()
         tower->control();
     }
 
+   // if(Arena::mode==GAME)
+    //{
+        while(!spawnExplosion.empty())
+        {
+            Explosion* exp= spawnExplosion.dequeue();
+            this->addItem(exp);
+            explosions.push_back(exp);
+        }
 
-    while(!spawnExplosion.empty())
-    {
-        Explosion* exp= spawnExplosion.dequeue();
-        this->addItem(exp);
-        explosions.push_back(exp);
-    }
-
-    foreach(Explosion *exp, explosions)
-    {
-        if(exp->deactive==false)
-            exp->control();
-    }
+        foreach(Explosion *exp, explosions)
+        {
+            if(exp->deactive==false)
+                exp->control();
+        }
+    //}
 
     while(!spawnMissile.empty())
     {

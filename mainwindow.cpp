@@ -8,9 +8,9 @@ MainWindow::MainWindow(QWidget *parent) :
 {
     ui->setupUi(this);
 
-   // this->setWindowState(Qt::WindowFullScreen);
+    // this->setWindowState(Qt::WindowFullScreen);
     //this->setFocusPolicy( Qt::StrongFocus );
-   // this->setAttribute(Qt::WA_QuitOnClose, true);
+    // this->setAttribute(Qt::WA_QuitOnClose, true);
 
     this->setWindowTitle("Star Wars TD");
     qsrand(QTime(0,0,0).secsTo(QTime::currentTime()));
@@ -62,9 +62,6 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->selectMode->setTabText(0,"Game mode");
     ui->selectMode->setTabText(1,"Learn mode");
 
-
-
-    nowaPopulacja=new Populacja(1000);
 }
 
 void MainWindow::MainClockTick()
@@ -163,9 +160,13 @@ void MainWindow::on_startButton_clicked()
 
 void MainWindow::on_learnButton_clicked()
 {
-    std::cout<<"Populacja size: "<<nowaPopulacja->populacja.size()<<std::endl;
+    Arena::mode=LEARN;
+
+    QString size=ui->populatonSizeTextEdit->text();
+    nowaPopulacja=new Populacja(size.toInt());
 
     Osobnik* osobnik=nowaPopulacja->populacja[0];
+    ui->osobnikLineEdit->setText(ui->osobnikLineEdit->text().setNum(0));
 
     foreach(Gen* gen, osobnik->chromosom)
     {
@@ -180,7 +181,7 @@ void MainWindow::on_learnButton_clicked()
         }
     }
 
-
+    on_startButton_clicked();
 }
 
 

@@ -32,6 +32,7 @@ public:
 
 private:
     enum Action {None ,ZoomIn, ZoomOut, PRISM, PLASMA, Quit};
+    Mode mode;
     QMap<int,Action> actions;
     Ui::MainWindow *ui;
     QTimer maintimer;
