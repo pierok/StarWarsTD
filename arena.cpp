@@ -310,7 +310,7 @@ void Arena::step()
             deploy2->deploySize(100);
             deploy2->start();
 
-
+            std::cout<<"tower size: "<<towers.size()<<std::endl;
 
         }
     }
