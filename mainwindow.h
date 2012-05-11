@@ -38,6 +38,8 @@ private:
     QTimer maintimer;
     Arena* arena;
     QString* info;
+    QString* infoOs;
+    QString* infoPokolenie;
     bool processed;
     QPixmap* qp;
     Populacja* nowaPopulacja;

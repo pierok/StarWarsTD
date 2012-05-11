@@ -4,11 +4,7 @@
 
 void Osobnik::generujChromosom()
 {
-
-
-    qsrand(QTime(0,0,0).secsTo(QTime::currentTime()));
-
-    while(amount>0)
+    /*while(amount>0)
     {
         int type=qrand()%2+1;
         if(type==1)
@@ -27,7 +23,5 @@ void Osobnik::generujChromosom()
         gen->setTowerX(x);
         gen->setTowerY(y);
         chromosom.push_back(gen);
-    }
-
-
+    }*/
 }

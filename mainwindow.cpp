@@ -18,6 +18,11 @@ MainWindow::MainWindow(QWidget *parent) :
 
     info=new QString("");
     info->setNum(800);
+    infoOs=new QString("");
+    infoOs->setNum(0);
+
+    infoPokolenie=new QString("");
+    infoPokolenie->setNum(0);
 
     qp= new QPixmap(":/data/gw.jpg");
     arena=new Arena(qp);
@@ -26,6 +31,8 @@ MainWindow::MainWindow(QWidget *parent) :
     arena->setSceneRect(0, 0, 2687 , 2683);
     arena->setItemIndexMethod(QGraphicsScene::NoIndex);
     arena->setInfo(info);
+    arena->setInfoOs(infoOs);
+    arena->setInfoPokolenie(infoPokolenie);
 
     ui->gameView->setScene(arena);
     ui->gameView->scale(0.5,0.5);
@@ -73,7 +80,11 @@ void MainWindow::MainClockTick()
         arena->step();
         arena->update();
         ui->lineEdit->setText(*(info));
-        //ui->osobnikLineEdit->setText(*(infoOs));
+        if(arena->mode==LEARN)
+        {
+            ui->osobnikLineEdit->setText(*(infoOs));
+            ui->pokolenieLineEdit->setText(*(infoPokolenie));
+        }
         processed=true;
     }
 }

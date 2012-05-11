@@ -294,6 +294,7 @@ void Arena::step()
             amount=800;
             info->setNum(amount);
             osobnik++;
+            infoOs->setNum(osobnik);
             std::cout<<"osobniek: "<<osobnik<<std::endl;
             nastepnyOsobnik();
 
@@ -363,7 +364,7 @@ void Arena::addTower(int X, int Y)
 
                 prism1->setPos(x,y);
 
-                prism1->setRadius(300);
+                prism1->setRadius(3);
                 prism1->setBoundingRect(QRectF(-150,-150,300,300));
 
                 Prism* missile=new Prism();
@@ -379,7 +380,7 @@ void Arena::addTower(int X, int Y)
             {
                 PlasmaTower* plasma= new PlasmaTower();
                 plasma->setPos(x,y);
-                plasma->setRadius(700);
+                plasma->setRadius(5);
                 plasma->setBoundingRect(QRectF(-150,-150,300,300));
                 this->addItem(plasma);
                 towers.insert(plasma);

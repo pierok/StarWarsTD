@@ -55,6 +55,16 @@ public:
         info=s;
     }
 
+    inline void setInfoOs(QString* s)
+    {
+        infoOs=s;
+    }
+
+    inline void setInfoPokolenie(QString* s)
+    {
+        infoPokolenie=s;
+    }
+
     void addTower(int x, int y);
     void nastepnyOsobnik();
     Populacja* nPopulacja;
@@ -67,6 +77,8 @@ private:
     Generator* gen2;
 
     QString* info;
+    QString* infoOs;
+    QString* infoPokolenie;
 
     QSet<Tower*> towers;
     QSet<Enemy*> enemys;
