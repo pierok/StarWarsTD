@@ -39,6 +39,7 @@ private:
     QQueue<Missile*> missile;
     QQueue<Missile*> lasers;
     QQueue<Missile*> plasma;
+    QQueue<Missile*> hlaser;
     QQueue<Enemy*> enemys;
     QQueue<Enemy*> xwings;
     QQueue<Explosion*> explosions;

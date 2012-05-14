@@ -5,7 +5,6 @@
 class Gen
 {
 private:
-    //12bit
     uint32_t genom;
 public:
     Gen():genom(0){}

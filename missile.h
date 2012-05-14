@@ -38,6 +38,20 @@ protected:
     Target* target;
 };
 
+
+class HLaser : public Missile
+{
+public:
+    HLaser();
+    void paint(QPainter *painter, const QStyleOptionGraphicsItem *option,
+               QWidget *widget);
+    void control();
+    void reset();
+
+
+};
+
+
 class Plasma : public Missile
 {
 public:

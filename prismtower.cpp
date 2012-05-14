@@ -83,7 +83,7 @@ void PrismTower::weaponFire()
             prism->setTarget(QPoint(enemy->scenePos().x(),enemy->scenePos().y()));
             prism->lifetimer=5;
             prism->show();
-            enemy->hit(50);
+            enemy->hit(40);
             enemy=NULL;
         }
     }

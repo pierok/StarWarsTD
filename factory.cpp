@@ -134,6 +134,9 @@ void Factory::deactivateMissile(Missile*m, int type)
     }else if(type==2)
     {
         plasma.enqueue(m);
+    }else if(type==3)
+    {
+        hlaser.enqueue(m);
     }
 }
 
@@ -181,6 +184,21 @@ Missile* Factory::getMissile(int type)
         }else
         {
             Missile *m=new Plasma();
+            Arena::spawnMissile.enqueue(m);
+            return m;
+        }
+    }else if(type==3)
+    {
+        if(!hlaser.isEmpty())
+        {
+            Missile *m=hlaser.dequeue();
+            m->reset();
+            m->show();
+            m->resetTransform();
+            return m;
+        }else
+        {
+            Missile *m=new HLaser();
             Arena::spawnMissile.enqueue(m);
             return m;
         }

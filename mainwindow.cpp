@@ -158,12 +158,12 @@ void MainWindow::on_startButton_clicked()
 {
     arena->deploy1->setRate(80);
     arena->deploy1->timer=0;
-    arena->deploy1->deploySize(60);
+    arena->deploy1->deploySize(30);
     arena->deploy1->start();
 
     arena->deploy2->setRate(15);
     arena->deploy2->timer=0;
-    arena->deploy2->deploySize(100);
+    arena->deploy2->deploySize(60);
     arena->deploy2->start();
 }
 
@@ -171,10 +171,13 @@ void MainWindow::on_learnButton_clicked()
 {
     Arena::mode=LEARN;
 
+
     QString size=ui->populatonSizeTextEdit->text();
     nowaPopulacja=new Populacja(size.toInt());
 
     arena->nPopulacja=nowaPopulacja;
+    AlgorytmGenetyczny* ag=new AlgorytmGenetyczny(nowaPopulacja);
+    ag->update();
 
     Osobnik* osobnik=nowaPopulacja->populacja[0];
     ui->osobnikLineEdit->setText(ui->osobnikLineEdit->text().setNum(0));

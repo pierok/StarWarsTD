@@ -7,7 +7,8 @@
 #include <QPixmap>
 #include <QString>
 #include "arena.h"
-#include "AI/includes/populacja.h"
+#include "AI/includes/algorytmGenetyczny.h"
+//#include "AI/includes/populacja.h"
 
 namespace Ui {
     class MainWindow;

@@ -12,8 +12,6 @@
 #include "explosion.h"
 #include "target.h"
 
-//class Arena;
-
 class Enemy: public MovingObject
 {
 public:

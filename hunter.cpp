@@ -44,7 +44,7 @@ void Hunter::paint(QPainter *painter, const QStyleOptionGraphicsItem *option,
 
 void Hunter::weaponFire()
 {
-    Missile *missile = Arena::factoy.getMissile(2);
+    Missile *missile = Arena::factoy.getMissile(3);
 
     missile->setPos(this->scenePos());
 
@@ -135,7 +135,7 @@ void Hunter::control()
         {
             if(weapon1state==0)
             {
-                weapon1state=5;
+                weapon1state=4;
                 weaponFire();
             }
 

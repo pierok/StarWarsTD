@@ -124,7 +124,7 @@ void Arena::towerOperation()
                 {
                     if(tower->inRange(enemy))
                     {
-                        //break;
+                        break;
                     }
                 }
             }
@@ -420,7 +420,7 @@ void Arena::addTower(int X, int Y)
             {
                 Hunter* hunter= new Hunter();
                 hunter->setPos(x,y);
-                hunter->setRadius(500);
+                hunter->setRadius(200);
                 hunter->setBoundingRect(QRectF(-150,-150,300,300));
                 this->addItem(hunter);
                 towers.insert(hunter);

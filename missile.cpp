@@ -105,7 +105,7 @@ Plasma::Plasma()
     slidefriction = 0.96;
     rotfriction = 0.98;
     isEnemy=false;
-    damage=5;
+    damage=3;
 }
 
 void Plasma::reset()
@@ -122,7 +122,7 @@ void Plasma::reset()
     slidefriction = 0.96;
     rotfriction = 0.98;
     isEnemy=false;
-    damage=5;
+    damage=3;
 }
 
 void Plasma::control()
@@ -150,6 +150,71 @@ void Plasma::paint(QPainter *painter, const QStyleOptionGraphicsItem *, QWidget 
     painter->setBrush(Qt::yellow);
     painter->drawEllipse(-4,-4,8,8);
 }
+
+//========================================HLaser=======================================
+HLaser::HLaser()
+{
+    deactive=false;
+    lifetimer = 50;
+
+    angle = 0;
+    speed = 0;
+    slide = 0;
+    rot = 0;
+
+    friction = 0.9975;
+    slidefriction = 0.96;
+    rotfriction = 0.98;
+    isEnemy=false;
+    damage=1;
+}
+
+
+void HLaser::reset()
+{
+    deactive=false;
+    lifetimer = 50;
+
+    angle = 0;
+    speed = 0;
+    slide = 0;
+    rot = 0;
+
+    friction = 0.9975;
+    slidefriction = 0.96;
+    rotfriction = 0.98;
+    isEnemy=false;
+    damage=1;
+}
+
+void HLaser::control()
+{
+    if(deactive==false)
+    {
+        if(lifetimer>0)
+        {
+            //this->setPos(this->scenePos().x()+velocity.toPoint().x()*2,this->scenePos().y()+velocity.toPoint().y()*2);
+            lifetimer--;
+        }else
+        {
+            //std::cout<<"desctive"<<std::endl;
+            deactive=true;
+            //Arena::destroyExplosion.enqueue(this);
+            Arena::factoy.deactivateMissile(this,3);
+            this->hide();
+        }
+    }
+}
+
+void HLaser::paint(QPainter *painter, const QStyleOptionGraphicsItem *, QWidget *)
+{
+    painter->setPen(Qt::NoPen);
+    painter->setBrush(Qt::red);
+    painter->drawRect(-2,0,4,14);
+    painter->setBrush(Qt::yellow);
+    painter->drawRect(-1,0,2,3);
+}
+
 
 //========================================Laser========================================
 
