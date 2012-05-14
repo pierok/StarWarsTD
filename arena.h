@@ -22,7 +22,7 @@ class Factory;
 class Explosion;
 class Missile;
 
-enum GUNS {A_NONE, A_PRISM, A_PLASMA};
+enum GUNS {A_NONE, A_PRISM, A_PLASMA, A_HUNTER};
 enum Mode {GAME, LEARN};
 
 class Arena: public QGraphicsScene
@@ -32,6 +32,11 @@ public:
 
     Arena(QPixmap *p);
     void step();
+    void towerOperation();
+    void enemyOperation();
+    void missilesOperation();
+    void explosionsOperation();
+    void deathStarOperatin();
 
     //static QQueue<Missile*> spawn;
 

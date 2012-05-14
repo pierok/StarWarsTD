@@ -53,8 +53,6 @@ protected:
     double cost;
     QRectF m_boundingRect;
 
-
-
     qreal angle;
     qreal speed;
     qreal slide;

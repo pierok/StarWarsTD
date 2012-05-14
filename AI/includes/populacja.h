@@ -26,13 +26,16 @@ public:
             Osobnik* osobnik= new Osobnik();
             while(amount>0)
             {
-                int type=qrand()%2+1;
+                int type=qrand()%3+1;
                 if(type==1)
                 {
                     amount-=30;
                 }else if(type==2)
                 {
                     amount-=10;
+                }else if(type==3)
+                {
+                    amount-=20;
                 }
 
                 int x=qrand()%2680;

@@ -48,20 +48,14 @@ MainWindow::MainWindow(QWidget *parent) :
 
     maintimer.start(30);
 
-    // Resize refer to desktop
-    //this->resize( QApplication::desktop()->size() );
-    //int x=QApplication::desktop()->size().width();
-    //int y= QApplication::desktop()->size().height();
-    //this->resize(x-10,y-68);
-
-    // this->setFocusPolicy( Qt::StrongFocus );
-    // this->setAttribute(Qt::WA_QuitOnClose, true);
-
     ui->plasmaButton->setIcon(QIcon(QPixmap(":/data/plazmaTower.png")));
     ui->plasmaButton->setIconSize(QSize(61,61));
 
     ui->prismButton->setIcon(QIcon(QPixmap(":/data/PrismTower.png")));
     ui->prismButton->setIconSize(QSize(61,61));
+
+    ui->tieButton->setIcon(QIcon(QPixmap(":/data/TIE_fighter.png")));
+    ui->tieButton->setIconSize(QSize(61,61));
 
     ui->infoLabel->setBackgroundRole(QPalette::Base);
     ui->infoLabel->setPixmap(QPixmap(":/data/start2.png"));
@@ -154,6 +148,12 @@ void MainWindow::on_plasmaButton_clicked()
     ui->infoLabel->setPixmap(QPixmap(":/data/plasmaInfo.png"));
 }
 
+void MainWindow::on_tieButton_clicked()
+{
+    arena->setGun(A_HUNTER);
+    ui->infoLabel->setPixmap(QPixmap(":/data/info.png"));
+}
+
 void MainWindow::on_startButton_clicked()
 {
     arena->deploy1->setRate(80);
@@ -189,6 +189,10 @@ void MainWindow::on_learnButton_clicked()
         {
             arena->setGun(A_PLASMA);
             arena->addTower(gen->getTowerX(),gen->getTowerY());
+        }else if(gen->getTowerType()==3)
+        {
+            arena->setGun(A_HUNTER);
+            arena->addTower(gen->getTowerX(),gen->getTowerY());
         }
     }
 
@@ -213,3 +217,4 @@ void MainWindow::on_horizontalSlider_sliderReleased()
     maintimer.start(speed);
     std::cout<<"speed: "<<speed<<std::endl;
 }
+

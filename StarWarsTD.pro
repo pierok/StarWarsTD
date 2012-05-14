@@ -28,7 +28,8 @@ SOURCES += main.cpp\
     generator.cpp \
     target.cpp \
     AI/src/gen.cpp \
-    AI/src/osobnik.cpp
+    AI/src/osobnik.cpp \
+    hunter.cpp
 
 HEADERS  += mainwindow.h \
     tower.h \
@@ -48,12 +49,15 @@ HEADERS  += mainwindow.h \
     target.h \
     AI/includes/gen.h \
     AI/includes/osobnik.h \
-    AI/includes/populacja.h
+    AI/includes/populacja.h \
+    hunter.h
 
 FORMS    += mainwindow.ui
 
 RESOURCES += \
     data.qrc
+
+
 
 
 

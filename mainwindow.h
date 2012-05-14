@@ -12,15 +12,6 @@
 namespace Ui {
     class MainWindow;
 }
-/*
-#include <QGraphicsView>
-#include <QtOpenGL>
-#include <QMutex>*/
-/*
-class Window : public QGraphicsView
-{
-    Q_OBJECT    // makro mówi¹ce ¿e to jest QObject - obiekt interfejsu QT
-public:*/
 
 class MainWindow : public QMainWindow
 {
@@ -57,6 +48,7 @@ private slots:
     void on_learnButton_clicked();
     void on_horizontalSlider_sliderMoved(int position);
     void on_horizontalSlider_sliderReleased();
+    void on_tieButton_clicked();
 };
 
 #endif // MAINWINDOW_H
