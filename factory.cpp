@@ -133,11 +133,9 @@ void Factory::deactivateMissile(Missile*m, int type)
         lasers.enqueue(m);
     }else if(type==2)
     {
-        std::cout<<"Plasma deactive"<<std::endl;
         plasma.enqueue(m);
     }else if(type==3)
     {
-        std::cout<<"Hlaser deactive"<<std::endl;
         hlaser.enqueue(m);
     }
 }

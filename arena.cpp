@@ -206,10 +206,7 @@ void Arena::missilesOperation()
                     {
                         enemy->hit(misile->getDamage());
                         misile->deactive=true;
-                        //misile->lifetimer=0;
-                        //misile->control();
                         misile->hide();
-                        std::cout<<"ID: "<<misile->getID()<<std::endl;
                         factoy.deactivateMissile(misile,misile->getID());
 
                         Explosion* exp=factoy.getExplosion(20);
@@ -221,7 +218,6 @@ void Arena::missilesOperation()
     }
 
     std::cout<<"missile size: "<<missiles.size()<<std::endl;
-
 }
 
 
@@ -339,12 +335,12 @@ void Arena::step()
 
             deploy1->setRate(80);
             deploy1->timer=0;
-            deploy1->deploySize(1);
+            deploy1->deploySize(10);
             deploy1->start();
 
             deploy2->setRate(15);
             deploy2->timer=0;
-            deploy2->deploySize(1);
+            deploy2->deploySize(10);
             deploy2->start();
 
             std::cout<<"tower size: "<<towers.size()<<std::endl;
