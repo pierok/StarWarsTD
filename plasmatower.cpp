@@ -44,14 +44,9 @@ void PlasmaTower::paint(QPainter *painter, const QStyleOptionGraphicsItem *optio
 void PlasmaTower::weaponFire()
 {
     Missile *missile = Arena::factoy.getMissile(2);
-    // missile->deactive=false;
-    //missile->lifetimer=100;
     missile->setPos(this->scenePos());
-    //missile->setPos(missile->scenePos().x()-5,missile->scenePos().y()-20);
-    //missile->translate(-10,-40);
     missile->rotate(this->angle);// - 0.5 + 1.0*rand()/RAND_MAX);
     missile->speed = this->speed+15;
-    //missile->slide = this->slide - 0.08;
 }
 
 bool PlasmaTower::inRange(Enemy *e)

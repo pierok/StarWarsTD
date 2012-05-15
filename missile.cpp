@@ -22,6 +22,7 @@ Missile::Missile()
     slidefriction = 0.96;
     rotfriction = 0.98;
     isEnemy=true;
+    ID=0;
 }
 
 void Missile::reset()
@@ -38,6 +39,7 @@ void Missile::reset()
     slidefriction = 0.96;
     rotfriction = 0.98;
     isEnemy=true;
+    ID=0;
 }
 
 void Missile::paint(QPainter *painter, const QStyleOptionGraphicsItem *, QWidget *)
@@ -106,6 +108,7 @@ Plasma::Plasma()
     rotfriction = 0.98;
     isEnemy=false;
     damage=3;
+    ID=2;
 }
 
 void Plasma::reset()
@@ -123,6 +126,7 @@ void Plasma::reset()
     rotfriction = 0.98;
     isEnemy=false;
     damage=3;
+    ID=2;
 }
 
 void Plasma::control()
@@ -167,6 +171,7 @@ HLaser::HLaser()
     rotfriction = 0.98;
     isEnemy=false;
     damage=1;
+    ID=3;
 }
 
 
@@ -185,6 +190,7 @@ void HLaser::reset()
     rotfriction = 0.98;
     isEnemy=false;
     damage=1;
+    ID=3;
 }
 
 void HLaser::control()
@@ -232,6 +238,7 @@ Laser::Laser()
     slidefriction = 0.96;
     rotfriction = 0.98;
     isEnemy=true;
+    ID=1;
 }
 
 void Laser::reset()
@@ -248,6 +255,7 @@ void Laser::reset()
     slidefriction = 0.96;
     rotfriction = 0.98;
     isEnemy=true;
+    ID=1;
 }
 
 void Laser::paint(QPainter *painter, const QStyleOptionGraphicsItem *, QWidget *)

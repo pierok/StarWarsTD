@@ -52,7 +52,7 @@ Enemy* Factory::getEnemy(int type)
             return xwing;
         }
     }
-   return NULL;
+    return NULL;
 }
 
 
@@ -102,7 +102,7 @@ Tower* Factory::getTower(int type)
             return e;
         }
     }
-   return NULL;
+    return NULL;
 }
 
 
@@ -133,9 +133,11 @@ void Factory::deactivateMissile(Missile*m, int type)
         lasers.enqueue(m);
     }else if(type==2)
     {
+        std::cout<<"Plasma deactive"<<std::endl;
         plasma.enqueue(m);
     }else if(type==3)
     {
+        std::cout<<"Hlaser deactive"<<std::endl;
         hlaser.enqueue(m);
     }
 }

@@ -23,7 +23,7 @@ public:
                QWidget *widget);
     int lifetimer;
     bool deactive;
-    void control();
+    virtual void control();
     virtual void reset();
     void setTarget(Target* d);
 
@@ -31,24 +31,16 @@ public:
     {
         return damage;
     }
+    inline int getID()
+    {
+        return ID;
+    }
 
     bool isEnemy;
 protected:
     double damage;
     Target* target;
-};
-
-
-class HLaser : public Missile
-{
-public:
-    HLaser();
-    void paint(QPainter *painter, const QStyleOptionGraphicsItem *option,
-               QWidget *widget);
-    void control();
-    void reset();
-
-
+    int ID;
 };
 
 
@@ -56,6 +48,17 @@ class Plasma : public Missile
 {
 public:
     Plasma();
+    void paint(QPainter *painter, const QStyleOptionGraphicsItem *option,
+               QWidget *widget);
+    void control();
+    void reset();
+
+};
+
+class HLaser : public Missile
+{
+public:
+    HLaser();
     void paint(QPainter *painter, const QStyleOptionGraphicsItem *option,
                QWidget *widget);
     void control();
