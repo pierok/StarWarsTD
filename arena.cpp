@@ -217,7 +217,7 @@ void Arena::missilesOperation()
         }
     }
 
-    std::cout<<"missile size: "<<missiles.size()<<std::endl;
+    std::cout<<"missiles size: "<<missiles.size()<<std::endl;
 }
 
 
