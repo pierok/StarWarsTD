@@ -23,7 +23,7 @@ Arena::Arena(QPixmap *p)
 
     LifeBar* l= new LifeBar(1000,250);
 
-    this->addPixmap(*qp);
+    //this->addPixmap(*qp);
 
     //this->setBackgroundBrush(QBrush(QImage(":/data/gw.jpg")));
 
@@ -34,7 +34,6 @@ Arena::Arena(QPixmap *p)
 
     l->setPos(deathStar->scenePos());
     l->translate(-250,170);
-
 
     gen1=new Generator();
     gen2=new Generator();
@@ -69,10 +68,8 @@ Arena::Arena(QPixmap *p)
     deploy2->deploySize(20);
 
 
-
     this->addLine(deploy1->scenePos().x()+100,deploy1->scenePos().y()+100,
                   gen1->scenePos().x(),gen1->scenePos().y(),QPen(Qt::gray,2));
-
 
     this->addLine(deploy2->scenePos().x()+100,deploy2->scenePos().y()+100,
                   gen1->scenePos().x(),gen1->scenePos().y(),QPen(Qt::gray,2));
@@ -93,6 +90,12 @@ Arena::Arena(QPixmap *p)
                   deathStar->scenePos().x(),deathStar->scenePos().y(),QPen(Qt::gray,2));
 
     this->addEllipse(deathStar->scenePos().x()-300,deathStar->scenePos().y()-300,600,600,
+                     QPen(QColor(240,0,0,100),2),QBrush(QColor(255,0,0,40)));
+
+    this->addEllipse(deploy1->scenePos().x()-200,deploy1->scenePos().y()-200,600,600,
+                     QPen(QColor(240,0,0,100),2),QBrush(QColor(255,0,0,40)));
+
+    this->addEllipse(deploy2->scenePos().x()-200,deploy2->scenePos().y()-200,600,600,
                      QPen(QColor(240,0,0,100),2),QBrush(QColor(255,0,0,40)));
 
 
@@ -400,53 +403,65 @@ void Arena::addTower(int X, int Y)
     {
         int x=X;
         int y=Y;
-
-        if((deathStar->scenePos().x()-x)*(deathStar->scenePos().x()-x)
-                +(deathStar->scenePos().y()-y)*(deathStar->scenePos().y()-y)<=300*300)
+        if(x>50&x<2600&&y>50&&y<2600)
         {
-            std::cout<<" brak dostepu"<<std::endl;
-        }else
-        {
-            if(gun==A_PRISM)
+
+            if((deathStar->scenePos().x()-x)*(deathStar->scenePos().x()-x)
+                    +(deathStar->scenePos().y()-y)*(deathStar->scenePos().y()-y)<=300*300)
             {
-                PrismTower* prism1= new PrismTower();
-
-                prism1->setPos(x,y);
-
-                prism1->setRadius(300);
-                prism1->setBoundingRect(QRectF(-150,-150,300,300));
-
-                Prism* missile=new Prism();
-                prism1->addPrism(missile);
-
-                towers.insert(prism1);
-                this->addItem(prism1);
-                this->addItem(missile);
-
-                amount-=prism1->getCost();
-                info->setNum(amount);
-            }else if(gun==A_PLASMA)
+                std::cout<<" brak dostepu 1"<<std::endl;
+            }else if((deploy1->scenePos().x()-x)*(deploy1->scenePos().x()-x)
+                     +(deploy1->scenePos().y()-y)*(deploy1->scenePos().y()-y)<=300*300)
             {
-                PlasmaTower* plasma= new PlasmaTower();
-                plasma->setPos(x,y);
-                plasma->setRadius(500);
-                plasma->setBoundingRect(QRectF(-150,-150,300,300));
-                this->addItem(plasma);
-                towers.insert(plasma);
-
-                amount-=plasma->getCost();
-                info->setNum(amount);
-            }else if(gun==A_HUNTER)
+                std::cout<<" brak dostepu 2"<<std::endl;
+            }else if((deploy2->scenePos().x()-x)*(deploy2->scenePos().x()-x)
+                     +(deploy2->scenePos().y()-y)*(deploy2->scenePos().y()-y)<=300*300)
             {
-                Hunter* hunter= new Hunter();
-                hunter->setPos(x,y);
-                hunter->setRadius(200);
-                hunter->setBoundingRect(QRectF(-150,-150,300,300));
-                this->addItem(hunter);
-                towers.insert(hunter);
+                std::cout<<" brak dostepu 3"<<std::endl;
+            }
+            else
+            {
+                if(gun==A_PRISM)
+                {
+                    PrismTower* prism1= new PrismTower();
 
-                amount-=hunter->getCost();
-                info->setNum(amount);
+                    prism1->setPos(x,y);
+
+                    prism1->setRadius(300);
+                    prism1->setBoundingRect(QRectF(-150,-150,300,300));
+
+                    Prism* missile=new Prism();
+                    prism1->addPrism(missile);
+
+                    towers.insert(prism1);
+                    this->addItem(prism1);
+                    this->addItem(missile);
+
+                    amount-=prism1->getCost();
+                    info->setNum(amount);
+                }else if(gun==A_PLASMA)
+                {
+                    PlasmaTower* plasma= new PlasmaTower();
+                    plasma->setPos(x,y);
+                    plasma->setRadius(500);
+                    plasma->setBoundingRect(QRectF(-150,-150,300,300));
+                    this->addItem(plasma);
+                    towers.insert(plasma);
+
+                    amount-=plasma->getCost();
+                    info->setNum(amount);
+                }else if(gun==A_HUNTER)
+                {
+                    Hunter* hunter= new Hunter();
+                    hunter->setPos(x,y);
+                    hunter->setRadius(200);
+                    hunter->setBoundingRect(QRectF(-150,-150,300,300));
+                    this->addItem(hunter);
+                    towers.insert(hunter);
+
+                    amount-=hunter->getCost();
+                    info->setNum(amount);
+                }
             }
         }
     }else

@@ -27,8 +27,6 @@ SOURCES += main.cpp\
     plasmatower.cpp \
     generator.cpp \
     target.cpp \
-    AI/src/gen.cpp \
-    AI/src/osobnik.cpp \
     hunter.cpp \
     AI/src/algorytmGenetyczny.cpp
 
@@ -58,6 +56,8 @@ FORMS    += mainwindow.ui
 
 RESOURCES += \
     data.qrc
+
+
 
 
 

@@ -27,7 +27,9 @@ MainWindow::MainWindow(QWidget *parent) :
     qp= new QPixmap(":/data/gw.jpg");
     arena=new Arena(qp);
 
-    arena->setBackgroundBrush(Qt::black);
+    //arena->setBackgroundBrush(Qt::black);
+    arena->setBackgroundBrush(QBrush(*qp));
+
     arena->setSceneRect(0, 0, 2687 , 2683);
     arena->setItemIndexMethod(QGraphicsScene::NoIndex);
     arena->setInfo(info);

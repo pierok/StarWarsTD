@@ -52,6 +52,7 @@ public:
             }
 
             amount=800;
+            osobnik->rozmiar=osobnik->chromosom.size();
             populacja.push_back(osobnik);
         }
     }

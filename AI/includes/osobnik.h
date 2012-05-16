@@ -8,16 +8,13 @@ class Osobnik
 public:
     Osobnik()
     {
-        amount=800;
+        rozmiar=0;
         przystosowanie=0;
     }
 
-    void generujChromosom();
-
     QList<Gen*> chromosom;
     double przystosowanie;
-private:
-    int amount;
+    int rozmiar;
 };
 
 
