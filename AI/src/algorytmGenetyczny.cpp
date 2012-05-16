@@ -17,7 +17,7 @@ void AlgorytmGenetyczny::mutacja()
         {
             int iloscM=qrand()%10+1;
 
-            int popSize = popSize = populacja->populacja[i]->chromosom.size();;
+            int popSize = popSize = populacja->populacja[i]->rozmiar;;
             int pos1=0;
             int pos2=0;
 
@@ -57,15 +57,41 @@ void AlgorytmGenetyczny::krzyzowanie()
             for(int j=0; j<pos; ++j)
             {
 
-                populacja->populacja[nextCh]->chromosom[j]=o1->chromosom[j];
-                populacja->populacja[nextCh2]->chromosom[j]=o2->chromosom[j];
+                populacja->populacja[nextCh]->chromosom[j]->setTowerType(o1->chromosom[j]->getTowerType());
+                populacja->populacja[nextCh]->chromosom[j]->setTowerX(o1->chromosom[j]->getTowerX());
+                populacja->populacja[nextCh]->chromosom[j]->setTowerY(o1->chromosom[j]->getTowerY());
+
+
+                populacja->populacja[nextCh2]->chromosom[j]->setTowerType(o2->chromosom[j]->getTowerType());
+                populacja->populacja[nextCh2]->chromosom[j]->setTowerX(o2->chromosom[j]->getTowerX());
+                populacja->populacja[nextCh2]->chromosom[j]->setTowerY(o2->chromosom[j]->getTowerY());
             }
 
-            for(int j=pos; j<populacja->rozmiar(); ++j)
+            for(int j=pos; j<o2->rozmiar; ++j)
             {
-                //populacja->populacja->at(nextCh)->genom[j]=o2->genom[j];
-                //populacja->populacja->at(nextCh2)->genom[j]=o1->genom[j];
+                if(populacja->populacja[nextCh2]->chromosom.size()<rozmiar)
+                {
+                  //  populacja->populacja[nextCh]->chromosom[j]->setTowerType(o2->chromosom[j]->getTowerType());
+                  //  populacja->populacja[nextCh]->chromosom[j]->setTowerX(o2->chromosom[j]->getTowerX());
+                  //  populacja->populacja[nextCh]->chromosom[j]->setTowerY(o2->chromosom[j]->getTowerY());
+                }else
+                {
+
+                }
             }
+            for(int j=pos; j<o1->rozmiar; ++j)
+            {
+                if(populacja->populacja[nextCh2]->chromosom.size()<rozmiar)
+                {
+                   // populacja->populacja[nextCh2]->chromosom[j]->setTowerType(o1->chromosom[j]->getTowerType());
+                   // populacja->populacja[nextCh2]->chromosom[j]->setTowerX(o1->chromosom[j]->getTowerX());
+                   // populacja->populacja[nextCh2]->chromosom[j]->setTowerY(o1->chromosom[j]->getTowerY());
+                }else
+                {
+
+                }
+            }
+
             nextCh+=2;
             nextCh2+=2;
         }

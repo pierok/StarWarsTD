@@ -95,6 +95,7 @@ private:
     int amount;
     int time;
     int osobnik;
+    int epoka;
 
 public slots:
     void mousePressEvent(QGraphicsSceneMouseEvent *event);

@@ -20,6 +20,7 @@ Arena::Arena(QPixmap *p)
     qp=p;
     amount=800;
     osobnik=0;
+    epoka=0;
 
     LifeBar* l= new LifeBar(1000,250);
 
@@ -333,9 +334,7 @@ void Arena::step()
             info->setNum(amount);
             nPopulacja->populacja[osobnik]->przystosowanie=deathStar->life+gen1->life+gen2->life;
 
-
-
-            osobnik++;
+            ++osobnik;
             if(osobnik<nPopulacja->populacja.size())
             {
                 infoOs->setNum(osobnik);
@@ -347,12 +346,12 @@ void Arena::step()
                 ag->update();
 
                 osobnik=0;
+                ++epoka;
                 nastepnyOsobnik();
+                infoPokolenie->setNum(epoka);
                 infoOs->setNum(osobnik);
-                std::cout<<"osobniek: "<<osobnik<<std::endl;
-
+                std::cout<<"epoka: "<<epoka<<std::endl;
             }
-
 
             deploy1->setRate(80);
             deploy1->timer=0;
