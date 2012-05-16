@@ -300,7 +300,18 @@ void Arena::step()
         missilesOperation();
     }
 
-    if(Arena::mode==LEARN)
+    if(Arena::mode==GAME)
+    {
+        if(deathStar->deactive==true)
+        {
+            foreach(QGraphicsItem* item ,items())
+            {
+                item->hide();
+
+            }
+            std::cout<<"koniec gry"<<std::endl;
+        }
+    }else if(Arena::mode==LEARN)
     {
         if(deathStar->deactive==true||(deploy1->count==0&&deploy2->count==0))
         {

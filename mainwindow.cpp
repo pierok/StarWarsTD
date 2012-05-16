@@ -76,7 +76,10 @@ void MainWindow::MainClockTick()
         arena->step();
         arena->update();
         ui->lineEdit->setText(*(info));
-        if(arena->mode==LEARN)
+        if(arena->mode==GAME)
+        {
+           // maintimer.stop();
+        }else if(arena->mode==LEARN)
         {
             ui->osobnikLineEdit->setText(*(infoOs));
             ui->pokolenieLineEdit->setText(*(infoPokolenie));
