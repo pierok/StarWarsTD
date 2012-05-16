@@ -217,7 +217,7 @@ void Arena::missilesOperation()
         }
     }
 
-    std::cout<<"missiles size: "<<missiles.size()<<std::endl;
+    //std::cout<<"missiles size: "<<missiles.size()<<std::endl;
 }
 
 
@@ -328,10 +328,28 @@ void Arena::step()
             gen2->deactive=false;
             amount=800;
             info->setNum(amount);
+            nPopulacja->populacja[osobnik]->przystosowanie=deathStar->life+gen1->life+gen2->life;
+
+
+
             osobnik++;
-            infoOs->setNum(osobnik);
-            std::cout<<"osobniek: "<<osobnik<<std::endl;
-            nastepnyOsobnik();
+            if(osobnik<nPopulacja->populacja.size())
+            {
+                infoOs->setNum(osobnik);
+                nastepnyOsobnik();
+                std::cout<<"osobniek: "<<osobnik<<std::endl;
+
+            }else
+            {
+                ag->update();
+
+                osobnik=0;
+                nastepnyOsobnik();
+                infoOs->setNum(osobnik);
+                std::cout<<"osobniek: "<<osobnik<<std::endl;
+
+            }
+
 
             deploy1->setRate(80);
             deploy1->timer=0;
@@ -343,7 +361,7 @@ void Arena::step()
             deploy2->deploySize(10);
             deploy2->start();
 
-            std::cout<<"tower size: "<<towers.size()<<std::endl;
+            //std::cout<<"tower size: "<<towers.size()<<std::endl;
         }
     }
     //std::cout<<"tower size: "<<towers.size()<<std::endl;

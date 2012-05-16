@@ -46,7 +46,7 @@
     <item>
      <widget class="QTabWidget" name="selectMode">
       <property name="currentIndex">
-       <number>0</number>
+       <number>1</number>
       </property>
       <widget class="QWidget" name="tab_3">
        <attribute name="title">
@@ -295,7 +295,7 @@
                </font>
               </property>
               <property name="text">
-               <string>1000</string>
+               <string>10</string>
               </property>
              </widget>
             </item>

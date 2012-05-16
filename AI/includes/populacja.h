@@ -12,15 +12,18 @@ public:
     {
         amount=800;
         generujPopujacje();
+        qsrand(QTime(0,0,0).secsTo(QTime::currentTime()));
     }
 
     QVector<Osobnik*> populacja;
 
+    inline int rozmiar()
+    {
+        return size;
+    }
+
     void generujPopujacje()
     {
-
-        qsrand(QTime(0,0,0).secsTo(QTime::currentTime()));
-
         for(int i=0; i<size; ++i)
         {
             Osobnik* osobnik= new Osobnik();
@@ -52,6 +55,7 @@ public:
             populacja.push_back(osobnik);
         }
     }
+
 
 private:
     int amount;

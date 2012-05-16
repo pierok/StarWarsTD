@@ -177,7 +177,8 @@ void MainWindow::on_learnButton_clicked()
 
     arena->nPopulacja=nowaPopulacja;
     AlgorytmGenetyczny* ag=new AlgorytmGenetyczny(nowaPopulacja);
-    ag->update();
+    arena->ag=ag;
+    //ag->update();
 
     Osobnik* osobnik=nowaPopulacja->populacja[0];
     ui->osobnikLineEdit->setText(ui->osobnikLineEdit->text().setNum(0));

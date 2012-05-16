@@ -13,7 +13,7 @@
 #include "deathstar.h"
 #include "generator.h"
 #include "deploy.h"
-#include "AI/includes/populacja.h"
+#include "AI/includes/algorytmGenetyczny.h"
 
 class Tower;
 class Deploy;
@@ -73,6 +73,8 @@ public:
     void addTower(int x, int y);
     void nastepnyOsobnik();
     Populacja* nPopulacja;
+    AlgorytmGenetyczny* ag;
+
 
 private:
     GUNS gun;
