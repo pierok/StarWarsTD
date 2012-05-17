@@ -21,6 +21,7 @@ Arena::Arena(QPixmap *p)
     amount=800;
     osobnik=0;
     epoka=0;
+    time=0;
 
     LifeBar* l= new LifeBar(1000,250);
 
@@ -112,10 +113,13 @@ Arena::Arena(QPixmap *p)
 
 void Arena::towerOperation()
 {
+
+   // std::cout<<"TOWER START"<<std::endl;
     while(!spawnTower.empty())
     {
         Tower* tower = spawnTower.dequeue();
         this->addItem(tower);
+        towers.insert(tower);
     }
 
     foreach(Tower *tower, towers)
@@ -135,11 +139,13 @@ void Arena::towerOperation()
             tower->control();
         }
     }
+    //std::cout<<"TOWER STOP"<<std::endl;
 }
 
 
 void Arena::enemyOperation()
 {
+   // std::cout<<"ENEMY START"<<std::endl;
     while(!spawnEnemy.empty())
     {
         Enemy* en1= spawnEnemy.dequeue();
@@ -167,10 +173,13 @@ void Arena::enemyOperation()
             enemy->step();
         }
     }
+
+   // std::cout<<"ENEMY STOP"<<std::endl;
 }
 
 void Arena::explosionsOperation()
 {
+    // std::cout<<"EXP START"<<std::endl;
     while(!spawnExplosion.empty())
     {
         Explosion* exp= spawnExplosion.dequeue();
@@ -183,11 +192,13 @@ void Arena::explosionsOperation()
         if(exp->deactive==false)
             exp->control();
     }
+   // std::cout<<"EXP STOP"<<std::endl;
 }
-
 
 void Arena::missilesOperation()
 {
+   // std::cout<<"MISSILE START"<<std::endl;
+
     while(!spawnMissile.empty())
     {
         Missile* misile= spawnMissile.dequeue();
@@ -220,13 +231,16 @@ void Arena::missilesOperation()
             }
         }
     }
-
+   // std::cout<<"MISSILE STOP"<<std::endl;
     //std::cout<<"missiles size: "<<missiles.size()<<std::endl;
 }
 
 
 void Arena::deathStarOperatin()
 {
+
+   //  std::cout<<"STAR GEN1 GEN2 START"<<std::endl;
+
     if(deathStar->deactive==false)
     {
         deathStar->step();
@@ -287,10 +301,16 @@ void Arena::deathStarOperatin()
 
     deploy1->deploy();
     deploy2->deploy();
+
+
+   // std::cout<<"STAR GEN1 GEN2 STOP"<<std::endl;
 }
 
 void Arena::step()
 {
+
+    //std::cout<<"STEP START"<<std::endl;
+
     if(deathStar->deactive==false||Arena::mode==GAME)
     {
         deathStarOperatin();
@@ -310,11 +330,15 @@ void Arena::step()
 
             }
             std::cout<<"koniec gry"<<std::endl;
+
         }
     }else if(Arena::mode==LEARN)
     {
+        std::cout<<"LEARN MODE START"<<std::endl;
+        ++time;
         if(deathStar->deactive==true||(deploy1->count==0&&deploy2->count==0))
         {
+            std::cout<<"============LEARN MODE START2============="<<std::endl;
             deploy1->stop();
             deploy2->stop();
             foreach(Enemy* enemy, enemys)
@@ -326,6 +350,7 @@ void Arena::step()
             foreach(Tower* tower, towers)
             {
                 tower->deactive=true;
+                factoy.deactivateTower(tower,tower->ID);
                 tower->hide();
             }
 
@@ -345,7 +370,9 @@ void Arena::step()
             info->setNum(amount);
             nPopulacja->populacja[osobnik]->przystosowanie=deathStar->life+gen1->life+gen2->life;
 
+
             ++osobnik;
+            std::cout<<"==========TEST============== "<<osobnik<<std::endl;
             if(osobnik<nPopulacja->populacja.size())
             {
                 infoOs->setNum(osobnik);
@@ -354,7 +381,7 @@ void Arena::step()
 
             }else
             {
-                ag->update();
+                //ag->update();
 
                 osobnik=0;
                 ++epoka;
@@ -364,6 +391,7 @@ void Arena::step()
                 std::cout<<"epoka: "<<epoka<<std::endl;
             }
 
+            std::cout<<"==========TEST2============== "<<osobnik<<std::endl;
             deploy1->setRate(80);
             deploy1->timer=0;
             deploy1->deploySize(10);
@@ -373,11 +401,16 @@ void Arena::step()
             deploy2->timer=0;
             deploy2->deploySize(10);
             deploy2->start();
-
             //std::cout<<"tower size: "<<towers.size()<<std::endl;
+
+              std::cout<<"============LEARN MODE STOP============="<<std::endl;
         }
+        std::cout<<"LEARN MODE STOP"<<std::endl;
     }
-    //std::cout<<"tower size: "<<towers.size()<<std::endl;
+    std::cout<<"items size: "<<items().size()<<std::endl;
+
+
+   // std::cout<<"STEP STOP"<<std::endl;
 }
 
 void Arena::wheelEvent( QGraphicsSceneWheelEvent *event )
@@ -387,6 +420,9 @@ void Arena::wheelEvent( QGraphicsSceneWheelEvent *event )
 
 void Arena::nastepnyOsobnik()
 {
+
+    std::cout<<"==============================NASTEPNY OSOBNIK START"<<std::endl;
+
     Osobnik* os=nPopulacja->populacja[osobnik];
 
     foreach(Gen* gen, os->chromosom)
@@ -405,15 +441,19 @@ void Arena::nastepnyOsobnik()
             addTower(gen->getTowerX(),gen->getTowerY());
         }
     }
+
+
+    std::cout<<"==============================NASTEPNY OSOBNIK STOP"<<std::endl;
 }
 
 void Arena::addTower(int X, int Y)
 {
+    std::cout<<"ADD TOWER START"<<std::endl;
     if(amount>0)
     {
         int x=X;
         int y=Y;
-        if(x>50&x<2600&&y>50&&y<2600)
+        if(x>50&&x<2600&&y>50&&y<2600)
         {
 
             if((deathStar->scenePos().x()-x)*(deathStar->scenePos().x()-x)
@@ -451,23 +491,23 @@ void Arena::addTower(int X, int Y)
                     info->setNum(amount);
                 }else if(gun==A_PLASMA)
                 {
-                    PlasmaTower* plasma= new PlasmaTower();
+                    Tower* plasma= factoy.getTower(1);// new PlasmaTower();
                     plasma->setPos(x,y);
                     plasma->setRadius(500);
                     plasma->setBoundingRect(QRectF(-150,-150,300,300));
-                    this->addItem(plasma);
-                    towers.insert(plasma);
+                    //this->addItem(plasma);
+                    //towers.insert(plasma);
 
                     amount-=plasma->getCost();
                     info->setNum(amount);
                 }else if(gun==A_HUNTER)
                 {
-                    Hunter* hunter= new Hunter();
+                    Tower* hunter=  factoy.getTower(2);
                     hunter->setPos(x,y);
-                    hunter->setRadius(200);
+                    hunter->setRadius(300);
                     hunter->setBoundingRect(QRectF(-150,-150,300,300));
-                    this->addItem(hunter);
-                    towers.insert(hunter);
+                    //this->addItem(hunter);
+                    //towers.insert(hunter);
 
                     amount-=hunter->getCost();
                     info->setNum(amount);
@@ -479,6 +519,8 @@ void Arena::addTower(int X, int Y)
         std::cout<<"Brak kredytow1"<<std::endl;
         *info=QString("Brak kredytow");
     }
+
+    std::cout<<"ADD TOWER STOP"<<std::endl;
 }
 
 void Arena::mousePressEvent(QGraphicsSceneMouseEvent *event)

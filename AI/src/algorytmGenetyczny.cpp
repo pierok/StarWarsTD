@@ -15,9 +15,9 @@ void AlgorytmGenetyczny::mutacja()
 
         if(m<10)
         {
-            int iloscM=qrand()%10+1;
+            int iloscM=qrand()%populacja->rozmiar();
 
-            int popSize = popSize = populacja->populacja[i]->rozmiar;;
+            int popSize = populacja->populacja[i]->rozmiar;;
             int pos1=0;
             int pos2=0;
 
@@ -69,28 +69,44 @@ void AlgorytmGenetyczny::krzyzowanie()
 
             for(int j=pos; j<o2->rozmiar; ++j)
             {
-                if(populacja->populacja[nextCh2]->chromosom.size()<rozmiar)
+
+                if(j>populacja->populacja[nextCh]->chromosom.size()-1)
                 {
-                  //  populacja->populacja[nextCh]->chromosom[j]->setTowerType(o2->chromosom[j]->getTowerType());
-                  //  populacja->populacja[nextCh]->chromosom[j]->setTowerX(o2->chromosom[j]->getTowerX());
-                  //  populacja->populacja[nextCh]->chromosom[j]->setTowerY(o2->chromosom[j]->getTowerY());
+                    Gen* gen=new Gen();
+                    gen->setTowerType(o2->chromosom[j]->getTowerType());
+                    gen->setTowerX(o2->chromosom[j]->getTowerX());
+                    gen->setTowerY(o2->chromosom[j]->getTowerY());
+                    populacja->populacja[nextCh]->chromosom.push_back(gen);
                 }else
                 {
-
+                    populacja->populacja[nextCh]->chromosom[j]->setTowerType(o2->chromosom[j]->getTowerType());
+                    populacja->populacja[nextCh]->chromosom[j]->setTowerX(o2->chromosom[j]->getTowerX());
+                    populacja->populacja[nextCh]->chromosom[j]->setTowerY(o2->chromosom[j]->getTowerY());
                 }
+
             }
+
+            populacja->populacja[nextCh]->rozmiar=o2->rozmiar;
+
             for(int j=pos; j<o1->rozmiar; ++j)
             {
-                if(populacja->populacja[nextCh2]->chromosom.size()<rozmiar)
+                if(j>populacja->populacja[nextCh]->chromosom.size()-1)
                 {
-                   // populacja->populacja[nextCh2]->chromosom[j]->setTowerType(o1->chromosom[j]->getTowerType());
-                   // populacja->populacja[nextCh2]->chromosom[j]->setTowerX(o1->chromosom[j]->getTowerX());
-                   // populacja->populacja[nextCh2]->chromosom[j]->setTowerY(o1->chromosom[j]->getTowerY());
+                    Gen* gen=new Gen();
+                    gen->setTowerType(o1->chromosom[j]->getTowerType());
+                    gen->setTowerX(o1->chromosom[j]->getTowerX());
+                    gen->setTowerY(o1->chromosom[j]->getTowerY());
+                    populacja->populacja[nextCh2]->chromosom.push_back(gen);
                 }else
                 {
-
+                    populacja->populacja[nextCh2]->chromosom[j]->setTowerType(o1->chromosom[j]->getTowerType());
+                    populacja->populacja[nextCh2]->chromosom[j]->setTowerX(o1->chromosom[j]->getTowerX());
+                    populacja->populacja[nextCh2]->chromosom[j]->setTowerY(o1->chromosom[j]->getTowerY());
                 }
+
             }
+
+            populacja->populacja[nextCh2]->rozmiar=o1->rozmiar;
 
             nextCh+=2;
             nextCh2+=2;

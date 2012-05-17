@@ -71,20 +71,20 @@ void MainWindow::MainClockTick()
 {
     if(processed)
     {
+        std::cout<<"CLOCK START"<<std::endl;
         processed = false;
 
         arena->step();
         arena->update();
         ui->lineEdit->setText(*(info));
-        if(arena->mode==GAME)
-        {
-           // maintimer.stop();
-        }else if(arena->mode==LEARN)
+        if(arena->mode==LEARN)
         {
             ui->osobnikLineEdit->setText(*(infoOs));
             ui->pokolenieLineEdit->setText(*(infoPokolenie));
         }
         processed=true;
+
+        std::cout<<"CLOCK STOP"<<std::endl;
     }
 }
 

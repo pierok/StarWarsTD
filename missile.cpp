@@ -306,6 +306,14 @@ Prism::Prism()
 {
     // std::cout<<"Prism counstract"<<std::endl;
     lifetimer = 0;
+    ID=4;
+}
+
+
+void Prism::reset()
+{
+    lifetimer = 0;
+    ID=4;
 }
 
 void Prism::paint(QPainter *painter, const QStyleOptionGraphicsItem *, QWidget *)

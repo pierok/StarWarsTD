@@ -25,6 +25,7 @@ Hunter::Hunter()
     enemy=NULL;
     cost=20;
     deactive=false;
+    ID=2;
 }
 
 void Hunter::reset()
@@ -33,6 +34,7 @@ void Hunter::reset()
     fire=false;
     enemy=NULL;
     deactive=false;
+    ID=2;
 }
 
 void Hunter::paint(QPainter *painter, const QStyleOptionGraphicsItem *option,

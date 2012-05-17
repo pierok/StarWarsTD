@@ -79,7 +79,7 @@ public:
 };
 
 
-class Prism : public QGraphicsItem
+class Prism : public Missile
 {
 public:
     Prism();

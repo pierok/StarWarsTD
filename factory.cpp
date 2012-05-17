@@ -1,6 +1,7 @@
 #include "factory.h"
 #include "prismtower.h"
 #include "plasmatower.h"
+#include "hunter.h"
 
 Factory::Factory()
 {
@@ -61,11 +62,18 @@ void Factory::deactivateTower(Tower* t, int type)
     if(type==0)
     {
         t->hide();
+        //std::cout<<"Deactive prism"<<std::endl;
         prismTowers.enqueue(t);
     }else if(type==1)
     {
         t->hide();
+        //std::cout<<"Deactive plasma"<<std::endl;
         plasmaTowers.enqueue(t);
+    }else if(type==2)
+    {
+        t->hide();
+        //std::cout<<"Deactive HUnter"<<std::endl;
+        hunterTowers.enqueue(t);
     }
 }
 
@@ -90,6 +98,7 @@ Tower* Factory::getTower(int type)
     {
         if(!plasmaTowers.isEmpty())
         {
+            //std::cout<<"get Plasma"<<std::endl;
             Tower* e=plasmaTowers.dequeue();
             e->reset();
             e->show();
@@ -97,11 +106,30 @@ Tower* Factory::getTower(int type)
             return e;
         }else
         {
+            //std::cout<<"new Plasma"<<std::endl;
             Tower* e=new PlasmaTower();
             Arena::spawnTower.enqueue(e);
             return e;
         }
+    }else if( type==2)
+    {
+        if(!hunterTowers.isEmpty())
+        {
+            //std::cout<<"get Hunter"<<std::endl;
+            Tower* e=hunterTowers.dequeue();
+            e->reset();
+            e->show();
+            e->resetTransform();
+            return e;
+        }else
+        {
+            //std::cout<<"new Hunter"<<std::endl;
+            Tower* e=new Hunter();
+            Arena::spawnTower.enqueue(e);
+            return e;
+        }
     }
+
     return NULL;
 }
 

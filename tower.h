@@ -46,6 +46,7 @@ public:
         return cost;
     }
 
+    int ID;
 protected:
     Enemy* enemy;
     double radius;

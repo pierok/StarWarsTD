@@ -45,6 +45,7 @@ private:
     QQueue<Explosion*> explosions;
     QQueue<Tower*> prismTowers;
     QQueue<Tower*> plasmaTowers;
+    QQueue<Tower*> hunterTowers;
 };
 
 #endif // FACTORY_H

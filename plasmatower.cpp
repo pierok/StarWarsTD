@@ -24,6 +24,7 @@ PlasmaTower::PlasmaTower()
     enemy=NULL;
     cost=10;
     deactive=false;
+    ID=1;
 }
 
 void PlasmaTower::reset()
@@ -32,6 +33,7 @@ void PlasmaTower::reset()
     fire=false;
     enemy=NULL;
     deactive=false;
+    ID=1;
 }
 
 void PlasmaTower::paint(QPainter *painter, const QStyleOptionGraphicsItem *option,
