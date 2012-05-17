@@ -71,7 +71,6 @@ void MainWindow::MainClockTick()
 {
     if(processed)
     {
-        std::cout<<"CLOCK START"<<std::endl;
         processed = false;
 
         arena->step();
@@ -83,8 +82,6 @@ void MainWindow::MainClockTick()
             ui->pokolenieLineEdit->setText(*(infoPokolenie));
         }
         processed=true;
-
-        std::cout<<"CLOCK STOP"<<std::endl;
     }
 }
 

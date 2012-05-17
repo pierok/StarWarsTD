@@ -10,7 +10,7 @@ Hunter::Hunter()
     fire=false;
 
     angle = 0;
-    speed = 10;
+    speed = 4;
     slide = 0;
     rot = 0;
 
@@ -30,9 +30,25 @@ Hunter::Hunter()
 
 void Hunter::reset()
 {
+    radius=1;
     weapon1state=0;
     fire=false;
+
+    angle = 0;
+    speed = 4;
+    slide = 0;
+    rot = 0;
+
+    friction = 0.9925;
+    slidefriction = 0.9850;
+    rotfriction = 1.0;//0.9750;
+
+    acc = 0.17;
+    slideacc = 0.12;
+    brake = 0.10;
+    rotacc = 0.9;
     enemy=NULL;
+    cost=20;
     deactive=false;
     ID=2;
 }
@@ -42,6 +58,9 @@ void Hunter::paint(QPainter *painter, const QStyleOptionGraphicsItem *option,
 {
     QPixmap tower(":/data/TIE_fighter.png");
     painter->drawPixmap(QRect(-140/4,-115/4,280/4, 230/4),tower);
+
+    painter->setPen(Qt::white);
+    painter->drawEllipse(-140/4,-115/4,280/4, 230/4);
 }
 
 void Hunter::weaponFire()
