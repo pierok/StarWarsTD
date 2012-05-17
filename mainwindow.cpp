@@ -163,12 +163,12 @@ void MainWindow::on_startButton_clicked()
 {
     arena->deploy1->setRate(80);
     arena->deploy1->timer=0;
-    arena->deploy1->deploySize(10);
+    arena->deploy1->deploySize(20);
     arena->deploy1->start();
 
     arena->deploy2->setRate(15);
     arena->deploy2->timer=0;
-    arena->deploy2->deploySize(10);
+    arena->deploy2->deploySize(100);
     arena->deploy2->start();
 }
 

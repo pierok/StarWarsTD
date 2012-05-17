@@ -90,7 +90,12 @@ Tower* Factory::getTower(int type)
             return e;
         }else
         {
-            Tower* e=new PrismTower();
+            PrismTower* e=new PrismTower();
+
+            Prism* missile=new Prism();
+            e->addPrism(missile);
+
+            Arena::spawnMissile.enqueue(missile);
             Arena::spawnTower.enqueue(e);
             return e;
         }

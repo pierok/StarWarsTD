@@ -102,11 +102,15 @@ public:
 
     void control()
     {
-        if(lifetimer>0)
+        if(deactive==false)
         {
-            lifetimer--;
-        }else{
-            this->hide();
+            if(lifetimer>0)
+            {
+                lifetimer--;
+            }else{
+                deactive=true;
+                this->hide();
+            }
         }
     }
 

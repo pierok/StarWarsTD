@@ -23,6 +23,8 @@ void PrismTower::reset()
     enemy=NULL;
     deactive=false;
     ID=0;
+    prism->setSource(QPoint(this->scenePos().x(),this->scenePos().y()));
+    prism->setTarget(QPoint(this->scenePos().x(),this->scenePos().y()));
 }
 
 void PrismTower::paint(QPainter *painter, const QStyleOptionGraphicsItem *, QWidget *)
@@ -65,7 +67,7 @@ void PrismTower::control()
             weapon1state--;
         }
     }
-    prism->control();
+    //prism->control();
 }
 
 void PrismTower::weaponFire()
@@ -75,6 +77,7 @@ void PrismTower::weaponFire()
         if(enemy->death==false)
         {
             prism->setTarget(QPoint(enemy->scenePos().x(),enemy->scenePos().y()));
+            prism->deactive=false;
             prism->lifetimer=5;
             prism->show();
             enemy->hit(40);

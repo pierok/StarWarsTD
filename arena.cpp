@@ -113,8 +113,6 @@ Arena::Arena(QPixmap *p)
 
 void Arena::towerOperation()
 {
-
-   // std::cout<<"TOWER START"<<std::endl;
     while(!spawnTower.empty())
     {
         Tower* tower = spawnTower.dequeue();
@@ -139,13 +137,11 @@ void Arena::towerOperation()
             tower->control();
         }
     }
-    //std::cout<<"TOWER STOP"<<std::endl;
 }
 
 
 void Arena::enemyOperation()
 {
-   // std::cout<<"ENEMY START"<<std::endl;
     while(!spawnEnemy.empty())
     {
         Enemy* en1= spawnEnemy.dequeue();
@@ -174,12 +170,10 @@ void Arena::enemyOperation()
         }
     }
 
-   // std::cout<<"ENEMY STOP"<<std::endl;
 }
 
 void Arena::explosionsOperation()
 {
-    // std::cout<<"EXP START"<<std::endl;
     while(!spawnExplosion.empty())
     {
         Explosion* exp= spawnExplosion.dequeue();
@@ -192,12 +186,10 @@ void Arena::explosionsOperation()
         if(exp->deactive==false)
             exp->control();
     }
-   // std::cout<<"EXP STOP"<<std::endl;
 }
 
 void Arena::missilesOperation()
 {
-   // std::cout<<"MISSILE START"<<std::endl;
 
     while(!spawnMissile.empty())
     {
@@ -231,15 +223,11 @@ void Arena::missilesOperation()
             }
         }
     }
-   // std::cout<<"MISSILE STOP"<<std::endl;
-    //std::cout<<"missiles size: "<<missiles.size()<<std::endl;
 }
 
 
 void Arena::deathStarOperatin()
 {
-
-   //  std::cout<<"STAR GEN1 GEN2 START"<<std::endl;
 
     if(deathStar->deactive==false)
     {
@@ -303,13 +291,11 @@ void Arena::deathStarOperatin()
     deploy2->deploy();
 
 
-   // std::cout<<"STAR GEN1 GEN2 STOP"<<std::endl;
 }
 
 void Arena::step()
 {
 
-    //std::cout<<"STEP START"<<std::endl;
 
     if(deathStar->deactive==false||Arena::mode==GAME)
     {
@@ -334,11 +320,9 @@ void Arena::step()
         }
     }else if(Arena::mode==LEARN)
     {
-        std::cout<<"LEARN MODE START"<<std::endl;
         ++time;
         if(deathStar->deactive==true||(deploy1->count==0&&deploy2->count==0))
         {
-            std::cout<<"============LEARN MODE START2============="<<std::endl;
             deploy1->stop();
             deploy2->stop();
             foreach(Enemy* enemy, enemys)
@@ -394,23 +378,16 @@ void Arena::step()
             std::cout<<"==========TEST2============== "<<osobnik<<std::endl;
             deploy1->setRate(80);
             deploy1->timer=0;
-            deploy1->deploySize(10);
+            deploy1->deploySize(20);
             deploy1->start();
 
             deploy2->setRate(15);
             deploy2->timer=0;
-            deploy2->deploySize(10);
+            deploy2->deploySize(100);
             deploy2->start();
-            //std::cout<<"tower size: "<<towers.size()<<std::endl;
-
-              std::cout<<"============LEARN MODE STOP============="<<std::endl;
         }
-        std::cout<<"LEARN MODE STOP"<<std::endl;
     }
     std::cout<<"items size: "<<items().size()<<std::endl;
-
-
-   // std::cout<<"STEP STOP"<<std::endl;
 }
 
 void Arena::wheelEvent( QGraphicsSceneWheelEvent *event )
@@ -420,8 +397,6 @@ void Arena::wheelEvent( QGraphicsSceneWheelEvent *event )
 
 void Arena::nastepnyOsobnik()
 {
-
-    std::cout<<"==============================NASTEPNY OSOBNIK START"<<std::endl;
 
     Osobnik* os=nPopulacja->populacja[osobnik];
 
@@ -441,14 +416,10 @@ void Arena::nastepnyOsobnik()
             addTower(gen->getTowerX(),gen->getTowerY());
         }
     }
-
-
-    std::cout<<"==============================NASTEPNY OSOBNIK STOP"<<std::endl;
 }
 
 void Arena::addTower(int X, int Y)
 {
-    std::cout<<"ADD TOWER START"<<std::endl;
     if(amount>0)
     {
         int x=X;
@@ -473,19 +444,22 @@ void Arena::addTower(int X, int Y)
             {
                 if(gun==A_PRISM)
                 {
-                    PrismTower* prism1= new PrismTower();
+                    Tower* prism1= factoy.getTower();
 
                     prism1->setPos(x,y);
 
                     prism1->setRadius(300);
                     prism1->setBoundingRect(QRectF(-150,-150,300,300));
 
-                    Prism* missile=new Prism();
-                    prism1->addPrism(missile);
+                    prism1->reset();
+                    //Prism* missile=new Prism();
+                    //prism1->addPrism(missile);
 
-                    towers.insert(prism1);
-                    this->addItem(prism1);
-                    this->addItem(missile);
+                    //spawnMissile.enqueue(missile);
+
+                    //towers.insert(prism1);
+                    //this->addItem(prism1);
+                    //this->addItem(missile);
 
                     amount-=prism1->getCost();
                     info->setNum(amount);
@@ -503,11 +477,11 @@ void Arena::addTower(int X, int Y)
                 }else if(gun==A_HUNTER)
                 {
                     Tower* hunter=  factoy.getTower(2);
+                    hunter->reset();
+                    hunter->resetTransform();
                     hunter->setPos(x,y);
                     hunter->setRadius(300);
                     hunter->setBoundingRect(QRectF(-150,-150,300,300));
-                    //this->addItem(hunter);
-                    //towers.insert(hunter);
 
                     amount-=hunter->getCost();
                     info->setNum(amount);
@@ -519,8 +493,6 @@ void Arena::addTower(int X, int Y)
         std::cout<<"Brak kredytow1"<<std::endl;
         *info=QString("Brak kredytow");
     }
-
-    std::cout<<"ADD TOWER STOP"<<std::endl;
 }
 
 void Arena::mousePressEvent(QGraphicsSceneMouseEvent *event)

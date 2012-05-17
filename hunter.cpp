@@ -89,13 +89,13 @@ void Hunter::control()
             fire=false;
         }
 
-        enemy->direction.normalize();
-        enemy->direction*=60;
+        //enemy->direction.normalize();
+        //enemy->direction*=60;
 
-        enemy->direction*=(((enemy->speed/*enemy->speed*/)/(this->speed+20)));
+        //enemy->direction*=(((enemy->speed/*enemy->speed*/)/(this->speed+20)));
 
-        playerX+=enemy->direction.x();
-        playerY+=enemy->direction.y();
+       // playerX+=enemy->direction.x();
+       // playerY+=enemy->direction.y();
 
         double linex = ( playerX- this->scenePos().x());
         double liney = ( playerY- this->scenePos().y());
