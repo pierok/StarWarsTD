@@ -8,7 +8,7 @@ MainWindow::MainWindow(QWidget *parent) :
 {
     ui->setupUi(this);
 
-    // this->setWindowState(Qt::WindowFullScreen);
+   // this->setWindowState(Qt::WindowFullScreen);
     //this->setFocusPolicy( Qt::StrongFocus );
     // this->setAttribute(Qt::WA_QuitOnClose, true);
 
@@ -28,7 +28,7 @@ MainWindow::MainWindow(QWidget *parent) :
     arena=new Arena(qp);
 
     //arena->setBackgroundBrush(Qt::black);
-    arena->setBackgroundBrush(QBrush(*qp));
+    //arena->setBackgroundBrush(QBrush(*qp));
 
     arena->setSceneRect(0, 0, 2687 , 2683);
     arena->setItemIndexMethod(QGraphicsScene::NoIndex);
@@ -158,14 +158,14 @@ void MainWindow::on_tieButton_clicked()
 
 void MainWindow::on_startButton_clicked()
 {
-    arena->deploy1->setRate(80);
+    arena->deploy1->setRate(70);
     arena->deploy1->timer=0;
     arena->deploy1->deploySize(20);
     arena->deploy1->start();
 
     arena->deploy2->setRate(15);
     arena->deploy2->timer=0;
-    arena->deploy2->deploySize(100);
+    arena->deploy2->deploySize(30);
     arena->deploy2->start();
 }
 

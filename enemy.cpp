@@ -59,7 +59,6 @@ void Enemy::paint(QPainter *painter, const QStyleOptionGraphicsItem *, QWidget *
 {
     QPixmap ship(":/data/SokolMilenium.png");
     painter->drawPixmap(QRect(-350/16,-470/16,350/8,470/8),ship);
-    painter->setPen(Qt::white);
 }
 
 void Enemy::hit(double damage)

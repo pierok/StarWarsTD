@@ -11,7 +11,7 @@
 Missile::Missile()
 {
     deactive=false;
-    lifetimer = 40;
+    lifetimer = 30;
 
     angle = 0;
     speed = 0;
@@ -28,7 +28,7 @@ Missile::Missile()
 void Missile::reset()
 {
     deactive=false;
-    lifetimer = 40;
+    lifetimer = 30;
 
     angle = 0;
     speed = 0;
@@ -96,7 +96,7 @@ void Missile::setTarget(Target* d)
 Plasma::Plasma()
 {
     deactive=false;
-    lifetimer = 50;
+    lifetimer = 40;
 
     angle = 0;
     speed = 0;
@@ -107,14 +107,14 @@ Plasma::Plasma()
     slidefriction = 0.96;
     rotfriction = 0.98;
     isEnemy=false;
-    damage=3;
+    damage=4;
     ID=2;
 }
 
 void Plasma::reset()
 {
     deactive=false;
-    lifetimer = 50;
+    lifetimer = 40;
 
     angle = 0;
     speed = 0;
@@ -125,7 +125,7 @@ void Plasma::reset()
     slidefriction = 0.96;
     rotfriction = 0.98;
     isEnemy=false;
-    damage=3;
+    damage=4;
     ID=2;
 }
 
@@ -159,7 +159,7 @@ void Plasma::paint(QPainter *painter, const QStyleOptionGraphicsItem *, QWidget 
 HLaser::HLaser()
 {
     deactive=false;
-    lifetimer = 50;
+    lifetimer = 35;
 
     angle = 0;
     speed = 0;
@@ -170,7 +170,7 @@ HLaser::HLaser()
     slidefriction = 0.96;
     rotfriction = 0.98;
     isEnemy=false;
-    damage=1;
+    damage=2;
     ID=3;
 }
 
@@ -178,7 +178,7 @@ HLaser::HLaser()
 void HLaser::reset()
 {
     deactive=false;
-    lifetimer = 50;
+    lifetimer = 35;
 
     angle = 0;
     speed = 0;
@@ -189,7 +189,7 @@ void HLaser::reset()
     slidefriction = 0.96;
     rotfriction = 0.98;
     isEnemy=false;
-    damage=1;
+    damage=2;
     ID=3;
 }
 
@@ -227,7 +227,7 @@ void HLaser::paint(QPainter *painter, const QStyleOptionGraphicsItem *, QWidget 
 Laser::Laser()
 {
     deactive=false;
-    lifetimer = 100;
+    lifetimer = 70;
 
     angle = 0;
     speed = 0;
@@ -244,7 +244,7 @@ Laser::Laser()
 void Laser::reset()
 {
     deactive=false;
-    lifetimer = 100;
+    lifetimer = 70;
 
     angle = 0;
     speed = 0;

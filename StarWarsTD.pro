@@ -4,7 +4,8 @@
 #
 #-------------------------------------------------
 
-QT       += core gui
+QT       += core gui \
+        opengl
 
 TARGET = StarWarsTD
 TEMPLATE = app

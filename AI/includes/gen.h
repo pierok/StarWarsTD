@@ -7,7 +7,10 @@ class Gen
 private:
     uint32_t genom;
 public:
-    Gen():genom(0){}
+    Gen()
+    {
+        genom=0;
+    }
 
 
     inline void resetGen()

@@ -2,12 +2,14 @@
 #define CUSTOMVIEW_H
 
 #include <QtGui>
+#include <QtOpenGL>
+#include <QGraphicsView>
 
 class CustomView : public QGraphicsView
 {
     Q_OBJECT
 public:
-    CustomView(QWidget *parent = 0);
+    explicit CustomView(QObject *parent = 0);
     int x;
     int y;
 

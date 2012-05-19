@@ -9,6 +9,7 @@ public:
     AlgorytmGenetyczny(Populacja *pop);
 
     void mutacja();
+    void mutacja2();
     void krzyzowanie();
     void selekcja();
 
@@ -17,6 +18,7 @@ public:
         selekcja();
         krzyzowanie();
         mutacja();
+        mutacja2();
         ++pokolenie;
     }
 

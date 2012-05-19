@@ -80,7 +80,7 @@ void PrismTower::weaponFire()
             prism->deactive=false;
             prism->lifetimer=5;
             prism->show();
-            enemy->hit(40);
+            enemy->hit(35);
             enemy=NULL;
         }
     }

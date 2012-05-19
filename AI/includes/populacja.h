@@ -45,6 +45,7 @@ public:
                 int y=qrand()%2680;
 
                 Gen* gen= new Gen();
+                gen->resetGen();
                 gen->setTowerType(type);
                 gen->setTowerX(x);
                 gen->setTowerY(y);

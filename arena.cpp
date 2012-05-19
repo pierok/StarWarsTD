@@ -321,7 +321,7 @@ void Arena::step()
     }else if(Arena::mode==LEARN)
     {
         ++time;
-        if(deathStar->deactive==true||(deploy1->count==0&&deploy2->count==0))
+        if(deathStar->deactive==true)//||(deploy1->count==0&&deploy2->count==0))
         {
             deploy1->stop();
             deploy2->stop();
@@ -356,16 +356,14 @@ void Arena::step()
 
 
             ++osobnik;
-            std::cout<<"==========TEST============== "<<osobnik<<std::endl;
             if(osobnik<nPopulacja->populacja.size())
             {
                 infoOs->setNum(osobnik);
                 nastepnyOsobnik();
                 std::cout<<"osobniek: "<<osobnik<<std::endl;
-
             }else
             {
-                //ag->update();
+                ag->update();
 
                 osobnik=0;
                 ++epoka;
@@ -374,20 +372,18 @@ void Arena::step()
                 infoOs->setNum(osobnik);
                 std::cout<<"epoka: "<<epoka<<std::endl;
             }
-
-            std::cout<<"==========TEST2============== "<<osobnik<<std::endl;
-            deploy1->setRate(80);
+            deploy1->setRate(70);
             deploy1->timer=0;
             deploy1->deploySize(20);
             deploy1->start();
 
             deploy2->setRate(15);
             deploy2->timer=0;
-            deploy2->deploySize(100);
+            deploy2->deploySize(30);
             deploy2->start();
         }
     }
-    std::cout<<"items size: "<<items().size()<<std::endl;
+    //std::cout<<"items size: "<<items().size()<<std::endl;
 }
 
 void Arena::wheelEvent( QGraphicsSceneWheelEvent *event )
@@ -399,9 +395,12 @@ void Arena::nastepnyOsobnik()
 {
 
     Osobnik* os=nPopulacja->populacja[osobnik];
+    std::cout<<"osobnik size: "<<nPopulacja->populacja[osobnik]->chromosom.size()<<std::endl;
 
+    int i=0;
     foreach(Gen* gen, os->chromosom)
     {
+       // std::cout<<"i: "<<i<<" type: "<<gen->getTowerType()<<" X: "<<gen->getTowerX()<<" Y: "<<gen->getTowerY()<<std::endl;
         if(gen->getTowerType()==1)
         {
             setGun(A_PRISM);
@@ -415,6 +414,7 @@ void Arena::nastepnyOsobnik()
             setGun(A_HUNTER);
             addTower(gen->getTowerX(),gen->getTowerY());
         }
+        i++;
     }
 }
 
@@ -452,14 +452,6 @@ void Arena::addTower(int X, int Y)
                     prism1->setBoundingRect(QRectF(-150,-150,300,300));
 
                     prism1->reset();
-                    //Prism* missile=new Prism();
-                    //prism1->addPrism(missile);
-
-                    //spawnMissile.enqueue(missile);
-
-                    //towers.insert(prism1);
-                    //this->addItem(prism1);
-                    //this->addItem(missile);
 
                     amount-=prism1->getCost();
                     info->setNum(amount);
@@ -469,8 +461,6 @@ void Arena::addTower(int X, int Y)
                     plasma->setPos(x,y);
                     plasma->setRadius(500);
                     plasma->setBoundingRect(QRectF(-150,-150,300,300));
-                    //this->addItem(plasma);
-                    //towers.insert(plasma);
 
                     amount-=plasma->getCost();
                     info->setNum(amount);
@@ -487,7 +477,11 @@ void Arena::addTower(int X, int Y)
                     info->setNum(amount);
                 }
             }
+        }else
+        {
+            std::cout<<"poza zasiegiem: X: "<<x<<" Y: "<<y <<std::endl;
         }
+
     }else
     {
         std::cout<<"Brak kredytow1"<<std::endl;

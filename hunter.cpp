@@ -58,9 +58,6 @@ void Hunter::paint(QPainter *painter, const QStyleOptionGraphicsItem *option,
 {
     QPixmap tower(":/data/TIE_fighter.png");
     painter->drawPixmap(QRect(-140/4,-115/4,280/4, 230/4),tower);
-
-    painter->setPen(Qt::white);
-    painter->drawEllipse(-140/4,-115/4,280/4, 230/4);
 }
 
 void Hunter::weaponFire()
