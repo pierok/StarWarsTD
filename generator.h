@@ -33,6 +33,7 @@ public:
         lifebar->show();
     }
 
+
     bool deactive;
     double life;
 

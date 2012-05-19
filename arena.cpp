@@ -5,6 +5,8 @@
 #include "hunter.h"
 #include "lifebar.h"
 #include <iostream>
+#include <QFile>
+#include <QTextStream>
 
 QQueue<Enemy*> Arena::spawnEnemy;
 QQueue<Explosion*> Arena::spawnExplosion;
@@ -13,6 +15,7 @@ QQueue<Tower*> Arena::spawnTower;
 
 Factory Arena::factoy;
 Mode Arena::mode=GAME;
+int Arena::enemySize=0;
 
 Arena::Arena(QPixmap *p)
 {
@@ -321,10 +324,31 @@ void Arena::step()
     }else if(Arena::mode==LEARN)
     {
         ++time;
-        if(deathStar->deactive==true)//||(deploy1->count==0&&deploy2->count==0))
+        if(deathStar->deactive==true||enemySize==50)//||(deploy1->count==0&&deploy2->count==0))
         {
+
+
+            if(enemySize==50)
+            {
+                   std::cout<<"write to file"<<std::endl;
+                   QFile file("out.txt");
+                   if (!file.open(QIODevice::Append| QIODevice::Text))
+                       return;
+
+                   QTextStream out(&file);
+                   out << "osobnik "<<nPopulacja->populacja[osobnik]->chromosom.size()<<"\n" ;
+                   foreach(Gen* gen, nPopulacja->populacja[osobnik]->chromosom)
+                   {
+                       out<<gen->getGenom()<<"\n";
+                   }
+                   out << "endOsobnik\n";
+            }
+
+
             deploy1->stop();
             deploy2->stop();
+
+            std::cout<<"enemy size1: "<<enemySize<<std::endl;
             foreach(Enemy* enemy, enemys)
             {
                 enemy->hit(10000);
@@ -350,6 +374,7 @@ void Arena::step()
             gen2->show();
             gen2->showLifeBar();
             gen2->deactive=false;
+
             amount=800;
             info->setNum(amount);
             nPopulacja->populacja[osobnik]->przystosowanie=deathStar->life+gen1->life+gen2->life;
@@ -372,6 +397,10 @@ void Arena::step()
                 infoOs->setNum(osobnik);
                 std::cout<<"epoka: "<<epoka<<std::endl;
             }
+
+
+            std::cout<<"enemy size2: "<<enemySize<<std::endl;
+            enemySize=0;
             deploy1->setRate(70);
             deploy1->timer=0;
             deploy1->deploySize(20);
@@ -381,6 +410,7 @@ void Arena::step()
             deploy2->timer=0;
             deploy2->deploySize(30);
             deploy2->start();
+
         }
     }
     //std::cout<<"items size: "<<items().size()<<std::endl;

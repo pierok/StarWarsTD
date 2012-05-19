@@ -13,5 +13,6 @@
         <file>data/plasmaInfo.png</file>
         <file>data/prismInfo.png</file>
         <file>data/generator.png</file>
+        <file>data/tieInfo.png</file>
     </qresource>
 </RCC>

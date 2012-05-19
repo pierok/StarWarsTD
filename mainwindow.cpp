@@ -153,7 +153,7 @@ void MainWindow::on_plasmaButton_clicked()
 void MainWindow::on_tieButton_clicked()
 {
     arena->setGun(A_HUNTER);
-    ui->infoLabel->setPixmap(QPixmap(":/data/info.png"));
+    ui->infoLabel->setPixmap(QPixmap(":/data/tieInfo.png"));
 }
 
 void MainWindow::on_startButton_clicked()

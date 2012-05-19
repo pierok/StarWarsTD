@@ -9,6 +9,8 @@ Factory::Factory()
 
 void Factory::deactivateEnemy(Enemy* e, int type)
 {
+
+    Arena::enemySize++;
     if(type==0)
     {
         enemys.enqueue(e);

@@ -132,7 +132,7 @@ void PlasmaTower::control()
         {
             if(weapon1state==0)
             {
-                weapon1state=5;
+                weapon1state=4;
                 weaponFire();
             }
 

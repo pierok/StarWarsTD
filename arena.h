@@ -44,6 +44,7 @@ public:
     Deploy* deploy2;
 
     static Mode mode;
+    static int enemySize;
     static Factory factoy;
     static QQueue<Enemy*> spawnEnemy;
     static QQueue<Explosion*> spawnExplosion;

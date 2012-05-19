@@ -335,7 +335,7 @@
             <item>
              <widget class="QLabel" name="labelPokolenie">
               <property name="text">
-               <string>Pokolenie: </string>
+               <string>Age</string>
               </property>
              </widget>
             </item>
@@ -353,7 +353,7 @@
             <item>
              <widget class="QLabel" name="labelOsobnik">
               <property name="text">
-               <string>Osobnik:</string>
+               <string>Person</string>
               </property>
              </widget>
             </item>
