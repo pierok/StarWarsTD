@@ -9,7 +9,7 @@
 #include <QVector>
 
 #include "factory.h"
-#include "tower.h"
+//#include "tower.h"
 #include "deathstar.h"
 #include "generator.h"
 #include "deploy.h"

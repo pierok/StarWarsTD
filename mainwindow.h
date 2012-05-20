@@ -50,6 +50,7 @@ private slots:
     void on_horizontalSlider_sliderMoved(int position);
     void on_horizontalSlider_sliderReleased();
     void on_tieButton_clicked();
+    void on_testButton_clicked();
 };
 
 #endif // MAINWINDOW_H

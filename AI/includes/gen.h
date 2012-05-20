@@ -18,6 +18,11 @@ public:
         genom=0;
     }
 
+    inline void setGenom(uint32_t i)
+    {
+        genom=i;
+    }
+
     inline void setTowerType(unsigned int type)
     {
         type=type<<24;
