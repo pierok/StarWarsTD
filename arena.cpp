@@ -241,9 +241,12 @@ void Arena::deathStarOperatin()
             exp->setPos(deathStar->scenePos());
             deathStar->hide();
             deathStar->deactive=true;
-            foreach(Enemy *enemy, enemys)
+            if(mode==GAME)
             {
-                enemy->hit(10000);
+                foreach(Enemy *enemy, enemys)
+                {
+                    enemy->hit(10000);
+                }
             }
 
             foreach(Tower *tower, towers)
@@ -330,18 +333,18 @@ void Arena::step()
 
             if(enemySize==50)
             {
-                   std::cout<<"write to file"<<std::endl;
-                   QFile file("out.txt");
-                   if (!file.open(QIODevice::Append| QIODevice::Text))
-                       return;
+                std::cout<<"write to file"<<std::endl;
+                QFile file("out.txt");
+                if (!file.open(QIODevice::Append| QIODevice::Text))
+                    return;
 
-                   QTextStream out(&file);
-                   out << "osobnik "<<nPopulacja->populacja[osobnik]->chromosom.size()<<"\n" ;
-                   foreach(Gen* gen, nPopulacja->populacja[osobnik]->chromosom)
-                   {
-                       out<<gen->getGenom()<<"\n";
-                   }
-                   out << "endOsobnik\n";
+                QTextStream out(&file);
+                out << "osobnik "<<nPopulacja->populacja[osobnik]->chromosom.size()<<"\n" ;
+                foreach(Gen* gen, nPopulacja->populacja[osobnik]->chromosom)
+                {
+                    out<<gen->getGenom()<<"\n";
+                }
+                out << "endOsobnik\n";
             }
 
 
@@ -430,7 +433,7 @@ void Arena::nastepnyOsobnik()
     int i=0;
     foreach(Gen* gen, os->chromosom)
     {
-       // std::cout<<"i: "<<i<<" type: "<<gen->getTowerType()<<" X: "<<gen->getTowerX()<<" Y: "<<gen->getTowerY()<<std::endl;
+        // std::cout<<"i: "<<i<<" type: "<<gen->getTowerType()<<" X: "<<gen->getTowerX()<<" Y: "<<gen->getTowerY()<<std::endl;
         if(gen->getTowerType()==1)
         {
             setGun(A_PRISM);

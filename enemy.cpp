@@ -63,16 +63,19 @@ void Enemy::paint(QPainter *painter, const QStyleOptionGraphicsItem *, QWidget *
 
 void Enemy::hit(double damage)
 {
-    life-=damage;
-    if(life<=0)
+    if(death==false)
     {
-        death=true;
-        this->hide();
-        Arena::factoy.deactivateEnemy(this);
-        if(Arena::mode==GAME)
+        life-=damage;
+        if(life<=0)
         {
-            Explosion* expl = Arena::factoy.getExplosion(60);
-            expl->setPos(this->scenePos());
+            death=true;
+            this->hide();
+            Arena::factoy.deactivateEnemy(this);
+            if(Arena::mode==GAME)
+            {
+                Explosion* expl = Arena::factoy.getExplosion(60);
+                expl->setPos(this->scenePos());
+            }
         }
     }
 }
@@ -237,17 +240,20 @@ void Xwing::reset()
 
 void Xwing::hit(double damage)
 {
-    life-=damage;
-    if(life<=0)
+    if(death==false)
     {
-        death=true;
-        this->hide();
-        Arena::factoy.deactivateEnemy(this,1);
-
-        if(Arena::mode==GAME)
+        life-=damage;
+        if(life<=0)
         {
-            Explosion* expl = Arena::factoy.getExplosion(60);
-            expl->setPos(this->scenePos());
+            death=true;
+            this->hide();
+            Arena::factoy.deactivateEnemy(this,1);
+
+            if(Arena::mode==GAME)
+            {
+                Explosion* expl = Arena::factoy.getExplosion(60);
+                expl->setPos(this->scenePos());
+            }
         }
     }
 }
