@@ -13,7 +13,7 @@ void AlgorytmGenetyczny::mutacja()
     {
         int m=qrand()%100+1;
 
-        if(m<10)
+        if(m<30)
         {
             int iloscM=qrand()%populacja->rozmiar();
 
@@ -96,8 +96,6 @@ void AlgorytmGenetyczny::krzyzowanie()
                 populacja->populacja[nextCh]->chromosom[j]->setTowerX(o1->chromosom[j]->getTowerX());
                 populacja->populacja[nextCh]->chromosom[j]->setTowerY(o1->chromosom[j]->getTowerY());
 
-
-
                 populacja->populacja[nextCh2]->chromosom[j]->resetGen();
                 populacja->populacja[nextCh2]->chromosom[j]->setTowerType(o2->chromosom[j]->getTowerType());
                 populacja->populacja[nextCh2]->chromosom[j]->setTowerX(o2->chromosom[j]->getTowerX());
@@ -106,22 +104,10 @@ void AlgorytmGenetyczny::krzyzowanie()
 
             for(int j=pos; j<o2->rozmiar; ++j)
             {
-
-                if(j>populacja->populacja[nextCh]->chromosom.size()-1)
-                {
-                    Gen* gen=new Gen();
-                    gen->setTowerType(o2->chromosom[j]->getTowerType());
-                    gen->setTowerX(o2->chromosom[j]->getTowerX());
-                    gen->setTowerY(o2->chromosom[j]->getTowerY());
-                    populacja->populacja[nextCh]->chromosom.push_back(gen);
-                }else
-                {
-
-                    populacja->populacja[nextCh]->chromosom[j]->resetGen();
-                    populacja->populacja[nextCh]->chromosom[j]->setTowerType(o2->chromosom[j]->getTowerType());
-                    populacja->populacja[nextCh]->chromosom[j]->setTowerX(o2->chromosom[j]->getTowerX());
-                    populacja->populacja[nextCh]->chromosom[j]->setTowerY(o2->chromosom[j]->getTowerY());
-                }
+                populacja->populacja[nextCh]->chromosom[j]->resetGen();
+                populacja->populacja[nextCh]->chromosom[j]->setTowerType(o2->chromosom[j]->getTowerType());
+                populacja->populacja[nextCh]->chromosom[j]->setTowerX(o2->chromosom[j]->getTowerX());
+                populacja->populacja[nextCh]->chromosom[j]->setTowerY(o2->chromosom[j]->getTowerY());
 
             }
 
@@ -129,21 +115,11 @@ void AlgorytmGenetyczny::krzyzowanie()
 
             for(int j=pos; j<o1->rozmiar; ++j)
             {
-                if(j>populacja->populacja[nextCh2]->chromosom.size()-1)
-                {
-                    Gen* gen=new Gen();
-                    gen->resetGen();
-                    gen->setTowerType(o1->chromosom[j]->getTowerType());
-                    gen->setTowerX(o1->chromosom[j]->getTowerX());
-                    gen->setTowerY(o1->chromosom[j]->getTowerY());
-                    populacja->populacja[nextCh2]->chromosom.push_back(gen);
-                }else
-                {
-                    populacja->populacja[nextCh2]->chromosom[j]->resetGen();
-                    populacja->populacja[nextCh2]->chromosom[j]->setTowerType(o1->chromosom[j]->getTowerType());
-                    populacja->populacja[nextCh2]->chromosom[j]->setTowerX(o1->chromosom[j]->getTowerX());
-                    populacja->populacja[nextCh2]->chromosom[j]->setTowerY(o1->chromosom[j]->getTowerY());
-                }
+
+                populacja->populacja[nextCh2]->chromosom[j]->resetGen();
+                populacja->populacja[nextCh2]->chromosom[j]->setTowerType(o1->chromosom[j]->getTowerType());
+                populacja->populacja[nextCh2]->chromosom[j]->setTowerX(o1->chromosom[j]->getTowerX());
+                populacja->populacja[nextCh2]->chromosom[j]->setTowerY(o1->chromosom[j]->getTowerY());
 
             }
 

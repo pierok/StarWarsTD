@@ -27,10 +27,10 @@ public:
         for(int i=0; i<size; ++i)
         {
             Osobnik* osobnik= new Osobnik();
-            while(amount>0)
+            for(int i=0; i<100; ++i)
             {
                 int type=qrand()%3+1;
-                if(type==1)
+                /*if(type==1)
                 {
                     amount-=30;
                 }else if(type==2)
@@ -39,7 +39,7 @@ public:
                 }else if(type==3)
                 {
                     amount-=20;
-                }
+                }*/
 
                 int x=qrand()%2680;
                 int y=qrand()%2680;
@@ -52,7 +52,7 @@ public:
                 osobnik->chromosom.push_back(gen);
             }
 
-            amount=800;
+            //amount=800;
             osobnik->rozmiar=osobnik->chromosom.size();
             populacja.push_back(osobnik);
         }

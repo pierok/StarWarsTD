@@ -93,6 +93,8 @@ private:
     QSet<Missile*> missiles;
     QList<Explosion*> explosions;
 
+    Target* target;
+
     int amount;
     int time;
     int osobnik;

@@ -11,7 +11,7 @@ class Deploy: public QGraphicsItem
 {
 public:
     Deploy();
-    void deploy();
+    void deploy(Target* target);
 
     void paint(QPainter *painter, const QStyleOptionGraphicsItem *option,
                QWidget *widget);

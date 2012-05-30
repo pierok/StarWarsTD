@@ -26,7 +26,7 @@ void Deploy::setBoundingRect(QRectF rect)
     m_boundingRect=rect;
 }
 
-void Deploy::deploy()
+void Deploy::deploy(Target* target)
 {
     if(startDeploy){
         if(count>0)
@@ -45,6 +45,7 @@ void Deploy::deploy()
                 }
                 tmp->setPos(this->scenePos());
                 tmp->translate(100,100);
+                tmp->setTarget(target);
                 //Arena::spawnEnemy.enqueue(tmp);
                 count--;
             }

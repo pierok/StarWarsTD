@@ -104,6 +104,9 @@ Arena::Arena(QPixmap *p)
                      QPen(QColor(240,0,0,100),2),QBrush(QColor(255,0,0,40)));
 
 
+
+    target=gen1;
+
     this->addItem(deploy1);
     this->addItem(deploy2);
     this->addItem(gen1);
@@ -148,16 +151,8 @@ void Arena::enemyOperation()
     while(!spawnEnemy.empty())
     {
         Enemy* en1= spawnEnemy.dequeue();
-        if(gen1->deactive==true)
-        {
-            en1->setTarget(gen2);
-        }else if(gen2->deactive==true)
-        {
-            en1->setTarget(deathStar);
-        }else
-        {
-            en1->setTarget(gen1);
-        }
+
+        en1->setTarget(target);
 
         this->addItem(en1);
         enemys.insert(en1);
@@ -273,6 +268,7 @@ void Arena::deathStarOperatin()
             {
                 enemy->setTarget(gen2);
             }
+            target=gen2;
         }
     }
 
@@ -290,11 +286,12 @@ void Arena::deathStarOperatin()
             {
                 enemy->setTarget(deathStar);
             }
+            target=deathStar;
         }
     }
 
-    deploy1->deploy();
-    deploy2->deploy();
+    deploy1->deploy(target);
+    deploy2->deploy(target);
 
 
 }
@@ -316,11 +313,11 @@ void Arena::step()
     {
         if(deathStar->deactive==true)
         {
-            foreach(QGraphicsItem* item ,items())
+            /*foreach(QGraphicsItem* item ,items())
             {
                 item->hide();
 
-            }
+            }*/
             std::cout<<"koniec gry"<<std::endl;
 
         }
@@ -345,13 +342,15 @@ void Arena::step()
                     out<<gen->getGenom()<<"\n";
                 }
                 out << "endOsobnik\n";
+
+                file.close();
             }
+
 
 
             deploy1->stop();
             deploy2->stop();
 
-            std::cout<<"enemy size1: "<<enemySize<<std::endl;
             foreach(Enemy* enemy, enemys)
             {
                 enemy->hit(10000);
@@ -364,6 +363,8 @@ void Arena::step()
                 factoy.deactivateTower(tower,tower->ID);
                 tower->hide();
             }
+
+            nPopulacja->populacja[osobnik]->przystosowanie=deathStar->life+gen1->life+gen2->life;
 
             deathStar->life=1000;
             deathStar->show();
@@ -380,15 +381,13 @@ void Arena::step()
 
             amount=800;
             info->setNum(amount);
-            nPopulacja->populacja[osobnik]->przystosowanie=deathStar->life+gen1->life+gen2->life;
-
 
             ++osobnik;
             if(osobnik<nPopulacja->populacja.size())
             {
+                std::cout<<"osobniek: "<<osobnik-1<<" size: "<<nPopulacja->populacja[osobnik-1]->chromosom.size()<<"przystosowanei "<<nPopulacja->populacja[osobnik-1]->przystosowanie<<std::endl;
                 infoOs->setNum(osobnik);
                 nastepnyOsobnik();
-                std::cout<<"osobniek: "<<osobnik<<std::endl;
             }else
             {
                 ag->update();
@@ -398,12 +397,10 @@ void Arena::step()
                 nastepnyOsobnik();
                 infoPokolenie->setNum(epoka);
                 infoOs->setNum(osobnik);
-                std::cout<<"epoka: "<<epoka<<std::endl;
             }
 
-
-            std::cout<<"enemy size2: "<<enemySize<<std::endl;
             enemySize=0;
+            target=gen1;
             deploy1->setRate(70);
             deploy1->timer=0;
             deploy1->deploySize(20);
@@ -416,7 +413,6 @@ void Arena::step()
 
         }
     }
-    //std::cout<<"items size: "<<items().size()<<std::endl;
 }
 
 void Arena::wheelEvent( QGraphicsSceneWheelEvent *event )
@@ -433,7 +429,6 @@ void Arena::nastepnyOsobnik()
     int i=0;
     foreach(Gen* gen, os->chromosom)
     {
-        // std::cout<<"i: "<<i<<" type: "<<gen->getTowerType()<<" X: "<<gen->getTowerX()<<" Y: "<<gen->getTowerY()<<std::endl;
         if(gen->getTowerType()==1)
         {
             setGun(A_PRISM);
@@ -517,7 +512,6 @@ void Arena::addTower(int X, int Y)
 
     }else
     {
-        std::cout<<"Brak kredytow1"<<std::endl;
         *info=QString("Brak kredytow");
     }
 }

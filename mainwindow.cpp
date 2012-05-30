@@ -8,7 +8,7 @@ MainWindow::MainWindow(QWidget *parent) :
 {
     ui->setupUi(this);
 
-   // this->setWindowState(Qt::WindowFullScreen);
+    //this->setWindowState(Qt::WindowFullScreen);
     //this->setFocusPolicy( Qt::StrongFocus );
     // this->setAttribute(Qt::WA_QuitOnClose, true);
 
@@ -227,158 +227,28 @@ void MainWindow::on_horizontalSlider_sliderReleased()
 
 void MainWindow::on_testButton_clicked()
 {
+
+    std::cout<<"read from file"<<std::endl;
+    QFile file("out.txt");
+    if (!file.open(QIODevice::ReadOnly| QIODevice::Text))
+        return;
+
+
+    QTextStream in(&file);
+
     Osobnik o;
-    Gen*  g=new Gen();
-    g->setGenom(27293229);
-    o.chromosom.push_back(g);
 
-    g=new Gen();
-    g->setGenom(17462950);
-    o.chromosom.push_back(g);
+    QString line = in.readLine();
+    for(int i=0; i<100; ++i)
+    {
+        line = in.readLine();
+        Gen* g=new Gen();
+        g->setGenom(line.toInt());
+        o.chromosom.push_back(g);
+    }
 
-    g=new Gen();
-    g->setGenom(27494879);
-    o.chromosom.push_back(g);
+    file.close();
 
-    g=new Gen();
-    g->setGenom(20653714);
-    o.chromosom.push_back(g);
-
-    g=new Gen();
-    g->setGenom(18462289);
-    o.chromosom.push_back(g);
-
-    g=new Gen();
-    g->setGenom(35475708);
-    o.chromosom.push_back(g);
-
-    g=new Gen();
-    g->setGenom(42763790);
-    o.chromosom.push_back(g);
-
-    g=new Gen();
-    g->setGenom(39440742);
-    o.chromosom.push_back(g);
-
-    g=new Gen();
-    g->setGenom(39941568);
-    o.chromosom.push_back(g);
-
-    g=new Gen();
-    g->setGenom(52631027);
-    o.chromosom.push_back(g);
-
-    g=new Gen();
-    g->setGenom(35627803);
-    o.chromosom.push_back(g);
-
-    g=new Gen();
-    g->setGenom(56385727);
-    o.chromosom.push_back(g);
-
-    g=new Gen();
-    g->setGenom(52184649);
-    o.chromosom.push_back(g);
-
-    g=new Gen();
-    g->setGenom(42692859);
-    o.chromosom.push_back(g);
-
-    g=new Gen();
-    g->setGenom(22820640);
-    o.chromosom.push_back(g);
-
-    g=new Gen();
-    g->setGenom(50546516);
-    o.chromosom.push_back(g);
-
-    g=new Gen();
-    g->setGenom(17061988);
-    o.chromosom.push_back(g);
-
-    g=new Gen();
-    g->setGenom(34596538);
-    o.chromosom.push_back(g);
-
-    g=new Gen();
-    g->setGenom(23857471);
-    o.chromosom.push_back(g);
-
-    g=new Gen();
-    g->setGenom(56469656);
-    o.chromosom.push_back(g);
-
-    g=new Gen();
-    g->setGenom(23673289);
-    o.chromosom.push_back(g);
-
-    g=new Gen();
-    g->setGenom(20744802);
-    o.chromosom.push_back(g);
-
-    g=new Gen();
-    g->setGenom(52670769);
-    o.chromosom.push_back(g);
-
-    g=new Gen();
-    g->setGenom(40008167);
-    o.chromosom.push_back(g);
-
-    g=new Gen();
-    g->setGenom(40362401);
-    o.chromosom.push_back(g);
-
-    g=new Gen();
-    g->setGenom(54911589);
-    o.chromosom.push_back(g);
-
-    g=new Gen();
-    g->setGenom(24446369);
-    o.chromosom.push_back(g);
-
-    g=new Gen();
-    g->setGenom(50632154);
-    o.chromosom.push_back(g);
-
-    g=new Gen();
-    g->setGenom(18715660);
-    o.chromosom.push_back(g);
-
-    g=new Gen();
-    g->setGenom(60000031);
-    o.chromosom.push_back(g);
-
-    g=new Gen();
-    g->setGenom(41255999);
-    o.chromosom.push_back(g);
-
-    g=new Gen();
-    g->setGenom(19752380);
-    o.chromosom.push_back(g);
-
-    g=new Gen();
-    g->setGenom(51758123);
-    o.chromosom.push_back(g);
-
-    g=new Gen();
-    g->setGenom(51327420);
-    o.chromosom.push_back(g);
-
-    g=new Gen();
-    g->setGenom(59823986);
-    o.chromosom.push_back(g);
-
-    g=new Gen();
-    g->setGenom(22529765);
-    o.chromosom.push_back(g);
-
-    g=new Gen();
-    g->setGenom(41715672);
-    o.chromosom.push_back(g);
-
-    g=new Gen();
-    g->setGenom(19907739);
-    o.chromosom.push_back(g);
 
     std::cout<<"osobnik size: "<<o.chromosom.size()<<std::endl;
 
