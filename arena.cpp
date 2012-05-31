@@ -28,10 +28,6 @@ Arena::Arena(QPixmap *p)
 
     LifeBar* l= new LifeBar(1000,250);
 
-    //this->addPixmap(*qp);
-
-    //this->setBackgroundBrush(QBrush(QImage(":/data/gw.jpg")));
-
     deathStar= new DeathStar();
     deathStar->setPos(qp->size().width()/2,qp->size().height()/2);
     deathStar->setLifeBar(l);
@@ -105,7 +101,11 @@ Arena::Arena(QPixmap *p)
 
 
 
-    target=gen1;
+    //target=gen1;
+
+    deploy1->setTargets(gen1,gen2,deathStar);
+    deploy2->setTargets(gen2,gen1,deathStar);
+
 
     this->addItem(deploy1);
     this->addItem(deploy2);
@@ -152,7 +152,7 @@ void Arena::enemyOperation()
     {
         Enemy* en1= spawnEnemy.dequeue();
 
-        en1->setTarget(target);
+        //en1->setTarget(target);
 
         this->addItem(en1);
         enemys.insert(en1);
@@ -223,7 +223,6 @@ void Arena::missilesOperation()
     }
 }
 
-
 void Arena::deathStarOperatin()
 {
 
@@ -266,9 +265,13 @@ void Arena::deathStarOperatin()
 
             foreach(Enemy *enemy, enemys)
             {
-                enemy->setTarget(gen2);
+                if(gen2->deactive==true)
+                {
+                    enemy->setTarget(deathStar);
+                }else
+                    enemy->setTarget(gen2);
             }
-            target=gen2;
+            //target=gen2;
         }
     }
 
@@ -284,22 +287,26 @@ void Arena::deathStarOperatin()
 
             foreach(Enemy *enemy, enemys)
             {
-                enemy->setTarget(deathStar);
+                if(gen1->deactive==true)
+                {
+                    enemy->setTarget(deathStar);
+                }else
+                    enemy->setTarget(gen1);
             }
-            target=deathStar;
+            //target=deathStar;
         }
     }
 
-    deploy1->deploy(target);
-    deploy2->deploy(target);
+    //deploy1->deploy(target);
+    //deploy2->deploy(target);
 
+    deploy1->deploy();
+    deploy2->deploy();
 
 }
 
 void Arena::step()
 {
-
-
     if(deathStar->deactive==false||Arena::mode==GAME)
     {
         deathStarOperatin();
@@ -354,7 +361,7 @@ void Arena::step()
             foreach(Enemy* enemy, enemys)
             {
                 enemy->hit(10000);
-                enemy->setTarget(gen1);
+                //enemy->setTarget(gen1);
             }
 
             foreach(Tower* tower, towers)
@@ -400,7 +407,7 @@ void Arena::step()
             }
 
             enemySize=0;
-            target=gen1;
+            //target=gen1;
             deploy1->setRate(70);
             deploy1->timer=0;
             deploy1->deploySize(20);
@@ -505,10 +512,10 @@ void Arena::addTower(int X, int Y)
                     info->setNum(amount);
                 }
             }
-        }else
+        }/*else
         {
-            std::cout<<"poza zasiegiem: X: "<<x<<" Y: "<<y <<std::endl;
-        }
+            //std::cout<<"poza zasiegiem: X: "<<x<<" Y: "<<y <<std::endl;
+        }*/
 
     }else
     {

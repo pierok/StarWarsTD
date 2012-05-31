@@ -4,8 +4,11 @@
 #
 #-------------------------------------------------
 
+#QMAKE_CXXFLAGS += -std=c++0x
+QMAKE_CXXFLAGS += -std=gnu++0x
+
 QT       += core gui \
-        opengl
+        opengl\
 
 TARGET = StarWarsTD
 TEMPLATE = app

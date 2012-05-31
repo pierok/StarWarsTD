@@ -1,7 +1,7 @@
 #include "customview.h"
 #include <iostream>
 
-CustomView::CustomView(QObject *parent )  //: QGraphicsView(parent)
+CustomView::CustomView(QObject* parent )  //: QGraphicsView(parent)
 {
 
     std::cout<<"CustomView"<<std::endl;

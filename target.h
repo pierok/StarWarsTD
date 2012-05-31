@@ -12,6 +12,7 @@ public:
     virtual void step()=0;
     virtual void hit(double i)=0;
     int radius;
+    bool deactive;
 };
 
 

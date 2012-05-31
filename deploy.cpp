@@ -57,3 +57,48 @@ void Deploy::deploy(Target* target)
         }
     }
 }
+
+
+void Deploy::deploy()
+{
+    if(startDeploy){
+        if(count>0)
+        {
+            if(timer==0)
+            {
+                Enemy* tmp=NULL;
+                if(enemy==0)
+                {
+                    timer=rate;
+                    tmp= Arena::factoy.getEnemy();
+                }else if(enemy==1)
+                {
+                    timer=rate;
+                    tmp= Arena::factoy.getEnemy(1);
+                }
+                tmp->setPos(this->scenePos());
+                tmp->translate(100,100);
+
+                tmp->setTarget(target1);
+
+                if(target1->deactive==true)
+                {
+                    tmp->setTarget(target2);
+                }
+                if(target2->deactive==true)
+                {
+                    tmp->setTarget(target3);
+                }
+
+                count--;
+            }
+
+            if(timer>0)
+            {
+                timer--;
+            }
+        }
+    }
+}
+
+

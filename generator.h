@@ -34,7 +34,7 @@ public:
     }
 
 
-    bool deactive;
+
     double life;
 
 protected:

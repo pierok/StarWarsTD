@@ -38,8 +38,6 @@ public:
     void explosionsOperation();
     void deathStarOperatin();
 
-    //static QQueue<Missile*> spawn;
-
     Deploy* deploy1;
     Deploy* deploy2;
 
@@ -93,7 +91,7 @@ private:
     QSet<Missile*> missiles;
     QList<Explosion*> explosions;
 
-    Target* target;
+    //Target* target;
 
     int amount;
     int time;

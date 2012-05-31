@@ -30,16 +30,6 @@ public:
             for(int i=0; i<100; ++i)
             {
                 int type=qrand()%3+1;
-                /*if(type==1)
-                {
-                    amount-=30;
-                }else if(type==2)
-                {
-                    amount-=10;
-                }else if(type==3)
-                {
-                    amount-=20;
-                }*/
 
                 int x=qrand()%2680;
                 int y=qrand()%2680;

@@ -1,7 +1,7 @@
 #include "enemy.h"
 #include <QVector2D>
 #include <iostream>
-#include <math.h>
+#include <cmath>
 
 Enemy::Enemy()
 {
@@ -103,7 +103,7 @@ void Enemy::control()
     direction.setY(liney);
 
     double arc = atan2(linex,-liney);
-    arc = arc * 180.0 / M_PI ;
+    arc = arc * 180.0 /  M_PI ;
     if(arc<0) arc+=360;
     double diff = angle - arc;
     if(diff<-180) diff+=360;
