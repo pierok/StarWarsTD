@@ -6,11 +6,12 @@ DeathStar::DeathStar()
     life=1000;
     deactive=false;
     radius=200;
+    ship=QPixmap(":/data/DeathStartar.png");
 }
 
 void DeathStar::paint(QPainter *painter, const QStyleOptionGraphicsItem *, QWidget *)
 {
-    QPixmap ship(":/data/DeathStartar.png");
+
     painter->drawPixmap(QRect(-145,-145,290,290),ship);
     //painter->setPen(Qt::white);
     //painter->drawEllipse(-145,-145,290,290);

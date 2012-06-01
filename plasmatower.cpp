@@ -25,6 +25,7 @@ PlasmaTower::PlasmaTower()
     cost=10;
     deactive=false;
     ID=1;
+    tower=QPixmap(":/data/plazmaTower.png");
 }
 
 void PlasmaTower::reset()
@@ -39,7 +40,6 @@ void PlasmaTower::reset()
 void PlasmaTower::paint(QPainter *painter, const QStyleOptionGraphicsItem *option,
                         QWidget *widget)
 {
-    QPixmap tower(":/data/plazmaTower.png");
     painter->drawPixmap(QRect(-30,-40,60,80),tower);
 }
 

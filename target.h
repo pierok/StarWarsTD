@@ -13,6 +13,8 @@ public:
     virtual void hit(double i)=0;
     int radius;
     bool deactive;
+protected:
+    QPixmap ship;
 };
 
 

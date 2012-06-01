@@ -4,6 +4,7 @@
 Generator::Generator()
 {
     m_boundingRect=QRectF(-240/4,-180/4,480/4,360/4);
+    ship=QPixmap(":/data/generator.png");
     life=250;
     deactive=false;
     radius=160;
@@ -11,7 +12,6 @@ Generator::Generator()
 
 void Generator::paint(QPainter *painter, const QStyleOptionGraphicsItem *, QWidget *)
 {
-    QPixmap ship(":/data/generator.png");
     painter->drawPixmap(QRect(-240/4,-180/4,480/4,360/4),ship);
     //painter->setPen(Qt::white);
     //painter->drawEllipse(-145,-145,290,290);

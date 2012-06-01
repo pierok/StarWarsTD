@@ -23,7 +23,7 @@ class Explosion;
 class Missile;
 
 enum GUNS {A_NONE, A_PRISM, A_PLASMA, A_HUNTER};
-enum Mode {GAME, LEARN};
+enum Mode {GAME, LEARN, LEARN2};
 
 class Arena: public QGraphicsScene
 {

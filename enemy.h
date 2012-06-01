@@ -57,6 +57,7 @@ protected:
 
     Target* target;
     QRectF m_boundingRect;
+    QPixmap ship;
 };
 
 

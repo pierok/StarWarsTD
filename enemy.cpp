@@ -27,6 +27,8 @@ Enemy::Enemy()
     weapon1state=0;
     direction=QVector2D(0,0);
     m_boundingRect=QRectF(-350/16,-470/16,350/8,470/8);
+
+    ship=QPixmap(":/data/SokolMilenium.png");
 }
 
 void Enemy::reset()
@@ -57,7 +59,6 @@ void Enemy::reset()
 
 void Enemy::paint(QPainter *painter, const QStyleOptionGraphicsItem *, QWidget *)
 {
-    QPixmap ship(":/data/SokolMilenium.png");
     painter->drawPixmap(QRect(-350/16,-470/16,350/8,470/8),ship);
 }
 
@@ -210,6 +211,7 @@ Xwing::Xwing()
     fire=true;
     weapon1state=0;
     m_boundingRect=QRectF(-410/16,-326/16,410/8,326/8);
+    ship=QPixmap(":/data/X-Wing.png");
 }
 
 void Xwing::reset()
@@ -271,6 +273,5 @@ void Xwing::weaponFire()
 
 void Xwing::paint(QPainter *painter, const QStyleOptionGraphicsItem *, QWidget *)
 {
-    QPixmap ship(":/data/X-Wing.png");
     painter->drawPixmap(QRect(-410/16,-326/16,410/8,326/8),ship);
 }

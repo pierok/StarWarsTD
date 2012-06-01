@@ -14,6 +14,7 @@ PrismTower::PrismTower()
     enemy=NULL;
     deactive=false;
     ID=0;
+    tower=QPixmap(":/data/PrismTower.png");
 }
 
 void PrismTower::reset()
@@ -29,8 +30,7 @@ void PrismTower::reset()
 
 void PrismTower::paint(QPainter *painter, const QStyleOptionGraphicsItem *, QWidget *)
 {
-    QPixmap ship(":/data/PrismTower.png");
-    painter->drawPixmap(QRect(-50,-50,100,100),ship);
+    painter->drawPixmap(QRect(-50,-50,100,100),tower);
 }
 
 bool PrismTower::inRange(Enemy *enemy)

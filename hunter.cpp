@@ -26,6 +26,7 @@ Hunter::Hunter()
     cost=20;
     deactive=false;
     ID=2;
+    tower=QPixmap(":/data/TIE_fighter.png");
 }
 
 void Hunter::reset()
@@ -56,7 +57,7 @@ void Hunter::reset()
 void Hunter::paint(QPainter *painter, const QStyleOptionGraphicsItem *option,
                         QWidget *widget)
 {
-    QPixmap tower(":/data/TIE_fighter.png");
+
     painter->drawPixmap(QRect(-140/4,-115/4,280/4, 230/4),tower);
 }
 

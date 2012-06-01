@@ -12,7 +12,6 @@ public:
         genom=0;
     }
 
-
     inline void resetGen()
     {
         genom=0;
@@ -77,5 +76,15 @@ public:
         return genom;
     }
 };
+
+class GenDef
+{
+private:
+    uint32_t genom;
+public:
+
+
+};
+
 
 #endif

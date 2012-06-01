@@ -6,12 +6,12 @@
 class AlgorytmGenetyczny
 {
 public:
-    AlgorytmGenetyczny(Populacja *pop);
+   // AlgorytmGenetyczny(Populacja *pop);
 
-    void mutacja();
-    void mutacja2();
-    void krzyzowanie();
-    void selekcja();
+    virtual void mutacja()=0;
+    virtual void mutacja2()=0;
+    virtual void krzyzowanie()=0;
+    virtual void selekcja()=0;
 
     void update()
     {
@@ -24,11 +24,23 @@ public:
 
     int pokolenie;
 
-private:
+protected:
     Populacja* populacja;
 
 };
 
+
+class AGDef : public AlgorytmGenetyczny
+{
+public:
+    AGDef(Populacja *pop);
+
+    void mutacja();
+    void mutacja2();
+    void krzyzowanie();
+    void selekcja();
+
+};
 
 
 #endif // ALGORYTMGENETYCZNY_H

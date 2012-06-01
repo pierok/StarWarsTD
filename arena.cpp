@@ -333,7 +333,7 @@ void Arena::step()
         ++time;
         if(deathStar->deactive==true||enemySize==50)//||(deploy1->count==0&&deploy2->count==0))
         {
-
+            nPopulacja->populacja[osobnik]->przystosowanie=deathStar->life+gen1->life+gen2->life;
 
             if(enemySize==50)
             {
@@ -343,7 +343,7 @@ void Arena::step()
                     return;
 
                 QTextStream out(&file);
-                out << "osobnik "<<nPopulacja->populacja[osobnik]->chromosom.size()<<"\n" ;
+                out << "osobnik "<<nPopulacja->populacja[osobnik]->przystosowanie<<"\n" ;
                 foreach(Gen* gen, nPopulacja->populacja[osobnik]->chromosom)
                 {
                     out<<gen->getGenom()<<"\n";
@@ -352,8 +352,6 @@ void Arena::step()
 
                 file.close();
             }
-
-
 
             deploy1->stop();
             deploy2->stop();
@@ -371,7 +369,6 @@ void Arena::step()
                 tower->hide();
             }
 
-            nPopulacja->populacja[osobnik]->przystosowanie=deathStar->life+gen1->life+gen2->life;
 
             deathStar->life=1000;
             deathStar->show();
@@ -466,12 +463,12 @@ void Arena::addTower(int X, int Y)
                     +(deathStar->scenePos().y()-y)*(deathStar->scenePos().y()-y)<=300*300)
             {
                 std::cout<<" brak dostepu 1"<<std::endl;
-            }else if((deploy1->scenePos().x()-x)*(deploy1->scenePos().x()-x)
-                     +(deploy1->scenePos().y()-y)*(deploy1->scenePos().y()-y)<=300*300)
+            }else if((deploy1->scenePos().x()-x+100)*(deploy1->scenePos().x()-x+100)
+                     +(deploy1->scenePos().y()-y+100)*(deploy1->scenePos().y()-y+100)<=300*300)
             {
                 std::cout<<" brak dostepu 2"<<std::endl;
-            }else if((deploy2->scenePos().x()-x)*(deploy2->scenePos().x()-x)
-                     +(deploy2->scenePos().y()-y)*(deploy2->scenePos().y()-y)<=300*300)
+            }else if((deploy2->scenePos().x()-x+100)*(deploy2->scenePos().x()-x+100)
+                     +(deploy2->scenePos().y()-y+100)*(deploy2->scenePos().y()-y+100)<=300*300)
             {
                 std::cout<<" brak dostepu 3"<<std::endl;
             }

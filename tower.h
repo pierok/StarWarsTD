@@ -48,6 +48,8 @@ public:
 
     int ID;
 protected:
+
+    QPixmap tower;
     Enemy* enemy;
     double radius;
     double damage;

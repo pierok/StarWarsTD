@@ -178,7 +178,7 @@ void MainWindow::on_learnButton_clicked()
     nowaPopulacja=new Populacja(size.toInt());
 
     arena->nPopulacja=nowaPopulacja;
-    AlgorytmGenetyczny* ag=new AlgorytmGenetyczny(nowaPopulacja);
+    AlgorytmGenetyczny* ag=new AGDef(nowaPopulacja);
     arena->ag=ag;
     //ag->update();
 
@@ -271,5 +271,11 @@ void MainWindow::on_testButton_clicked()
 
     on_startButton_clicked();
 
+
+}
+
+void MainWindow::on_learn2Button_clicked()
+{
+     Arena::mode=LEARN2;
 
 }
