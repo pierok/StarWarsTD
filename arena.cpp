@@ -528,3 +528,21 @@ void Arena::mousePressEvent(QGraphicsSceneMouseEvent *event)
     addTower(x,y);
     event->accept();
 }
+
+
+
+void Arena::hideElements()
+{
+    foreach(QGraphicsItem * element, items())
+    {
+        element->hide();
+    }
+}
+
+void Arena::showElements()
+{
+    foreach(QGraphicsItem * element, items())
+    {
+        element->show();
+    }
+}

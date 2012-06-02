@@ -24,6 +24,12 @@ MainWindow::MainWindow(QWidget *parent) :
     infoPokolenie=new QString("");
     infoPokolenie->setNum(0);
 
+    infoOs2=new QString("");
+    infoOs2->setNum(0);
+
+    infoPokolenie2=new QString("");
+    infoPokolenie2->setNum(0);
+
     qp= new QPixmap(":/data/gw.jpg");
     arena=new Arena(qp);
 
@@ -35,6 +41,9 @@ MainWindow::MainWindow(QWidget *parent) :
     arena->setInfo(info);
     arena->setInfoOs(infoOs);
     arena->setInfoPokolenie(infoPokolenie);
+
+    arena->setInfoOs2(infoOs2);
+    arena->setInfoPokolenie2(infoPokolenie2);
 
     ui->gameView->setScene(arena);
     ui->gameView->scale(0.5,0.5);
@@ -59,6 +68,17 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->tieButton->setIcon(QIcon(QPixmap(":/data/TIE_fighter.png")));
     ui->tieButton->setIconSize(QSize(61,61));
 
+
+    ui->plasmaTestButton->setIcon(QIcon(QPixmap(":/data/plazmaTower.png")));
+    ui->plasmaTestButton->setIconSize(QSize(40,40));
+
+    ui->prismTestButton->setIcon(QIcon(QPixmap(":/data/PrismTower.png")));
+    ui->prismTestButton->setIconSize(QSize(40,40));
+
+    ui->hunterTestButton->setIcon(QIcon(QPixmap(":/data/TIE_fighter.png")));
+    ui->hunterTestButton->setIconSize(QSize(40,40));
+
+
     ui->infoLabel->setBackgroundRole(QPalette::Base);
     ui->infoLabel->setPixmap(QPixmap(":/data/start2.png"));
 
@@ -80,6 +100,10 @@ void MainWindow::MainClockTick()
         {
             ui->osobnikLineEdit->setText(*(infoOs));
             ui->pokolenieLineEdit->setText(*(infoPokolenie));
+        }else if(arena->mode==LEARN2)
+        {
+            ui->osobnik2lineEdit->setText(*(infoOs2));
+            ui->pokolenie2lineEdit->setText(*(infoPokolenie2));
         }
         processed=true;
     }
@@ -278,4 +302,30 @@ void MainWindow::on_learn2Button_clicked()
 {
      Arena::mode=LEARN2;
 
+}
+
+void MainWindow::on_prismTestButton_clicked()
+{
+    arena->setGun(A_PRISM);
+}
+
+void MainWindow::on_plasmaTestButton_clicked()
+{
+    arena->setGun(A_PLASMA);
+}
+
+void MainWindow::on_hunterTestButton_clicked()
+{
+    arena->setGun(A_HUNTER);
+}
+
+void MainWindow::on_checkBox_clicked()
+{
+    if(ui->checkBox->isChecked())
+    {
+        arena->hideElements();
+    }else if(!ui->checkBox->isChecked())
+    {
+        arena->showElements();
+    }
 }

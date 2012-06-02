@@ -32,6 +32,8 @@ private:
     QString* info;
     QString* infoOs;
     QString* infoPokolenie;
+    QString* infoOs2;
+    QString* infoPokolenie2;
     bool processed;
     QPixmap* qp;
     Populacja* nowaPopulacja;
@@ -52,6 +54,10 @@ private slots:
     void on_tieButton_clicked();
     void on_testButton_clicked();
     void on_learn2Button_clicked();
+    void on_prismTestButton_clicked();
+    void on_plasmaTestButton_clicked();
+    void on_hunterTestButton_clicked();
+    void on_checkBox_clicked();
 };
 
 #endif // MAINWINDOW_H

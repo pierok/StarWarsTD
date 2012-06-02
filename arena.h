@@ -37,6 +37,8 @@ public:
     void missilesOperation();
     void explosionsOperation();
     void deathStarOperatin();
+    void hideElements();
+    void showElements();
 
     Deploy* deploy1;
     Deploy* deploy2;
@@ -69,6 +71,16 @@ public:
         infoPokolenie=s;
     }
 
+    inline void setInfoOs2(QString* s)
+    {
+        infoOs2=s;
+    }
+
+    inline void setInfoPokolenie2(QString* s)
+    {
+        infoPokolenie2=s;
+    }
+
     void addTower(int x, int y);
     void nastepnyOsobnik();
     Populacja* nPopulacja;
@@ -85,6 +97,8 @@ private:
     QString* info;
     QString* infoOs;
     QString* infoPokolenie;
+    QString* infoOs2;
+    QString* infoPokolenie2;
 
     QSet<Tower*> towers;
     QSet<Enemy*> enemys;
