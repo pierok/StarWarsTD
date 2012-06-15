@@ -29,7 +29,6 @@ class Arena: public QGraphicsScene
 {
 public:
 
-
     Arena(QPixmap *p);
     void step();
     void towerOperation();
@@ -39,9 +38,12 @@ public:
     void deathStarOperatin();
     void hideElements();
     void showElements();
+    void init();
 
     Deploy* deploy1;
     Deploy* deploy2;
+
+    QVector<Deploy*> deploys;
 
     static Mode mode;
     static int enemySize;
@@ -82,8 +84,10 @@ public:
     }
 
     void addTower(int x, int y);
+    void addDeploy(int X, int Y, int type, int target);
     void nastepnyOsobnik();
     Populacja* nPopulacja;
+    PopulacjaOf* nPopulacjaOf;
     AlgorytmGenetyczny* ag;
 
 

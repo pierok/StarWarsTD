@@ -26,6 +26,7 @@ Arena::Arena(QPixmap *p)
     epoka=0;
     time=0;
 
+
     LifeBar* l= new LifeBar(1000,250);
 
     deathStar= new DeathStar();
@@ -55,6 +56,25 @@ Arena::Arena(QPixmap *p)
     lifgen2->setPos(gen2->scenePos());
     lifgen2->translate(-180,100);
 
+
+    //  init();
+
+
+    this->addItem(gen1);
+    this->addItem(gen2);
+    this->addItem(lifgen1);
+    this->addItem(lifgen2);
+    this->addItem(deathStar);
+    this->addItem(l);
+
+
+}
+
+
+
+void Arena::init()
+{
+
     deploy1=new Deploy();
     deploy1->deployEnemy(0);
     deploy1->setPos(60,60);
@@ -67,6 +87,10 @@ Arena::Arena(QPixmap *p)
     deploy2->setPos(qp->size().width()-500,60);
     deploy2->setRate(20);
     deploy2->deploySize(20);
+
+
+    deploys.push_back(deploy1);
+    deploys.push_back(deploy2);
 
 
     this->addLine(deploy1->scenePos().x()+100,deploy1->scenePos().y()+100,
@@ -109,13 +133,10 @@ Arena::Arena(QPixmap *p)
 
     this->addItem(deploy1);
     this->addItem(deploy2);
-    this->addItem(gen1);
-    this->addItem(gen2);
-    this->addItem(lifgen1);
-    this->addItem(lifgen2);
-    this->addItem(deathStar);
-    this->addItem(l);
+
 }
+
+
 
 void Arena::towerOperation()
 {
@@ -248,8 +269,14 @@ void Arena::deathStarOperatin()
                 tower->reset();
             }
 
-            deploy1->stop();
-            deploy2->stop();
+
+            foreach(Deploy* deploy, deploys)
+            {
+                deploy->stop();
+            }
+
+            //deploy1->stop();
+            //deploy2->stop();
         }
     }
 
@@ -305,8 +332,12 @@ void Arena::deathStarOperatin()
     //deploy1->deploy(target);
     //deploy2->deploy(target);
 
-    deploy1->deploy();
-    deploy2->deploy();
+    foreach(Deploy* deploy, deploys)
+    {
+        deploy->deploy();
+    }
+
+
 
 }
 
@@ -358,8 +389,10 @@ void Arena::step()
                 file.close();
             }
 
-            deploy1->stop();
-            deploy2->stop();
+            foreach(Deploy* deploy, deploys)
+            {
+                deploy->stop();
+            }
 
             foreach(Enemy* enemy, enemys)
             {
@@ -421,6 +454,8 @@ void Arena::step()
             deploy2->start();
 
         }
+    }else if(mode==LEARN2)
+    {
     }
 }
 
@@ -454,6 +489,48 @@ void Arena::nastepnyOsobnik()
         i++;
     }
 }
+
+void Arena::addDeploy(int X, int Y, int type, int target)
+{
+
+    std::cout<<"Deploy: X: "<<X<<" Y: "<<Y<<" type: "<<type<<" target: "<<target<<std::endl;
+
+    Deploy* deploy=new Deploy();
+
+    if(type==0)
+    {
+
+        deploy->deployEnemy(type);
+        deploy->setPos(X,Y);
+        deploy->setRate(70);
+        deploy->deploySize(20);
+
+    }else if(type==1)
+    {
+
+        deploy->deployEnemy(type);
+        deploy->setPos(X,Y);
+        deploy->setRate(15);
+        deploy->deploySize(30);
+    }
+
+    deploys.push_back(deploy);
+
+    if(target==0)
+    {
+        deploy->setTargets(gen1,gen2,deathStar);
+    }else if(target==1)
+    {
+        deploy->setTargets(gen2,gen1,deathStar);
+    }
+
+    deploy->start();
+
+    this->addItem(deploy);
+
+
+}
+
 
 void Arena::addTower(int X, int Y)
 {

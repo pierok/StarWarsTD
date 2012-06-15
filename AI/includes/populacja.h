@@ -55,10 +55,10 @@ private:
 };
 
 
-class PopulacjaDef
+class PopulacjaOf
 {
-
-    PopulacjaDef(int s):size(s)
+public:
+    PopulacjaOf(int s):size(s)
     {
 
         qsrand(QTime(0,0,0).secsTo(QTime::currentTime()));
@@ -66,7 +66,7 @@ class PopulacjaDef
     }
 
 
-    QVector<OsobnikDef*> populacja;
+    QVector<OsobnikOf*> populacja;
 
     inline int rozmiar()
     {
@@ -78,17 +78,17 @@ class PopulacjaDef
     {
         for(int i=0; i<size; ++i)
         {
-            OsobnikDef* osobnik= new OsobnikDef();
+            OsobnikOf* osobnik= new OsobnikOf();
             for(int i=0; i<2; ++i)
             {
-                int type=qrand()%3+1;
+                int type=qrand()%2;
 
                 int x=qrand()%2680;
                 int y=qrand()%2680;
 
                 int target=qrand()%2;
 
-                GenDef* gen= new GenDef();
+                GenOf* gen= new GenOf();
                 gen->resetGen();
                 gen->setEnemyType(type);
                 gen->setDeployX(x);

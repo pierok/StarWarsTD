@@ -193,43 +193,6 @@ void MainWindow::on_startButton_clicked()
     arena->deploy2->start();
 }
 
-void MainWindow::on_learnButton_clicked()
-{
-    Arena::mode=LEARN;
-
-
-    QString size=ui->populatonSizeTextEdit->text();
-    nowaPopulacja=new Populacja(size.toInt());
-
-    arena->nPopulacja=nowaPopulacja;
-    AlgorytmGenetyczny* ag=new AGDef(nowaPopulacja);
-    arena->ag=ag;
-    //ag->update();
-
-    Osobnik* osobnik=nowaPopulacja->populacja[0];
-    ui->osobnikLineEdit->setText(ui->osobnikLineEdit->text().setNum(0));
-
-    foreach(Gen* gen, osobnik->chromosom)
-    {
-        if(gen->getTowerType()==1)
-        {
-            arena->setGun(A_PRISM);
-            arena->addTower(gen->getTowerX(),gen->getTowerY());
-        }else if(gen->getTowerType()==2)
-        {
-            arena->setGun(A_PLASMA);
-            arena->addTower(gen->getTowerX(),gen->getTowerY());
-        }else if(gen->getTowerType()==3)
-        {
-            arena->setGun(A_HUNTER);
-            arena->addTower(gen->getTowerX(),gen->getTowerY());
-        }
-    }
-
-    on_startButton_clicked();
-}
-
-
 void MainWindow::on_horizontalSlider_sliderMoved(int position)
 {
     speed=30-position/3;
@@ -251,6 +214,7 @@ void MainWindow::on_horizontalSlider_sliderReleased()
 
 void MainWindow::on_testButton_clicked()
 {
+    arena->init();
 
     std::cout<<"read from file"<<std::endl;
     QFile file("out.txt");
@@ -298,9 +262,68 @@ void MainWindow::on_testButton_clicked()
 
 }
 
+void MainWindow::on_learnButton_clicked()
+{
+    arena->init();
+
+    Arena::mode=LEARN;
+
+    QString size=ui->populatonSizeTextEdit->text();
+    nowaPopulacja=new Populacja(size.toInt());
+
+    arena->nPopulacja=nowaPopulacja;
+    AlgorytmGenetyczny* ag=new AGDef(nowaPopulacja);
+    arena->ag=ag;
+    //ag->update();
+
+    Osobnik* osobnik=nowaPopulacja->populacja[0];
+    ui->osobnikLineEdit->setText(ui->osobnikLineEdit->text().setNum(0));
+
+    foreach(Gen* gen, osobnik->chromosom)
+    {
+        if(gen->getTowerType()==1)
+        {
+            arena->setGun(A_PRISM);
+            arena->addTower(gen->getTowerX(),gen->getTowerY());
+        }else if(gen->getTowerType()==2)
+        {
+            arena->setGun(A_PLASMA);
+            arena->addTower(gen->getTowerX(),gen->getTowerY());
+        }else if(gen->getTowerType()==3)
+        {
+            arena->setGun(A_HUNTER);
+            arena->addTower(gen->getTowerX(),gen->getTowerY());
+        }
+    }
+
+    on_startButton_clicked();
+}
+
+
 void MainWindow::on_learn2Button_clicked()
 {
      Arena::mode=LEARN2;
+
+     QString size=ui->populationSize2lineEdit->text();
+
+     nowaPopulacjaOf=new PopulacjaOf(size.toInt());
+
+     arena->nPopulacjaOf=nowaPopulacjaOf;
+     AlgorytmGenetyczny* ag=new AGOf(nowaPopulacjaOf);
+     arena->ag=ag;
+     //ag->update();
+
+     OsobnikOf* osobnik=nowaPopulacjaOf->populacja[0];
+     ui->osobnik2lineEdit->setText(ui->osobnik2lineEdit->text().setNum(0));
+
+
+     foreach(GenOf* gen, osobnik->chromosom)
+     {
+         arena->addDeploy(gen->getDeployX(),gen->getDeployY(),gen->getEnemyType(),gen->getTarget());
+     }
+
+
+
 
 }
 

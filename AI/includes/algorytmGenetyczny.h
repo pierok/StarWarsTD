@@ -43,4 +43,23 @@ public:
 };
 
 
+
+class AGOf : public AlgorytmGenetyczny
+{
+public:
+    AGOf(PopulacjaOf *pop);
+
+    void mutacja();
+    void mutacja2();
+    void krzyzowanie();
+    void selekcja();
+
+protected:
+    PopulacjaOf* populacjaOf;
+
+
+};
+
+
+
 #endif // ALGORYTMGENETYCZNY_H

@@ -37,6 +37,7 @@ private:
     bool processed;
     QPixmap* qp;
     Populacja* nowaPopulacja;
+    PopulacjaOf* nowaPopulacjaOf;
     int speed;
 
 public slots:

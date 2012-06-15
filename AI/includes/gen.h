@@ -77,7 +77,7 @@ public:
     }
 };
 
-class GenDef
+class GenOf
 {
 private:
     uint32_t genom;
@@ -146,7 +146,7 @@ public:
     {
         uint32_t m=0;
         m = ~0;
-        m = m << 2;
+        m = m << 4;
         m = ~m;
         m = m << 24;
         m = ~m;
@@ -163,7 +163,7 @@ public:
     {
         uint32_t m=0;
         m = ~0;
-        m = m << 14;
+        m = m << 18;
         m = ~m;
         m = m << 12;
         m = ~m;

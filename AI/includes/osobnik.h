@@ -17,16 +17,16 @@ public:
     int rozmiar;
 };
 
-class OsobnikDef
+class OsobnikOf
 {
 public:
-    OsobnikDef()
+    OsobnikOf()
     {
         rozmiar=0;
         przystosowanie=0;
     }
 
-    QList<GenDef*> chromosom;
+    QList<GenOf*> chromosom;
     double przystosowanie;
     int rozmiar;
 };
