@@ -21,6 +21,7 @@ public:
 
     void step();
     void hit(double i);
+    void heal(double i);
 
     inline void setLifeBar(LifeBar *l)
     {

@@ -43,4 +43,14 @@ void DeathStar::hit(double i)
     }
 }
 
+void DeathStar::heal(double i)
+{
+
+    if(life<1000)
+    {
+        life+=i;
+        lifebar->updateLife(life);
+    }
+}
+
 

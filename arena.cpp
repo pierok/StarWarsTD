@@ -273,6 +273,9 @@ void Arena::deathStarOperatin()
             }
             //target=gen2;
         }
+
+        deathStar->heal(5);
+
     }
 
     if(gen2->deactive==false)
@@ -295,6 +298,8 @@ void Arena::deathStarOperatin()
             }
             //target=deathStar;
         }
+
+        deathStar->heal(5);
     }
 
     //deploy1->deploy(target);
