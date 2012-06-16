@@ -182,6 +182,8 @@ void MainWindow::on_tieButton_clicked()
 
 void MainWindow::on_startButton_clicked()
 {
+    arena->init();
+
     arena->deploy1->setRate(70);
     arena->deploy1->timer=0;
     arena->deploy1->deploySize(20);

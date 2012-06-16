@@ -553,7 +553,7 @@ void Arena::nastepnyOsobnikOf()
 
     foreach(GenOf* gen, os->chromosom)
     {
-       addDeploy(gen->getDeployX(),gen->getDeployY(),gen->getEnemyType(),gen->getTarget());
+        addDeploy(gen->getDeployX(),gen->getDeployY(),gen->getEnemyType(),gen->getTarget());
     }
 }
 
@@ -562,21 +562,16 @@ void Arena::nastepnyOsobnikOf()
 
 void Arena::addDeploy(int X, int Y, int type, int target)
 {
+    Deploy* deploy;//=new Deploy();
 
-    std::cout<<"Deploy: X: "<<X<<" Y: "<<Y<<" type: "<<type<<" target: "<<target<<std::endl;
-
-    Deploy* deploy;
     if(factoryDeploys.isEmpty())
     {
-        Deploy* deploy=new Deploy();
+        deploy=new Deploy();
 
         this->addItem(deploy);
-        std::cout<<"new Deploy"<<std::endl;
     }else
     {
         deploy=factoryDeploys.dequeue();
-
-        std::cout<<"factory Deploy"<<std::endl;
     }
 
 
@@ -608,9 +603,6 @@ void Arena::addDeploy(int X, int Y, int type, int target)
     }
 
     deploy->start();
-
-
-
 }
 
 
@@ -627,8 +619,9 @@ void Arena::addTower(int X, int Y)
                     +(deathStar->scenePos().y()-y)*(deathStar->scenePos().y()-y)<=300*300)
             {
                 std::cout<<" brak dostepu 1"<<std::endl;
-            }else if((deploy1->scenePos().x()-x+100)*(deploy1->scenePos().x()-x+100)
-                     +(deploy1->scenePos().y()-y+100)*(deploy1->scenePos().y()-y+100)<=300*300)
+            }
+            else if((deploy1->scenePos().x()-x+100)*(deploy1->scenePos().x()-x+100)
+                    +(deploy1->scenePos().y()-y+100)*(deploy1->scenePos().y()-y+100)<=300*300)
             {
                 std::cout<<" brak dostepu 2"<<std::endl;
             }else if((deploy2->scenePos().x()-x+100)*(deploy2->scenePos().x()-x+100)
@@ -636,6 +629,7 @@ void Arena::addTower(int X, int Y)
             {
                 std::cout<<" brak dostepu 3"<<std::endl;
             }
+
             else
             {
                 if(gun==A_PRISM)
