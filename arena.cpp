@@ -12,6 +12,7 @@ QQueue<Enemy*> Arena::spawnEnemy;
 QQueue<Explosion*> Arena::spawnExplosion;
 QQueue<Missile*> Arena::spawnMissile;
 QQueue<Tower*> Arena::spawnTower;
+QQueue<Deploy*> Arena::factoryDeploys;
 
 Factory Arena::factoy;
 Mode Arena::mode=GAME;
@@ -59,7 +60,8 @@ Arena::Arena(QPixmap *p)
 
     //  init();
 
-
+    this->addEllipse(deathStar->scenePos().x()-300,deathStar->scenePos().y()-300,600,600,
+                     QPen(QColor(240,0,0,100),2),QBrush(QColor(255,0,0,40)));
     this->addItem(gen1);
     this->addItem(gen2);
     this->addItem(lifgen1);
@@ -92,7 +94,6 @@ void Arena::init()
     deploys.push_back(deploy1);
     deploys.push_back(deploy2);
 
-
     this->addLine(deploy1->scenePos().x()+100,deploy1->scenePos().y()+100,
                   gen1->scenePos().x(),gen1->scenePos().y(),QPen(Qt::gray,2));
 
@@ -114,8 +115,7 @@ void Arena::init()
     this->addLine(deploy2->scenePos().x()+100,deploy2->scenePos().y()+100,
                   deathStar->scenePos().x(),deathStar->scenePos().y(),QPen(Qt::gray,2));
 
-    this->addEllipse(deathStar->scenePos().x()-300,deathStar->scenePos().y()-300,600,600,
-                     QPen(QColor(240,0,0,100),2),QBrush(QColor(255,0,0,40)));
+
 
     this->addEllipse(deploy1->scenePos().x()-200,deploy1->scenePos().y()-200,600,600,
                      QPen(QColor(240,0,0,100),2),QBrush(QColor(255,0,0,40)));
@@ -456,6 +456,60 @@ void Arena::step()
         }
     }else if(mode==LEARN2)
     {
+
+        if(deathStar->deactive==true)
+        {
+
+            foreach(Deploy* deploy, deploys)
+            {
+                deploy->stop();
+                factoryDeploys.enqueue(deploy);
+            }
+
+            foreach(Enemy* enemy, enemys)
+            {
+                enemy->hit(10000);
+                //enemy->setTarget(gen1);
+            }
+
+            deathStar->life=1000;
+            deathStar->show();
+            deathStar->showLifeBar();
+            deathStar->deactive=false;
+            gen1->life=250;
+            gen1->show();
+            gen1->showLifeBar();
+            gen1->deactive=false;
+            gen2->life=250;
+            gen2->show();
+            gen2->showLifeBar();
+            gen2->deactive=false;
+
+
+
+            ++osobnik;
+
+            if(osobnik<nPopulacjaOf->populacja.size())
+            {
+                infoOs2->setNum(osobnik);
+                nastepnyOsobnikOf();
+            }else
+            {
+                ag->update();
+
+                osobnik=0;
+                ++epoka;
+                nastepnyOsobnikOf();
+                infoPokolenie2->setNum(epoka);
+                infoOs2->setNum(osobnik);
+            }
+
+
+
+
+
+        }
+
     }
 }
 
@@ -490,12 +544,41 @@ void Arena::nastepnyOsobnik()
     }
 }
 
+
+void Arena::nastepnyOsobnikOf()
+{
+
+    OsobnikOf* os=nPopulacjaOf->populacja[osobnik];
+    std::cout<<"osobnik size: "<<nPopulacjaOf->populacja[osobnik]->chromosom.size()<<std::endl;
+
+    foreach(GenOf* gen, os->chromosom)
+    {
+       addDeploy(gen->getDeployX(),gen->getDeployY(),gen->getEnemyType(),gen->getTarget());
+    }
+}
+
+
+
+
 void Arena::addDeploy(int X, int Y, int type, int target)
 {
 
     std::cout<<"Deploy: X: "<<X<<" Y: "<<Y<<" type: "<<type<<" target: "<<target<<std::endl;
 
-    Deploy* deploy=new Deploy();
+    Deploy* deploy;
+    if(factoryDeploys.isEmpty())
+    {
+        Deploy* deploy=new Deploy();
+
+        this->addItem(deploy);
+        std::cout<<"new Deploy"<<std::endl;
+    }else
+    {
+        deploy=factoryDeploys.dequeue();
+
+        std::cout<<"factory Deploy"<<std::endl;
+    }
+
 
     if(type==0)
     {
@@ -526,7 +609,6 @@ void Arena::addDeploy(int X, int Y, int type, int target)
 
     deploy->start();
 
-    this->addItem(deploy);
 
 
 }

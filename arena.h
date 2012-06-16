@@ -52,6 +52,7 @@ public:
     static QQueue<Explosion*> spawnExplosion;
     static QQueue<Missile*> spawnMissile;
     static QQueue<Tower*>spawnTower;
+    static QQueue<Deploy*>factoryDeploys;
 
     inline void setGun(GUNS g)
     {
@@ -86,6 +87,7 @@ public:
     void addTower(int x, int y);
     void addDeploy(int X, int Y, int type, int target);
     void nastepnyOsobnik();
+    void nastepnyOsobnikOf();
     Populacja* nPopulacja;
     PopulacjaOf* nPopulacjaOf;
     AlgorytmGenetyczny* ag;
