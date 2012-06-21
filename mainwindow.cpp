@@ -17,7 +17,7 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(&maintimer, SIGNAL(timeout()), this, SLOT(MainClockTick()));
 
     info=new QString("");
-    info->setNum(800);
+
     infoOs=new QString("");
     infoOs->setNum(0);
 
@@ -33,8 +33,15 @@ MainWindow::MainWindow(QWidget *parent) :
     qp= new QPixmap(":/data/gw.jpg");
     arena=new Arena(qp);
 
+    info->setNum(arena->getAmount());
     //arena->setBackgroundBrush(Qt::black);
     //arena->setBackgroundBrush(QBrush(*qp));
+
+
+    QString tmp="";
+    tmp.setNum(arena->getAmount());
+
+    ui->creditsLineEdit->setText(tmp);
 
     arena->setSceneRect(0, 0, 2687 , 2683);
     arena->setItemIndexMethod(QGraphicsScene::NoIndex);
@@ -115,7 +122,6 @@ void MainWindow::wheelEvent( QWheelEvent *event )
 
     float scale = 1.0 + event->delta()*0.001;
     ui->gameView->scale(scale,scale);
-    //std::cout<<"Main window event wheel"<<std::endl;
     event->accept();
 }
 
@@ -182,7 +188,9 @@ void MainWindow::on_tieButton_clicked()
 
 void MainWindow::on_startButton_clicked()
 {
-    arena->init();
+   // arena->init();
+
+    arena->directions();
 
     arena->deploy1->setRate(70);
     arena->deploy1->timer=0;
@@ -210,14 +218,11 @@ void MainWindow::on_horizontalSlider_sliderMoved(int position)
 void MainWindow::on_horizontalSlider_sliderReleased()
 {
     maintimer.start(speed);
-    std::cout<<"speed: "<<speed<<std::endl;
 }
 
 
 void MainWindow::on_testButton_clicked()
 {
-    arena->init();
-
     std::cout<<"read from file"<<std::endl;
     QFile file("out.txt");
     if (!file.open(QIODevice::ReadOnly| QIODevice::Text))
@@ -238,9 +243,6 @@ void MainWindow::on_testButton_clicked()
     }
 
     file.close();
-
-
-    std::cout<<"osobnik size: "<<o.chromosom.size()<<std::endl;
 
     foreach(Gen* gen, o.chromosom)
     {
@@ -266,12 +268,23 @@ void MainWindow::on_testButton_clicked()
 
 void MainWindow::on_learnButton_clicked()
 {
-    arena->init();
+    //arena->init();
+
+
+    QString tmp=ui->creditsLineEdit->text();
+    arena->setAmount(tmp.toInt());
 
     Arena::mode=LEARN;
 
     QString size=ui->populatonSizeTextEdit->text();
-    nowaPopulacja=new Populacja(size.toInt());
+
+    if(tmp.toInt()>1000&&tmp.toInt()<=2000)
+    {
+        nowaPopulacja=new Populacja(size.toInt(),200);
+    }else
+    {
+        nowaPopulacja=new Populacja(size.toInt());
+    }
 
     arena->nPopulacja=nowaPopulacja;
     AlgorytmGenetyczny* ag=new AGDef(nowaPopulacja);

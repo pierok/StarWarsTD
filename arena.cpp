@@ -16,13 +16,14 @@ QQueue<Deploy*> Arena::factoryDeploys;
 
 Factory Arena::factoy;
 Mode Arena::mode=GAME;
-int Arena::enemySize=0;
+//int Arena::enemySize=0;
 
 Arena::Arena(QPixmap *p)
 {
     gun=A_NONE;
     qp=p;
-    amount=800;
+    amountSize=800;
+    amount=amountSize;
     osobnik=0;
     epoka=0;
     time=0;
@@ -58,10 +59,11 @@ Arena::Arena(QPixmap *p)
     lifgen2->translate(-180,100);
 
 
-    //  init();
+    init();
 
     this->addEllipse(deathStar->scenePos().x()-300,deathStar->scenePos().y()-300,600,600,
                      QPen(QColor(240,0,0,100),2),QBrush(QColor(255,0,0,40)));
+
     this->addItem(gen1);
     this->addItem(gen2);
     this->addItem(lifgen1);
@@ -94,6 +96,58 @@ void Arena::init()
     deploys.push_back(deploy1);
     deploys.push_back(deploy2);
 
+    foreach(Deploy* deploy, deploys)
+    {
+        //deploy->stop();
+        factoryDeploys.enqueue(deploy);
+    }
+
+
+
+    /* this->addLine(deploy1->scenePos().x()+100,deploy1->scenePos().y()+100,
+                  gen1->scenePos().x(),gen1->scenePos().y(),QPen(Qt::gray,2));
+
+    this->addLine(deploy2->scenePos().x()+100,deploy2->scenePos().y()+100,
+                  gen1->scenePos().x(),gen1->scenePos().y(),QPen(Qt::gray,2));
+
+    this->addLine(deploy2->scenePos().x()+100,deploy2->scenePos().y()+100,
+                  gen2->scenePos().x(),gen2->scenePos().y(),QPen(Qt::gray,2));
+
+    this->addLine(gen1->scenePos().x(),gen1->scenePos().y(),
+                  gen2->scenePos().x(),gen2->scenePos().y(),QPen(Qt::gray,2));
+
+    this->addLine(gen2->scenePos().x(),gen2->scenePos().y(),
+                  deathStar->scenePos().x(),deathStar->scenePos().y(),QPen(Qt::gray,2));
+
+    this->addLine(deploy1->scenePos().x()+100,deploy1->scenePos().y()+100,
+                  deathStar->scenePos().x(),deathStar->scenePos().y(),QPen(Qt::gray,2));
+
+    this->addLine(deploy2->scenePos().x()+100,deploy2->scenePos().y()+100,
+                  deathStar->scenePos().x(),deathStar->scenePos().y(),QPen(Qt::gray,2));*/
+
+
+
+    this->addEllipse(deploy1->scenePos().x()-200,deploy1->scenePos().y()-200,600,600,
+                     QPen(QColor(240,0,0,100),2),QBrush(QColor(255,0,0,0)));
+
+    this->addEllipse(deploy2->scenePos().x()-200,deploy2->scenePos().y()-200,600,600,
+                     QPen(QColor(240,0,0,100),2),QBrush(QColor(255,0,0,0)));
+
+
+    //target=gen1;
+
+    deploy1->setTargets(gen1,gen2,deathStar);
+    deploy2->setTargets(gen2,gen1,deathStar);
+
+    this->addItem(deploy1);
+    this->addItem(deploy2);
+
+}
+
+
+void Arena::directions()
+{
+
     this->addLine(deploy1->scenePos().x()+100,deploy1->scenePos().y()+100,
                   gen1->scenePos().x(),gen1->scenePos().y(),QPen(Qt::gray,2));
 
@@ -114,26 +168,6 @@ void Arena::init()
 
     this->addLine(deploy2->scenePos().x()+100,deploy2->scenePos().y()+100,
                   deathStar->scenePos().x(),deathStar->scenePos().y(),QPen(Qt::gray,2));
-
-
-
-    this->addEllipse(deploy1->scenePos().x()-200,deploy1->scenePos().y()-200,600,600,
-                     QPen(QColor(240,0,0,100),2),QBrush(QColor(255,0,0,40)));
-
-    this->addEllipse(deploy2->scenePos().x()-200,deploy2->scenePos().y()-200,600,600,
-                     QPen(QColor(240,0,0,100),2),QBrush(QColor(255,0,0,40)));
-
-
-
-    //target=gen1;
-
-    deploy1->setTargets(gen1,gen2,deathStar);
-    deploy2->setTargets(gen2,gen1,deathStar);
-
-
-    this->addItem(deploy1);
-    this->addItem(deploy2);
-
 }
 
 
@@ -301,7 +335,7 @@ void Arena::deathStarOperatin()
             //target=gen2;
         }
 
-        deathStar->heal(5);
+        deathStar->heal(1);
 
     }
 
@@ -326,7 +360,7 @@ void Arena::deathStarOperatin()
             //target=deathStar;
         }
 
-        deathStar->heal(5);
+        deathStar->heal(1);
     }
 
     //deploy1->deploy(target);
@@ -336,8 +370,6 @@ void Arena::deathStarOperatin()
     {
         deploy->deploy();
     }
-
-
 
 }
 
@@ -367,11 +399,22 @@ void Arena::step()
     }else if(Arena::mode==LEARN)
     {
         ++time;
-        if(deathStar->deactive==true||enemySize==50)//||(deploy1->count==0&&deploy2->count==0))
+
+        int enemyDeathSize=0;
+        foreach(Enemy* enemy, enemys)
+        {
+            if(enemy->death==true)
+            {
+                ++enemyDeathSize;
+
+            }
+        }
+
+        if(deathStar->deactive==true||enemyDeathSize==enemys.size())//||(deploy1->count==0&&deploy2->count==0))
         {
             nPopulacja->populacja[osobnik]->przystosowanie=deathStar->life+gen1->life+gen2->life;
 
-            if(enemySize==50)
+            if(enemyDeathSize==enemys.size())
             {
                 std::cout<<"write to file"<<std::endl;
                 QFile file("out.txt");
@@ -379,7 +422,7 @@ void Arena::step()
                     return;
 
                 QTextStream out(&file);
-                out << "osobnik "<<nPopulacja->populacja[osobnik]->przystosowanie<<"\n" ;
+                out << "osobnik "<<nPopulacja->populacja[osobnik]->przystosowanie<<" "<<amountSize<<"\n" ;
                 foreach(Gen* gen, nPopulacja->populacja[osobnik]->chromosom)
                 {
                     out<<gen->getGenom()<<"\n";
@@ -409,19 +452,22 @@ void Arena::step()
 
 
             deathStar->life=1000;
+            deathStar->getLifeBar()->life=1000;
             deathStar->show();
             deathStar->showLifeBar();
             deathStar->deactive=false;
             gen1->life=250;
+            gen1->getLifeBar()->life=250;
             gen1->show();
             gen1->showLifeBar();
             gen1->deactive=false;
             gen2->life=250;
+            gen2->getLifeBar()->life=250;
             gen2->show();
             gen2->showLifeBar();
             gen2->deactive=false;
 
-            amount=800;
+            amount=amountSize;
             info->setNum(amount);
 
             ++osobnik;
@@ -441,7 +487,7 @@ void Arena::step()
                 infoOs->setNum(osobnik);
             }
 
-            enemySize=0;
+            //enemySize=0;
             //target=gen1;
             deploy1->setRate(70);
             deploy1->timer=0;
@@ -457,13 +503,38 @@ void Arena::step()
     }else if(mode==LEARN2)
     {
 
-        if(deathStar->deactive==true)
+        int enemyDeathSize=0;
+        foreach(Enemy* enemy, enemys)
+        {
+            if(enemy->death==true)
+            {
+                ++enemyDeathSize;
+
+            }
+        }
+
+        if(deathStar->deactive==true||enemyDeathSize==enemys.size())
         {
 
-            foreach(Deploy* deploy, deploys)
+            nPopulacjaOf->populacja[osobnik]->przystosowanie=-deathStar->life-gen1->life-gen2->life;
+
+
+            if(deathStar->deactive==true)
             {
-                deploy->stop();
-                factoryDeploys.enqueue(deploy);
+                std::cout<<"write to file 2"<<std::endl;
+                QFile file("out2.txt");
+                if (!file.open(QIODevice::Append| QIODevice::Text))
+                    return;
+
+                QTextStream out(&file);
+                out << "osobnik "<<nPopulacjaOf->populacja[osobnik]->przystosowanie<<"\n" ;
+                foreach(GenOf* gen, nPopulacjaOf->populacja[osobnik]->chromosom)
+                {
+                    out<<gen->getGenom()<<"\n";
+                }
+                out << "endOsobnik\n";
+
+                file.close();
             }
 
             foreach(Enemy* enemy, enemys)
@@ -472,22 +543,32 @@ void Arena::step()
                 //enemy->setTarget(gen1);
             }
 
+
+
+            foreach(Deploy* deploy, deploys)
+            {
+                deploy->stop();
+                factoryDeploys.enqueue(deploy);
+            }
+
             deathStar->life=1000;
+            deathStar->getLifeBar()->life=1000;
             deathStar->show();
             deathStar->showLifeBar();
             deathStar->deactive=false;
             gen1->life=250;
+            gen1->getLifeBar()->life=250;
             gen1->show();
             gen1->showLifeBar();
             gen1->deactive=false;
             gen2->life=250;
+            gen2->getLifeBar()->life=250;
             gen2->show();
             gen2->showLifeBar();
             gen2->deactive=false;
 
-
-
             ++osobnik;
+            // enemySize=0;
 
             if(osobnik<nPopulacjaOf->populacja.size())
             {
@@ -504,12 +585,12 @@ void Arena::step()
                 infoOs2->setNum(osobnik);
             }
 
-
-
-
-
+            foreach(Deploy* deploy, deploys)
+            {
+                deploy->timer=0;
+                deploy->start();
+            }
         }
-
     }
 }
 
@@ -567,7 +648,7 @@ void Arena::addDeploy(int X, int Y, int type, int target)
     if(factoryDeploys.isEmpty())
     {
         deploy=new Deploy();
-
+        deploys.push_back(deploy);
         this->addItem(deploy);
     }else
     {
@@ -592,17 +673,17 @@ void Arena::addDeploy(int X, int Y, int type, int target)
         deploy->deploySize(30);
     }
 
-    deploys.push_back(deploy);
-
     if(target==0)
     {
         deploy->setTargets(gen1,gen2,deathStar);
     }else if(target==1)
     {
         deploy->setTargets(gen2,gen1,deathStar);
+    }else if(target==2)
+    {
+        deploy->setTargets(deathStar,deathStar,deathStar);
     }
 
-    deploy->start();
 }
 
 
@@ -620,18 +701,24 @@ void Arena::addTower(int X, int Y)
             {
                 std::cout<<" brak dostepu 1"<<std::endl;
             }
-            else if((deploy1->scenePos().x()-x+100)*(deploy1->scenePos().x()-x+100)
-                    +(deploy1->scenePos().y()-y+100)*(deploy1->scenePos().y()-y+100)<=300*300)
-            {
-                std::cout<<" brak dostepu 2"<<std::endl;
-            }else if((deploy2->scenePos().x()-x+100)*(deploy2->scenePos().x()-x+100)
-                     +(deploy2->scenePos().y()-y+100)*(deploy2->scenePos().y()-y+100)<=300*300)
-            {
-                std::cout<<" brak dostepu 3"<<std::endl;
-            }
-
             else
             {
+                if(!deploys.isEmpty())
+                {
+                    if((deploy1->scenePos().x()-x+100)*(deploy1->scenePos().x()-x+100)
+                            +(deploy1->scenePos().y()-y+100)*(deploy1->scenePos().y()-y+100)<=300*300)
+                    {
+                        std::cout<<" brak dostepu 2"<<std::endl;
+                        return ;
+                    }else if((deploy2->scenePos().x()-x+100)*(deploy2->scenePos().x()-x+100)
+                             +(deploy2->scenePos().y()-y+100)*(deploy2->scenePos().y()-y+100)<=300*300)
+                    {
+                        std::cout<<" brak dostepu 3"<<std::endl;
+                        return ;
+                    }
+                }
+
+
                 if(gun==A_PRISM)
                 {
                     Tower* prism1= factoy.getTower();
@@ -686,7 +773,6 @@ void Arena::mousePressEvent(QGraphicsSceneMouseEvent *event)
     addTower(x,y);
     event->accept();
 }
-
 
 
 void Arena::hideElements()

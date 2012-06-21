@@ -20,9 +20,12 @@ public:
 
     inline void updateLife(int l)
     {
-        if(life>0)
+        if(life>1)
         life=l;
     }
+
+
+
 
     int life;
     int size;

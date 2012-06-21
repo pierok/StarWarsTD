@@ -10,12 +10,13 @@ Factory::Factory()
 void Factory::deactivateEnemy(Enemy* e, int type)
 {
 
-    Arena::enemySize++;
+
     if(type==0)
-    {
+    {   //Arena::enemySize++;
         enemys.enqueue(e);
     }else if(type==1)
     {
+       // Arena::enemySize++;
         xwings.enqueue(e);
     }
 }

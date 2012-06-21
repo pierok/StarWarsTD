@@ -35,6 +35,12 @@ public:
 
 
 
+    inline LifeBar* getLifeBar()
+    {
+        return lifebar;
+    }
+
+
     double life;
 
 protected:

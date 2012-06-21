@@ -39,6 +39,7 @@ public:
     void hideElements();
     void showElements();
     void init();
+    void directions();
 
     Deploy* deploy1;
     Deploy* deploy2;
@@ -46,7 +47,7 @@ public:
     QVector<Deploy*> deploys;
 
     static Mode mode;
-    static int enemySize;
+    //static int enemySize;
     static Factory factoy;
     static QQueue<Enemy*> spawnEnemy;
     static QQueue<Explosion*> spawnExplosion;
@@ -84,6 +85,21 @@ public:
         infoPokolenie2=s;
     }
 
+
+    inline void setAmount(int i)
+    {
+         amountSize=i;
+         amount=amountSize;
+    }
+
+
+    inline int getAmount()
+    {
+         return amountSize;
+    }
+
+
+
     void addTower(int x, int y);
     void addDeploy(int X, int Y, int type, int target);
     void nastepnyOsobnik();
@@ -114,6 +130,7 @@ private:
     //Target* target;
 
     int amount;
+    int amountSize;
     int time;
     int osobnik;
     int epoka;

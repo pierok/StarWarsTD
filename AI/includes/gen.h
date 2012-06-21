@@ -125,7 +125,7 @@ public:
 
         uint32_t m=0;
         m = ~0;
-        m = m << 1;
+        m = m << 2;
         m = ~m;
         m = m << 26;
         m = ~m;

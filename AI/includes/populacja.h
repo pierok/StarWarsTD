@@ -10,10 +10,20 @@ class Populacja
 public:
     Populacja(int s):size(s)
     {
-        amount=800;
+        //amount=800;
+        osobnikSize=100;
         qsrand(QTime(0,0,0).secsTo(QTime::currentTime()));
         generujPopujacje();
     }
+
+
+    Populacja(int s, int o):size(s),osobnikSize(o)
+    {
+        //amount=800;
+        qsrand(QTime(0,0,0).secsTo(QTime::currentTime()));
+        generujPopujacje();
+    }
+
 
     QVector<Osobnik*> populacja;
 
@@ -27,7 +37,7 @@ public:
         for(int i=0; i<size; ++i)
         {
             Osobnik* osobnik= new Osobnik();
-            for(int i=0; i<100; ++i)
+            for(int i=0; i<osobnikSize; ++i)
             {
                 int type=qrand()%3+1;
 
@@ -52,6 +62,7 @@ public:
 private:
     int amount;
     int size;
+    int osobnikSize;
 };
 
 
@@ -86,7 +97,7 @@ public:
                 int x=qrand()%2680;
                 int y=qrand()%2680;
 
-                int target=qrand()%2;
+                int target=qrand()%3;
 
                 GenOf* gen= new GenOf();
                 gen->resetGen();

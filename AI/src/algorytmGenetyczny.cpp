@@ -155,7 +155,7 @@ AGDef::AGDef(Populacja *pop)
 
 void AGDef::mutacja()
 {
-    std::cout<<"========MUtacaj start============"<<std::endl;
+    //std::cout<<"========MUtacaj start============"<<std::endl;
     for(int i=0; i<populacja->rozmiar();++i)
     {
         int m=qrand()%100+1;
@@ -185,7 +185,7 @@ void AGDef::mutacja()
 void AGDef::mutacja2()
 {
 
-    std::cout<<"========MUtacaj2 start============"<<std::endl;
+    //std::cout<<"========MUtacaj2 start============"<<std::endl;
     for(int i=0; i<populacja->rozmiar();++i)
     {
         int m=qrand()%100+1;
@@ -193,7 +193,7 @@ void AGDef::mutacja2()
         if(m<20)
         {
 
-            std::cout<<"++++++++++++MUtacaj2 OK+++++++++++"<<std::endl;
+            //std::cout<<"++++++++++++MUtacaj2 OK+++++++++++"<<std::endl;
             int iloscM=qrand()%populacja->populacja[i]->rozmiar;
 
             for(int j=0; j<iloscM; ++j)
@@ -216,7 +216,7 @@ void AGDef::mutacja2()
 
 void AGDef::krzyzowanie()
 {
-    std::cout<<"===============Krzy¿owanie=========="<<std::endl;
+    //std::cout<<"===============Krzy¿owanie=========="<<std::endl;
     int rozmiar=populacja->rozmiar();
     int nextCh=rozmiar/2;
     int nextCh2=rozmiar/2+1;
@@ -232,8 +232,8 @@ void AGDef::krzyzowanie()
 
         if(m<=60)
         {
-            std::cout<<"p1: "<<p1<<" p2: "<<p2<<std::endl;
-            int pos=qrand()%8;
+            //std::cout<<"p1: "<<p1<<" p2: "<<p2<<std::endl;
+            int pos=qrand()%populacja->populacja[p1]->rozmiar;
 
             Osobnik* o1=populacja->populacja[p1];
             Osobnik* o2=populacja->populacja[p2];
@@ -277,7 +277,7 @@ void AGDef::krzyzowanie()
             nextCh2+=2;
         }
     }
-    std::cout<<"===============Koniec=========="<<std::endl;
+    //std::cout<<"===============Koniec=========="<<std::endl;
 }
 
 bool osobnikSelect(Osobnik* o1, Osobnik* o2)
@@ -288,19 +288,9 @@ bool osobnikSelect(Osobnik* o1, Osobnik* o2)
 void AGDef::selekcja()
 {
 
-    std::cout<<"===============Selekcja=========="<<std::endl;
+    //std::cout<<"===============Selekcja=========="<<std::endl;
     qSort(populacja->populacja.begin(),populacja->populacja.end(),osobnikSelect);
 }
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -314,7 +304,7 @@ AGOf::AGOf(PopulacjaOf *pop)
 
 void AGOf::mutacja()
 {
-    std::cout<<"========MUtacaj start============"<<std::endl;
+    //std::cout<<"========MUtacaj start============"<<std::endl;
     for(int i=0; i<populacjaOf->rozmiar();++i)
     {
         int m=qrand()%100+1;
@@ -344,7 +334,7 @@ void AGOf::mutacja()
 void AGOf::mutacja2()
 {
 
-    std::cout<<"========MUtacaj2 start============"<<std::endl;
+    //std::cout<<"========MUtacaj2 start============"<<std::endl;
     for(int i=0; i<populacjaOf->rozmiar();++i)
     {
         int m=qrand()%100+1;
@@ -352,7 +342,7 @@ void AGOf::mutacja2()
         if(m<20)
         {
 
-            std::cout<<"++++++++++++MUtacaj2 OK+++++++++++"<<std::endl;
+            //std::cout<<"++++++++++++MUtacaj2 OK+++++++++++"<<std::endl;
             int iloscM=qrand()%populacjaOf->populacja[i]->rozmiar;
 
             for(int j=0; j<iloscM; ++j)
@@ -377,7 +367,7 @@ void AGOf::mutacja2()
 
 void AGOf::krzyzowanie()
 {
-    std::cout<<"===============Krzy¿owanie=========="<<std::endl;
+   // std::cout<<"===============Krzy¿owanie=========="<<std::endl;
     int rozmiar=populacjaOf->rozmiar();
     int nextCh=rozmiar/2;
     int nextCh2=rozmiar/2+1;
@@ -391,8 +381,8 @@ void AGOf::krzyzowanie()
 
         if(m<=60)
         {
-            std::cout<<"p1: "<<p1<<" p2: "<<p2<<std::endl;
-            int pos=qrand()%8;
+            //std::cout<<"p1: "<<p1<<" p2: "<<p2<<std::endl;
+            int pos=qrand()%2;
 
             OsobnikOf* o1=populacjaOf->populacja[p1];
             OsobnikOf* o2=populacjaOf->populacja[p2];
@@ -440,7 +430,7 @@ void AGOf::krzyzowanie()
             nextCh2+=2;
         }
     }
-    std::cout<<"===============Koniec=========="<<std::endl;
+    //std::cout<<"===============Koniec=========="<<std::endl;
 }
 
 bool osobnikSelect2(OsobnikOf* o1, OsobnikOf* o2)
@@ -451,7 +441,7 @@ bool osobnikSelect2(OsobnikOf* o1, OsobnikOf* o2)
 void AGOf::selekcja()
 {
 
-    std::cout<<"===============Selekcja=========="<<std::endl;
+    //std::cout<<"===============Selekcja=========="<<std::endl;
     qSort(populacjaOf->populacja.begin(),populacjaOf->populacja.end(),osobnikSelect2);
 }
 

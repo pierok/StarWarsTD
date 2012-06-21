@@ -34,6 +34,11 @@ public:
         lifebar->show();
     }
 
+    inline LifeBar* getLifeBar()
+    {
+        return lifebar;
+    }
+
     bool deactive;
     double life;
 
