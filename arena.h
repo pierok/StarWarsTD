@@ -47,6 +47,7 @@ public:
     QVector<Deploy*> deploys;
 
     static Mode mode;
+    static bool Hide;
     //static int enemySize;
     static Factory factoy;
     static QQueue<Enemy*> spawnEnemy;
@@ -134,6 +135,7 @@ private:
     int time;
     int osobnik;
     int epoka;
+
 
 public slots:
     void mousePressEvent(QGraphicsSceneMouseEvent *event);

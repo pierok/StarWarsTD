@@ -16,7 +16,7 @@ void Factory::deactivateEnemy(Enemy* e, int type)
         enemys.enqueue(e);
     }else if(type==1)
     {
-       // Arena::enemySize++;
+        // Arena::enemySize++;
         xwings.enqueue(e);
     }
 }
@@ -29,7 +29,10 @@ Enemy* Factory::getEnemy(int type)
         {
             Enemy* e=enemys.dequeue();
             e->reset();
-            e->show();
+            if(!Arena::Hide)
+            {
+                e->show();
+            }
             e->resetTransform();
             e->death=false;
             return e;
@@ -44,8 +47,11 @@ Enemy* Factory::getEnemy(int type)
         if(!xwings.isEmpty())
         {
             Enemy* e=xwings.dequeue();
+            if(!Arena::Hide)
+            {
+               e->show();
+            }
             e->reset();
-            e->show();
             e->resetTransform();
             e->death=false;
             return e;
@@ -88,7 +94,10 @@ Tower* Factory::getTower(int type)
         {
             Tower* e=prismTowers.dequeue();
             e->reset();
-            e->show();
+            if(!Arena::Hide)
+            {
+                e->show();
+            }
             e->resetTransform();
             return e;
         }else
@@ -109,7 +118,10 @@ Tower* Factory::getTower(int type)
             //std::cout<<"get Plasma"<<std::endl;
             Tower* e=plasmaTowers.dequeue();
             e->reset();
-            e->show();
+            if(!Arena::Hide)
+            {
+                e->show();
+            }
             e->resetTransform();
             return e;
         }else
@@ -126,7 +138,10 @@ Tower* Factory::getTower(int type)
             //std::cout<<"get Hunter"<<std::endl;
             Tower* e=hunterTowers.dequeue();
             e->reset();
-            e->show();
+            if(!Arena::Hide)
+            {
+                e->show();
+            }
             e->resetTransform();
             return e;
         }else
@@ -184,7 +199,10 @@ Missile* Factory::getMissile(int type)
         {
             Missile *m=missile.dequeue();
             m->reset();
-            m->show();
+            if(!Arena::Hide)
+            {
+                m->show();
+            }
             m->resetTransform();
             return m;
         }else
@@ -199,7 +217,10 @@ Missile* Factory::getMissile(int type)
         {
             Missile *m=lasers.dequeue();
             m->reset();
-            m->show();
+            if(!Arena::Hide)
+            {
+                m->show();
+            }
             m->resetTransform();
             return m;
         }else
@@ -214,7 +235,10 @@ Missile* Factory::getMissile(int type)
         {
             Missile *m=plasma.dequeue();
             m->reset();
-            m->show();
+            if(!Arena::Hide)
+            {
+                m->show();
+            }
             m->resetTransform();
             return m;
         }else
@@ -229,7 +253,10 @@ Missile* Factory::getMissile(int type)
         {
             Missile *m=hlaser.dequeue();
             m->reset();
-            m->show();
+            if(!Arena::Hide)
+            {
+                m->show();
+            }
             m->resetTransform();
             return m;
         }else

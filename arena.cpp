@@ -16,6 +16,7 @@ QQueue<Deploy*> Arena::factoryDeploys;
 
 Factory Arena::factoy;
 Mode Arena::mode=GAME;
+bool Arena::Hide=false;
 //int Arena::enemySize=0;
 
 Arena::Arena(QPixmap *p)
@@ -179,6 +180,11 @@ void Arena::towerOperation()
         Tower* tower = spawnTower.dequeue();
         this->addItem(tower);
         towers.insert(tower);
+        if(Hide)
+        {
+            tower->hide();
+        }
+
     }
 
     foreach(Tower *tower, towers)
@@ -211,6 +217,10 @@ void Arena::enemyOperation()
 
         this->addItem(en1);
         enemys.insert(en1);
+        if(Hide)
+        {
+            en1->hide();
+        }
     }
 
     foreach(Enemy *enemy, enemys)
@@ -232,6 +242,10 @@ void Arena::explosionsOperation()
         Explosion* exp= spawnExplosion.dequeue();
         this->addItem(exp);
         explosions.push_back(exp);
+        if(Hide)
+        {
+            exp->hide();
+        }
     }
 
     foreach(Explosion *exp, explosions)
@@ -249,6 +263,10 @@ void Arena::missilesOperation()
         Missile* misile= spawnMissile.dequeue();
         this->addItem(misile);
         missiles.insert(misile);
+        if(Hide)
+        {
+            misile->hide();
+        }
     }
 
     foreach(Missile *misile, missiles)
@@ -453,19 +471,27 @@ void Arena::step()
 
             deathStar->life=1000;
             deathStar->getLifeBar()->life=1000;
-            deathStar->show();
-            deathStar->showLifeBar();
             deathStar->deactive=false;
             gen1->life=250;
             gen1->getLifeBar()->life=250;
-            gen1->show();
-            gen1->showLifeBar();
             gen1->deactive=false;
             gen2->life=250;
             gen2->getLifeBar()->life=250;
-            gen2->show();
-            gen2->showLifeBar();
             gen2->deactive=false;
+
+
+            if(!Hide)
+            {
+                deathStar->show();
+                deathStar->showLifeBar();
+                gen1->show();
+                gen1->showLifeBar();
+                gen2->show();
+                gen2->showLifeBar();
+            }
+
+
+
 
             amount=amountSize;
             info->setNum(amount);
@@ -553,19 +579,31 @@ void Arena::step()
 
             deathStar->life=1000;
             deathStar->getLifeBar()->life=1000;
-            deathStar->show();
-            deathStar->showLifeBar();
+            if(!Hide)
+            {
+
+            }
             deathStar->deactive=false;
             gen1->life=250;
             gen1->getLifeBar()->life=250;
-            gen1->show();
-            gen1->showLifeBar();
+
             gen1->deactive=false;
             gen2->life=250;
             gen2->getLifeBar()->life=250;
-            gen2->show();
-            gen2->showLifeBar();
+
             gen2->deactive=false;
+
+
+            if(!Hide)
+            {
+                deathStar->show();
+                deathStar->showLifeBar();
+                gen1->show();
+                gen1->showLifeBar();
+                gen2->show();
+                gen2->showLifeBar();
+            }
+
 
             ++osobnik;
             // enemySize=0;
@@ -777,6 +815,8 @@ void Arena::mousePressEvent(QGraphicsSceneMouseEvent *event)
 
 void Arena::hideElements()
 {
+    Hide=true;
+
     foreach(QGraphicsItem * element, items())
     {
         element->hide();
@@ -785,6 +825,8 @@ void Arena::hideElements()
 
 void Arena::showElements()
 {
+
+    Hide=false;
     foreach(QGraphicsItem * element, items())
     {
         element->show();
