@@ -354,6 +354,19 @@
               </layout>
              </item>
              <item>
+              <widget class="QPushButton" name="propertiesButton">
+               <property name="minimumSize">
+                <size>
+                 <width>0</width>
+                 <height>40</height>
+                </size>
+               </property>
+               <property name="text">
+                <string>Properties</string>
+               </property>
+              </widget>
+             </item>
+             <item>
               <widget class="QPushButton" name="learnButton">
                <property name="minimumSize">
                 <size>

@@ -7,6 +7,7 @@
 #include <QPixmap>
 #include <QString>
 #include "arena.h"
+#include "agproperties.h"
 #include "AI/includes/algorytmGenetyczny.h"
 //#include "AI/includes/populacja.h"
 
@@ -39,6 +40,7 @@ private:
     Populacja* nowaPopulacja;
     PopulacjaOf* nowaPopulacjaOf;
     int speed;
+    AgProperties* property;
 
 public slots:
     void keyPressEvent( QKeyEvent *event );
@@ -59,6 +61,7 @@ private slots:
     void on_plasmaTestButton_clicked();
     void on_hunterTestButton_clicked();
     void on_checkBox_clicked();
+    void on_propertiesButton_clicked();
 };
 
 #endif // MAINWINDOW_H

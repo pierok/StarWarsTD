@@ -29,6 +29,11 @@ Arena::Arena(QPixmap *p)
     epoka=0;
     time=0;
 
+    wagaStarLife=1;
+    wagaGen1Life=1;
+    wagaGen2Life=1;
+    wagaAmountLife=0;
+
 
     LifeBar* l= new LifeBar(1000,250);
 
@@ -102,30 +107,6 @@ void Arena::init()
         //deploy->stop();
         factoryDeploys.enqueue(deploy);
     }
-
-
-
-    /* this->addLine(deploy1->scenePos().x()+100,deploy1->scenePos().y()+100,
-                  gen1->scenePos().x(),gen1->scenePos().y(),QPen(Qt::gray,2));
-
-    this->addLine(deploy2->scenePos().x()+100,deploy2->scenePos().y()+100,
-                  gen1->scenePos().x(),gen1->scenePos().y(),QPen(Qt::gray,2));
-
-    this->addLine(deploy2->scenePos().x()+100,deploy2->scenePos().y()+100,
-                  gen2->scenePos().x(),gen2->scenePos().y(),QPen(Qt::gray,2));
-
-    this->addLine(gen1->scenePos().x(),gen1->scenePos().y(),
-                  gen2->scenePos().x(),gen2->scenePos().y(),QPen(Qt::gray,2));
-
-    this->addLine(gen2->scenePos().x(),gen2->scenePos().y(),
-                  deathStar->scenePos().x(),deathStar->scenePos().y(),QPen(Qt::gray,2));
-
-    this->addLine(deploy1->scenePos().x()+100,deploy1->scenePos().y()+100,
-                  deathStar->scenePos().x(),deathStar->scenePos().y(),QPen(Qt::gray,2));
-
-    this->addLine(deploy2->scenePos().x()+100,deploy2->scenePos().y()+100,
-                  deathStar->scenePos().x(),deathStar->scenePos().y(),QPen(Qt::gray,2));*/
-
 
 
     this->addEllipse(deploy1->scenePos().x()-200,deploy1->scenePos().y()-200,600,600,
@@ -430,7 +411,8 @@ void Arena::step()
 
         if(deathStar->deactive==true||enemyDeathSize==enemys.size())//||(deploy1->count==0&&deploy2->count==0))
         {
-            nPopulacja->populacja[osobnik]->przystosowanie=deathStar->life+gen1->life+gen2->life;
+            nPopulacja->populacja[osobnik]->przystosowanie=wagaStarLife*deathStar->life+wagaGen1Life*gen1->life
+                                                            +wagaGen2Life*gen2->life+wagaAmountLife*(1000/amountSize);
 
             if(enemyDeathSize==enemys.size())
             {
@@ -509,7 +491,7 @@ void Arena::step()
                 osobnik=0;
                 ++epoka;
                 nastepnyOsobnik();
-                infoPokolenie->setNum(epoka);
+                infoPokolenie->setNum(ag->pokolenie);
                 infoOs->setNum(osobnik);
             }
 
@@ -619,7 +601,7 @@ void Arena::step()
                 osobnik=0;
                 ++epoka;
                 nastepnyOsobnikOf();
-                infoPokolenie2->setNum(epoka);
+                infoPokolenie2->setNum(ag->pokolenie);
                 infoOs2->setNum(osobnik);
             }
 

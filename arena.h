@@ -23,7 +23,7 @@ class Explosion;
 class Missile;
 
 enum GUNS {A_NONE, A_PRISM, A_PLASMA, A_HUNTER};
-enum Mode {GAME, LEARN, LEARN2};
+enum Mode {GAME, LEARN, LEARN2, M_STOP};
 
 class Arena: public QGraphicsScene
 {
@@ -135,6 +135,11 @@ private:
     int time;
     int osobnik;
     int epoka;
+
+    int wagaStarLife;
+    int wagaGen1Life;
+    int wagaGen2Life;
+    int wagaAmountLife;
 
 
 public slots:

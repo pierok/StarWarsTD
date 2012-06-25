@@ -147,10 +147,11 @@ void AlgorytmGenetyczny::selekcja()
 }
 */
 
-AGDef::AGDef(Populacja *pop)
+AGDef::AGDef(Populacja *pop, Selekcja* s)
 {
     populacja=pop;
     pokolenie=0;
+    selekcja=s;
 }
 
 void AGDef::mutacja()
@@ -279,18 +280,18 @@ void AGDef::krzyzowanie()
     }
     //std::cout<<"===============Koniec=========="<<std::endl;
 }
-
+/*
 bool osobnikSelect(Osobnik* o1, Osobnik* o2)
 {
     return o1->przystosowanie>o2->przystosowanie;
-}
+}*/
 
-void AGDef::selekcja()
+/*void AGDef::selekcja()
 {
 
     //std::cout<<"===============Selekcja=========="<<std::endl;
     qSort(populacja->populacja.begin(),populacja->populacja.end(),osobnikSelect);
-}
+}*/
 
 
 

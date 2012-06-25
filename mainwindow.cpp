@@ -1,7 +1,6 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 
-
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow)
@@ -91,6 +90,9 @@ MainWindow::MainWindow(QWidget *parent) :
 
     ui->selectMode->setTabText(0,"Game mode");
     ui->selectMode->setTabText(1,"Learn mode");
+
+
+    property=new AgProperties();
 
 }
 
@@ -287,7 +289,7 @@ void MainWindow::on_learnButton_clicked()
     }
 
     arena->nPopulacja=nowaPopulacja;
-    AlgorytmGenetyczny* ag=new AGDef(nowaPopulacja);
+    AlgorytmGenetyczny* ag=new AGDef(nowaPopulacja,new SelekcjaElitarna());
     arena->ag=ag;
     //ag->update();
 
@@ -337,9 +339,6 @@ void MainWindow::on_learn2Button_clicked()
          arena->addDeploy(gen->getDeployX(),gen->getDeployY(),gen->getEnemyType(),gen->getTarget());
      }
 
-
-
-
 }
 
 void MainWindow::on_prismTestButton_clicked()
@@ -366,4 +365,12 @@ void MainWindow::on_checkBox_clicked()
     {
         arena->showElements();
     }
+}
+
+void MainWindow::on_propertiesButton_clicked()
+{
+
+    property->setWindowTitle("AG Property");
+    property->exec();
+
 }

@@ -32,7 +32,9 @@ SOURCES += main.cpp\
     generator.cpp \
     target.cpp \
     hunter.cpp \
-    AI/src/algorytmGenetyczny.cpp
+    agproperties.cpp \
+    AI/src/algorytmGenetyczny.cpp \
+    AI/src/selekcja.cpp
 
 HEADERS  += mainwindow.h \
     tower.h \
@@ -50,13 +52,16 @@ HEADERS  += mainwindow.h \
     plasmatower.h \
     generator.h \
     target.h \
+    hunter.h \
+    agproperties.h \
     AI/includes/gen.h \
     AI/includes/osobnik.h \
     AI/includes/populacja.h \
-    hunter.h \
-    AI/includes/algorytmGenetyczny.h
+    AI/includes/selekcja.h \
+    AI/includes/algorytmGenetyczny.h \
 
-FORMS    += mainwindow.ui
+FORMS    += mainwindow.ui \
+    agproperties.ui
 
 RESOURCES += \
     data.qrc

@@ -1,6 +1,7 @@
 #ifndef ALGORYTMGENETYCZNY_H
 #define ALGORYTMGENETYCZNY_H
 #include "populacja.h"
+#include "selekcja.h"
 
 
 class AlgorytmGenetyczny
@@ -11,21 +12,24 @@ public:
     virtual void mutacja()=0;
     virtual void mutacja2()=0;
     virtual void krzyzowanie()=0;
-    virtual void selekcja()=0;
 
     void update()
     {
-        selekcja();
+        selekcja->selekcja(populacja);
         krzyzowanie();
         mutacja();
         mutacja2();
         ++pokolenie;
     }
 
+
+
     int pokolenie;
+
 
 protected:
     Populacja* populacja;
+    Selekcja* selekcja;
 
 };
 
@@ -33,12 +37,15 @@ protected:
 class AGDef : public AlgorytmGenetyczny
 {
 public:
-    AGDef(Populacja *pop);
+    AGDef(Populacja *pop,Selekcja* s);
 
     void mutacja();
     void mutacja2();
     void krzyzowanie();
-    void selekcja();
+    inline void setSelekcja(Selekcja* s)
+    {
+        selekcja=s;
+    }
 
 };
 
