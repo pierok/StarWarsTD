@@ -62,6 +62,7 @@ private slots:
     void on_hunterTestButton_clicked();
     void on_checkBox_clicked();
     void on_propertiesButton_clicked();
+    void on_startTimerButton_clicked();
 };
 
 #endif // MAINWINDOW_H

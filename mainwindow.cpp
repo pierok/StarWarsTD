@@ -33,8 +33,6 @@ MainWindow::MainWindow(QWidget *parent) :
     arena=new Arena(qp);
 
     info->setNum(arena->getAmount());
-    //arena->setBackgroundBrush(Qt::black);
-    //arena->setBackgroundBrush(QBrush(*qp));
 
 
     QString tmp="";
@@ -190,7 +188,7 @@ void MainWindow::on_tieButton_clicked()
 
 void MainWindow::on_startButton_clicked()
 {
-   // arena->init();
+    // arena->init();
 
     arena->directions();
 
@@ -282,14 +280,26 @@ void MainWindow::on_learnButton_clicked()
 
     if(tmp.toInt()>1000&&tmp.toInt()<=2000)
     {
-        nowaPopulacja=new Populacja(size.toInt(),200);
+        nowaPopulacja=new Populacja(size.toInt(),200,2);
     }else
     {
-        nowaPopulacja=new Populacja(size.toInt());
+        nowaPopulacja=new Populacja(size.toInt(),property->proporcjaPopulacji());
     }
 
     arena->nPopulacja=nowaPopulacja;
-    AlgorytmGenetyczny* ag=new AGDef(nowaPopulacja,new SelekcjaElitarna());
+
+    AlgorytmGenetyczny* ag;
+    if(property->selekcja()==S_LOSOWA)
+    {
+         ag=new AGDef(nowaPopulacja,new SelekcjaLosowa());
+    }else if(property->selekcja()==ELITARNA)
+    {
+         ag=new AGDef(nowaPopulacja,new SelekcjaElitarna());
+    }else if(property->selekcja()==TURNIEJOWA)
+    {
+        ag=new AGDef(nowaPopulacja,new SelekcjaTurniejowa());
+    }
+
     arena->ag=ag;
     //ag->update();
 
@@ -319,25 +329,25 @@ void MainWindow::on_learnButton_clicked()
 
 void MainWindow::on_learn2Button_clicked()
 {
-     Arena::mode=LEARN2;
+    Arena::mode=LEARN2;
 
-     QString size=ui->populationSize2lineEdit->text();
+    QString size=ui->populationSize2lineEdit->text();
 
-     nowaPopulacjaOf=new PopulacjaOf(size.toInt());
+    nowaPopulacjaOf=new PopulacjaOf(size.toInt());
 
-     arena->nPopulacjaOf=nowaPopulacjaOf;
-     AlgorytmGenetyczny* ag=new AGOf(nowaPopulacjaOf);
-     arena->ag=ag;
-     //ag->update();
+    arena->nPopulacjaOf=nowaPopulacjaOf;
+    AlgorytmGenetyczny* ag=new AGOf(nowaPopulacjaOf);
+    arena->ag=ag;
+    //ag->update();
 
-     OsobnikOf* osobnik=nowaPopulacjaOf->populacja[0];
-     ui->osobnik2lineEdit->setText(ui->osobnik2lineEdit->text().setNum(0));
+    OsobnikOf* osobnik=nowaPopulacjaOf->populacja[0];
+    ui->osobnik2lineEdit->setText(ui->osobnik2lineEdit->text().setNum(0));
 
 
-     foreach(GenOf* gen, osobnik->chromosom)
-     {
-         arena->addDeploy(gen->getDeployX(),gen->getDeployY(),gen->getEnemyType(),gen->getTarget());
-     }
+    foreach(GenOf* gen, osobnik->chromosom)
+    {
+        arena->addDeploy(gen->getDeployX(),gen->getDeployY(),gen->getEnemyType(),gen->getTarget());
+    }
 
 }
 
@@ -369,8 +379,44 @@ void MainWindow::on_checkBox_clicked()
 
 void MainWindow::on_propertiesButton_clicked()
 {
-
     property->setWindowTitle("AG Property");
     property->exec();
+}
+
+void MainWindow::on_startTimerButton_clicked()
+{
+    maintimer.stop();
+
+    //arena->hideElements();
+
+    this->hide();
+
+    while(processed)
+    {
+        //processed = false;
+
+        arena->step();
+        arena->update();
+        ui->lineEdit->setText(*(info));
+        if(arena->mode==LEARN)
+        {
+            ui->osobnikLineEdit->setText(*(infoOs));
+            ui->pokolenieLineEdit->setText(*(infoPokolenie));
+        }else if(arena->mode==LEARN2)
+        {
+            ui->osobnik2lineEdit->setText(*(infoOs2));
+            ui->pokolenie2lineEdit->setText(*(infoPokolenie2));
+        }
+        //processed=true;
+
+        if(arena->getEpoka()==property->limitEpok())
+        {
+            processed=false;
+            this->show();
+            break;
+        }
+
+        QCoreApplication::processEvents();
+    }
 
 }

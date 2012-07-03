@@ -17,12 +17,17 @@ public:
     {
         selekcja->selekcja(populacja);
         krzyzowanie();
-        mutacja();
-        mutacja2();
+        //mutacja->mutuj(populacja);
+        //mutacja();
+        //mutacja2();
         ++pokolenie;
     }
 
 
+    inline void setSelekcja(Selekcja* s)
+    {
+        selekcja=s;
+    }
 
     int pokolenie;
 
@@ -30,6 +35,7 @@ public:
 protected:
     Populacja* populacja;
     Selekcja* selekcja;
+    //Mutacja* mutacja;
 
 };
 
@@ -42,10 +48,7 @@ public:
     void mutacja();
     void mutacja2();
     void krzyzowanie();
-    inline void setSelekcja(Selekcja* s)
-    {
-        selekcja=s;
-    }
+
 
 };
 

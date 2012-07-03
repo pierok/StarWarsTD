@@ -26,7 +26,7 @@ public:
     SELEKCJA selekcja();
 
     int limitEpok();
-
+    int proporcjaPopulacji();
     
 private:
     Ui::AgProperties *ui;

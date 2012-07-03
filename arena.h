@@ -99,6 +99,10 @@ public:
          return amountSize;
     }
 
+    inline int getEpoka()
+    {
+        return epoka;
+    }
 
 
     void addTower(int x, int y);

@@ -8,24 +8,34 @@
 class Populacja
 {
 public:
-    Populacja(int s):size(s)
+    Populacja(int s, int p):size(s)
     {
         //amount=800;
         osobnikSize=100;
+        proporcja=size/p;
         qsrand(QTime(0,0,0).secsTo(QTime::currentTime()));
+
+        for(int i=0;i<proporcja;++i)
+        {
+            wynikSelekcji.push_back(new Osobnik);
+        }
+
         generujPopujacje();
+
     }
 
 
-    Populacja(int s, int o):size(s),osobnikSize(o)
+    Populacja(int s, int o, int p):size(s),osobnikSize(o)
     {
         //amount=800;
+
+        proporcja=size/p;
         qsrand(QTime(0,0,0).secsTo(QTime::currentTime()));
         generujPopujacje();
     }
 
 
-    QVector<Osobnik*> populacja;
+
 
     inline int rozmiar()
     {
@@ -57,6 +67,12 @@ public:
             populacja.push_back(osobnik);
         }
     }
+
+    QVector<Osobnik*> populacja;
+    QVector<Osobnik*> wynikSelekcji;
+
+    int proporcja;
+
 
 
 private:

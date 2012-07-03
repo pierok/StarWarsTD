@@ -414,6 +414,9 @@ void Arena::step()
             nPopulacja->populacja[osobnik]->przystosowanie=wagaStarLife*deathStar->life+wagaGen1Life*gen1->life
                                                             +wagaGen2Life*gen2->life+wagaAmountLife*(1000/amountSize);
 
+            std::cout<<"osobniek: "<<osobnik<<" size: "<<nPopulacja->populacja[osobnik]->chromosom.size()<<"przystosowanei "<<nPopulacja->populacja[osobnik]->przystosowanie<<std::endl;
+
+
             if(enemyDeathSize==enemys.size())
             {
                 std::cout<<"write to file"<<std::endl;
@@ -481,7 +484,7 @@ void Arena::step()
             ++osobnik;
             if(osobnik<nPopulacja->populacja.size())
             {
-                std::cout<<"osobniek: "<<osobnik-1<<" size: "<<nPopulacja->populacja[osobnik-1]->chromosom.size()<<"przystosowanei "<<nPopulacja->populacja[osobnik-1]->przystosowanie<<std::endl;
+
                 infoOs->setNum(osobnik);
                 nastepnyOsobnik();
             }else
@@ -623,7 +626,7 @@ void Arena::nastepnyOsobnik()
 {
 
     Osobnik* os=nPopulacja->populacja[osobnik];
-    std::cout<<"osobnik size: "<<nPopulacja->populacja[osobnik]->chromosom.size()<<std::endl;
+    //std::cout<<"osobnik size: "<<nPopulacja->populacja[osobnik]->chromosom.size()<<std::endl;
 
     int i=0;
     foreach(Gen* gen, os->chromosom)
@@ -650,7 +653,6 @@ void Arena::nastepnyOsobnikOf()
 {
 
     OsobnikOf* os=nPopulacjaOf->populacja[osobnik];
-    std::cout<<"osobnik size: "<<nPopulacjaOf->populacja[osobnik]->chromosom.size()<<std::endl;
 
     foreach(GenOf* gen, os->chromosom)
     {
@@ -719,7 +721,8 @@ void Arena::addTower(int X, int Y)
             if((deathStar->scenePos().x()-x)*(deathStar->scenePos().x()-x)
                     +(deathStar->scenePos().y()-y)*(deathStar->scenePos().y()-y)<=300*300)
             {
-                std::cout<<" brak dostepu 1"<<std::endl;
+                //std::cout<<" brak dostepu 1"<<std::endl;
+                return ;
             }
             else
             {
@@ -728,16 +731,15 @@ void Arena::addTower(int X, int Y)
                     if((deploy1->scenePos().x()-x+100)*(deploy1->scenePos().x()-x+100)
                             +(deploy1->scenePos().y()-y+100)*(deploy1->scenePos().y()-y+100)<=300*300)
                     {
-                        std::cout<<" brak dostepu 2"<<std::endl;
+                        //std::cout<<" brak dostepu 2"<<std::endl;
                         return ;
                     }else if((deploy2->scenePos().x()-x+100)*(deploy2->scenePos().x()-x+100)
                              +(deploy2->scenePos().y()-y+100)*(deploy2->scenePos().y()-y+100)<=300*300)
                     {
-                        std::cout<<" brak dostepu 3"<<std::endl;
+                        //std::cout<<" brak dostepu 3"<<std::endl;
                         return ;
                     }
                 }
-
 
                 if(gun==A_PRISM)
                 {
@@ -807,7 +809,6 @@ void Arena::hideElements()
 
 void Arena::showElements()
 {
-
     Hide=false;
     foreach(QGraphicsItem * element, items())
     {

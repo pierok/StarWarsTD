@@ -217,15 +217,21 @@ void AGDef::mutacja2()
 
 void AGDef::krzyzowanie()
 {
-    //std::cout<<"===============Krzy¿owanie=========="<<std::endl;
+    std::cout<<"===============Krzy¿owanie=========="<<std::endl;
     int rozmiar=populacja->rozmiar();
-    int nextCh=rozmiar/2;
-    int nextCh2=rozmiar/2+1;
+    int nextCh=populacja->proporcja;
+    int nextCh2=populacja->proporcja+1;
+
+
+    for(int i=0; i<populacja->proporcja; ++i)
+    {
+        populacja->populacja[i]->kopiujOsobnika(populacja->wynikSelekcji[i]);
+    }
 
     while(nextCh2<rozmiar)
     {
-        int p1=qrand()%rozmiar/2;
-        int p2=qrand()%rozmiar/2;
+        int p1=qrand()%populacja->proporcja;
+        int p2=qrand()%populacja->proporcja;
 
 
 
@@ -234,10 +240,10 @@ void AGDef::krzyzowanie()
         if(m<=60)
         {
             //std::cout<<"p1: "<<p1<<" p2: "<<p2<<std::endl;
-            int pos=qrand()%populacja->populacja[p1]->rozmiar;
+            int pos=qrand()%populacja->wynikSelekcji[p1]->rozmiar;
 
-            Osobnik* o1=populacja->populacja[p1];
-            Osobnik* o2=populacja->populacja[p2];
+            Osobnik* o1=populacja->wynikSelekcji[p1];
+            Osobnik* o2=populacja->wynikSelekcji[p2];
 
             for(int j=0; j<pos; ++j)
             {
@@ -276,9 +282,16 @@ void AGDef::krzyzowanie()
             populacja->populacja[nextCh2]->rozmiar=o1->rozmiar;
             nextCh+=2;
             nextCh2+=2;
+        }else
+        {
+            populacja->populacja[nextCh]->kopiujOsobnika(populacja->wynikSelekcji[p1]);
+            populacja->populacja[nextCh2]->kopiujOsobnika(populacja->wynikSelekcji[p2]);
+
+            nextCh+=2;
+            nextCh2+=2;
         }
     }
-    //std::cout<<"===============Koniec=========="<<std::endl;
+    std::cout<<"===============Koniec Kzyrzowanie=========="<<std::endl;
 }
 /*
 bool osobnikSelect(Osobnik* o1, Osobnik* o2)

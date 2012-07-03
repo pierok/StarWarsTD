@@ -70,3 +70,8 @@ int AgProperties::limitEpok()
 {
     return ui->lineEditLimitEpok->text().toInt();
 }
+
+int AgProperties::proporcjaPopulacji()
+{
+     return ui->lineEditProportion->text().toInt();
+}

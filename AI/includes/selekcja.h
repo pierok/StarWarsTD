@@ -21,6 +21,11 @@ public:
 class SelekcjaTurniejowa : public Selekcja
 {
 public:
+    SelekcjaTurniejowa()
+    {
+        qsrand(QTime(0,0,0).secsTo(QTime::currentTime()));
+    }
+
     void selekcja(Populacja * populacja);
 };
 
@@ -28,6 +33,11 @@ public:
 class SelekcjaLosowa : public Selekcja
 {
 public:
+    SelekcjaLosowa()
+    {
+        qsrand(QTime(0,0,0).secsTo(QTime::currentTime()));
+    }
+
     void selekcja(Populacja * populacja);
 };
 
